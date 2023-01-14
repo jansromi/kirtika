@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="368.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <Label text="Lisää uusi kirja" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+   </top>
+   <bottom>
+      <HBox prefHeight="36.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Tallenna" />
+               </children>
+            </HBox>
+            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Peruuta" />
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </bottom>
+   <left>
+      <GridPane prefHeight="209.0" prefWidth="395.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="158.0" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="225.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="157.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="222.0" minHeight="0.0" prefHeight="53.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="223.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="298.0" minHeight="4.0" prefHeight="64.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="298.0" minHeight="10.0" prefHeight="64.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Kirjailija" />
+            <Label text="Kieli" GridPane.rowIndex="1" />
+            <Label text="Julkaisija" GridPane.rowIndex="2" />
+            <Label text="Luokitus (Finna)" GridPane.rowIndex="3" />
+            <Label text="ISBN" GridPane.rowIndex="4" />
+            <TextField GridPane.columnIndex="1" />
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         </children>
+      </GridPane>
+   </left>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
