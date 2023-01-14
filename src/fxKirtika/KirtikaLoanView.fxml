@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane prefHeight="709.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxKirtika.KirtikaLoanViewController">
+   <center>
+      <TableView fx:id="tableView" prefHeight="517.0" prefWidth="939.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="kirjanNimiColumn" prefWidth="367.0" text="Kirjan nimi" />
+          <TableColumn fx:id="lainaajanNimiColumn" minWidth="0.0" prefWidth="444.0" text="Lainaajan nimi" />
+            <TableColumn fx:id="lainaPvmColumn" minWidth="4.0" prefWidth="176.0" text="Lainan päivämäärä" />
+            <TableColumn fx:id="palautusPvmColumn" prefWidth="212.0" text="Laina palautettu" />
+        </columns>
+      </TableView>
+   </center>
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Tiedosto">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Muokkaa">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Tietoja">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>
