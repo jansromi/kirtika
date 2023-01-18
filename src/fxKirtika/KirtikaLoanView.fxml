@@ -24,7 +24,7 @@
           <Menu mnemonicParsing="false" text="Tiedosto">
             <items>
                   <MenuItem mnemonicParsing="false" onAction="#handleShowMainView" text="Palaa päänäkymään" />
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem mnemonicParsing="false" text="Sulje ohjelma" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Muokkaa">
