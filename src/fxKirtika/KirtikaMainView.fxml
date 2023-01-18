@@ -24,14 +24,14 @@
         <menus>
           <Menu mnemonicParsing="false" text="Tiedosto">
             <items>
-                  <MenuItem fx:id="switchScene" mnemonicParsing="false" text="Näytä lainahistoria" />
+                  <MenuItem fx:id="showLoanHistory" mnemonicParsing="false" onAction="#handleShowLoanHistory" text="Näytä lainahistoria" />
               <MenuItem mnemonicParsing="false" text="Sulje ohjelma" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Muokkaa">
             <items>
-              <MenuItem mnemonicParsing="false" text="Lisää kirja" />
-                  <MenuItem mnemonicParsing="false" text="Poista kirja" />
+              <MenuItem mnemonicParsing="false" onAction="#handleShowAddBookForm" text="Lisää kirja" />
+                  <MenuItem mnemonicParsing="false" onAction="#deleteBook" text="Poista kirja" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Tietoja">
@@ -54,7 +54,7 @@
             <Label prefHeight="1.0" prefWidth="40.0" text="Kirjasto" BorderPane.alignment="CENTER" />
          </top>
          <bottom>
-            <TextField promptText="Haku..." BorderPane.alignment="CENTER" />
+            <TextField fx:id="searchBar" onAction="#haeKirjoja" promptText="Haku..." BorderPane.alignment="CENTER" />
          </bottom>
       </BorderPane>
    </left>
@@ -83,21 +83,21 @@
                   <Label text="Julkaisija" GridPane.rowIndex="3" />
                   <Label text="Luokitus" GridPane.rowIndex="5" />
                   <Label text="ISBN" GridPane.rowIndex="6" />
-                  <TextField text="Homeros; Pentti Saarikoski" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField editable="false" text="Suomi" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField editable="false" text="Kustannusosakeyhtiö Otava" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField editable="false" text="Kansaneepokset" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <TextField editable="false" text="978-951-1-31886-6" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <TextField fx:id="fieldKirjailija" editable="false" text="Homeros; Pentti Saarikoski" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="fieldKieli" editable="false" text="Suomi" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="fieldJulkaisija" editable="false" text="Kustannusosakeyhtiö Otava" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="fieldLuokitus" editable="false" text="Kansaneepokset" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField fx:id="fieldIsbn" editable="false" text="978-951-1-31886-6" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <CheckBox mnemonicParsing="false" text="Lainassa?" GridPane.rowIndex="7" />
                   <CheckBox mnemonicParsing="false" text="Luettu?" GridPane.rowIndex="8" />
-                  <TextField maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="136.0" promptText="Kenelle lainattu" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                  <DatePicker maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="102.0" promptText="Lainauspvm." GridPane.columnIndex="1" GridPane.rowIndex="7">
+                  <TextField fx:id="fieldKenelleLainattu" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="136.0" promptText="Kenelle lainattu" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <DatePicker fx:id="fieldLainauspvm" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="102.0" promptText="Lainauspvm." GridPane.columnIndex="1" GridPane.rowIndex="7">
                      <GridPane.margin>
                         <Insets left="152.0" />
                      </GridPane.margin>
                   </DatePicker>
                   <Label text="Julkaisuvuosi" GridPane.rowIndex="4" />
-                  <TextField text="2017" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="fieldJulkaisuvuosi" editable="false" text="2017" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                </children>
                <VBox.margin>
                   <Insets top="6.0" />
@@ -108,15 +108,11 @@
                   <Insets top="250.0" />
                </VBox.margin>
                <children>
-                  <CheckBox mnemonicParsing="false" prefHeight="32.0" prefWidth="92.0" text="Muokkaustila">
+                  <CheckBox fx:id="checkMuokkaustila" mnemonicParsing="false" onAction="#editMetaInfo" prefHeight="32.0" prefWidth="92.0" text="Muokkaustila">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                   </CheckBox>
-                  <Button fx:id="btn" mnemonicParsing="false" onAction="#changeScreenMenuItemPushed" prefHeight="25.0" prefWidth="175.0" text="Vaihda taulukkonäkymään">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin></Button>
                </children>
             </HBox>
          </children>

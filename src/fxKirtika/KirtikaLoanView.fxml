@@ -19,16 +19,17 @@
       </TableView>
    </center>
    <top>
-      <MenuBar BorderPane.alignment="CENTER">
+      <MenuBar fx:id="myMenuBar" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="Tiedosto">
             <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowMainView" text="Palaa päänäkymään" />
               <MenuItem mnemonicParsing="false" text="Close" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Muokkaa">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+              <MenuItem mnemonicParsing="false" text="Poista kirja" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Tietoja">

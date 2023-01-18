@@ -1,16 +1,27 @@
 package fxKirtika;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Month;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 public class KirtikaLoanViewController {
+	
+	@FXML
+	private MenuBar myMenuBar;
+	
 	//configure the table
 	@FXML private TableView<LainattuKirja> tableView;
 	@FXML private TableColumn<LainattuKirja, String> kirjanNimiColumn;
@@ -41,6 +52,15 @@ public class KirtikaLoanViewController {
 		people.add(new LainattuKirja("Surun ja ilon kaupunki", "Maija Meikäläinen", LocalDate.of(2022, Month.FEBRUARY, 2), LocalDate.of(2022, 03, 02)));
 		people.add(new LainattuKirja("Odysseia", "Matti Meikäläinen", LocalDate.of(2022, Month.JANUARY, 1), LocalDate.of(2022, 12, 12)));
 		return people;
+	}
+	
+	@FXML public void handleShowMainView(ActionEvent event) throws IOException {
+		Parent mainViewParent = FXMLLoader.load(getClass().getResource("KirtikaMainView.fxml"));
+		Scene mainViewScene = new Scene(mainViewParent);
+		
+		Stage window = (Stage) myMenuBar.getScene().getWindow();
+		window.setScene(mainViewScene);
+		window.show();
 	}
 	
 }

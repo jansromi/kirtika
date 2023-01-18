@@ -31,7 +31,4 @@ public class KirtikaMain extends Application {
 		launch(args);
 	}
 	
-	
-	
-	
 }
