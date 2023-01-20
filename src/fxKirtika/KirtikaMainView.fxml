@@ -36,7 +36,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Tietoja">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#handleShowAboutView" text="Versio" />
+              <MenuItem mnemonicParsing="false" onAction="#handleShowAboutView" text="Info" />
             </items>
           </Menu>
         </menus>

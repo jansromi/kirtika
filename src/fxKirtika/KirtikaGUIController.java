@@ -146,7 +146,7 @@ public class KirtikaGUIController{
         try {
         	root = FXMLLoader.load(getClass().getResource("KirtikaAboutView.fxml"));
             Stage stage = new Stage();
-            stage.setTitle("Tietoja");
+            stage.setTitle("Info");
             stage.setScene(new Scene(root, 494, 345));
             stage.show();
         }
