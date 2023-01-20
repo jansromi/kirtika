@@ -1,34 +1,28 @@
 package fxKirtika;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-import fi.jyu.mit.fxgui.ComboBoxChooser;
 import fi.jyu.mit.fxgui.Dialogs;
-import fi.jyu.mit.fxgui.ModalController;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 
+/**
+ * 
+ * @author Robert Mikael Jansson
+ * @version 20.1.2023
+ * Kirtika-kirjatietokannan käyttöliittymän kontrolleri
+ *
+ */
 public class KirtikaGUIController{
 
     @FXML
@@ -109,11 +103,6 @@ public class KirtikaGUIController{
     }
 	
 	
-	@FXML
-	public void initialize() {
-		
-	}
-	
 	/**
 	 * Kun tätä metodia kutsutaan, vaihdetaan scene lainausnäkymään
 	 * @throws IOException jos tiedostossa jotain häikkää
@@ -147,6 +136,23 @@ public class KirtikaGUIController{
         }
     }
 	
-	
+	/**
+	 * Näyttää versiotietolomakkeen
+	 * @param event
+	 */
+	@FXML
+	public void handleShowAboutView(ActionEvent event) {
+		Parent root;
+        try {
+        	root = FXMLLoader.load(getClass().getResource("KirtikaAboutView.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Tietoja");
+            stage.setScene(new Scene(root, 494, 345));
+            stage.show();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
 	
 }

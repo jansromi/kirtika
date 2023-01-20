@@ -7,6 +7,13 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+/**
+ * 
+ * @author Robert Mikael Jansson
+ * @version 20.1.2023
+ * Kirjanlisäyslomakkeen kontrolleri
+ *
+ */
 public class KirtikaAddBookController {
 
     @FXML

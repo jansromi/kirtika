@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="345.0" prefWidth="494.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxKirtika.KirtikaAboutViewController">
+   <children>
+      <Label layoutX="126.0" layoutY="14.0" text="Kirtika - Kirjatietokanta">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="27.0" layoutY="65.0" text="Kirtika on sovellus omien kirjojen hallintaan ja kommentointiin.">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="115.0" layoutY="234.0" text="Ohjelman dokumentaatio osoitteessa:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Hyperlink layoutX="43.0" layoutY="259.0" text="https://tim.jyu.fi/view/kurssit/tie/ohj2/2023k/ht/jansromi">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Hyperlink>
+      <Label layoutX="44.0" layoutY="314.0" text="© Robert Jansson">
+         <font>
+            <Font name="Monospaced Regular" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="209.0" layoutY="314.0" text="Versio 0.01">
+         <font>
+            <Font name="Monospaced Regular" size="12.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
