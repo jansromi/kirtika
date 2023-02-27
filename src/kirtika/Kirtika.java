@@ -44,8 +44,17 @@ public class Kirtika {
 		return kirjat.anna(i);
 	}
 	
+	/**
+	 * Palauttaa kirjan tiedot taulukossa
+	 * @param i
+	 * @return
+	 */
 	public String[] annaKirjanTiedot(int i) {
-		return kirjat.annaKirjanTiedot(i);
+		String[] s = kirjat.annaKirjanTiedot(i);
+		
+		// Vaihdetaan ykl-luokitus kuvaukseen
+		s[4] = genret.etsiYklKuvaus(s[4]);
+		return s;
 	}
 	
 	public static void main(String[] args) {
