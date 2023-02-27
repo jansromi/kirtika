@@ -80,7 +80,7 @@ public class KirtikaAddBookController implements Initializable{
 
     /**
      * Päivitetään PÄÄNÄKYMÄN kirjalistaus, kun kirja on lisätty onnistuneesti
-     * @param kid kirja-id
+     * @param kid kirjan id, joka valitaan aktiiviseksi
      */
     private void hae(int kid) {
     	chooserKirjat.clear();

@@ -1,22 +1,32 @@
 package fxKirtika;
 
 import java.io.IOException;
-
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
+import javafx.beans.property.SimpleStringProperty;
 import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ListChooser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
+import static fi.jyu.mit.fxgui.Functions.*;
 import kirtika.Kirja;
 import kirtika.Kirtika;
 
@@ -28,13 +38,14 @@ import kirtika.Kirtika;
  * Kirtika-kirjatietokannan käyttöliittymän kontrolleri
  *
  */
-public class KirtikaGUIController{
+public class KirtikaGUIController implements Initializable {
 
 	
     @FXML
     private TextField fieldIsbn, fieldJulkaisija, fieldJulkaisuvuosi, 
     fieldKenelleLainattu, fieldKieli, fieldKirjailija, fieldLuokitus;
-
+    private ArrayList<TextField> tietokentat = new ArrayList<>();
+    
     @FXML
     private CheckBox checkMuokkaustila;
     
@@ -52,6 +63,16 @@ public class KirtikaGUIController{
     
     @FXML
     private ListChooser<Kirja> chooserKirjat;
+    
+    @FXML
+    private Button testButton;
+    
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		init();
+		
+	}
+
     
     
     /**
@@ -90,7 +111,14 @@ public class KirtikaGUIController{
     	Dialogs.showMessageDialog("Ei osata vielä hakea");
     }
 	
-    
+    /**
+     * Kun kirjalistauksesta painetaan kirja.
+     */
+    @FXML
+    void listChooserCliked() {
+    	System.out.println("hello");
+    	setBookText(chooserKirjat.getSelectedIndex());
+    }
     /**
      * Tallennetaan lisätietokenttään tekstiä
      */
@@ -124,27 +152,6 @@ public class KirtikaGUIController{
 		window.show();
 	}
 	
-	class CreateWindow extends Window {
-		private static Stage popUpStage;
-		
-		public CreateWindow(Kirtika kirtika, ListChooser<Kirja> chooserKirjat) throws IOException {
-			FXMLLoader ldr = new FXMLLoader();
-			ldr.setLocation(getClass().getResource("KirtikaAddBook.fxml"));
-			Parent root = ldr.load();
-			KirtikaAddBookController ctrl = ldr.getController();
-			ctrl.initData(kirtika, chooserKirjat);
-			
-			popUpStage = new Stage();
-			popUpStage.setTitle("Lisää kirja");
-			popUpStage.initModality(Modality.APPLICATION_MODAL);
-			
-			popUpStage.setScene(new Scene(root,400,400));
-			popUpStage.showAndWait();
-			
-		}
-		
-	}
-	
 	/**
 	 * Näyttää lomakkeen kirjojen lisäämistä varten
 	 * @param event
@@ -152,8 +159,20 @@ public class KirtikaGUIController{
 	 */
 	@FXML
 	public void handleShowAddBookForm(ActionEvent event) throws IOException {
-		@SuppressWarnings("unused")
-		CreateWindow bookForm = new CreateWindow(kirtika, chooserKirjat);
+		FXMLLoader ldr = new FXMLLoader();
+		ldr.setLocation(getClass().getResource("KirtikaAddBook.fxml"));
+		Parent root = ldr.load();
+		KirtikaAddBookController ctrl = ldr.getController();
+		ctrl.initData(kirtika, chooserKirjat);
+		
+		Stage popUpStage = new Stage();
+		popUpStage.setTitle("Lisää kirja");
+		popUpStage.initModality(Modality.APPLICATION_MODAL);
+		
+		popUpStage.setScene(new Scene(root,400,400));
+		popUpStage.showAndWait();
+		
+		
     }
 	
 	/**
@@ -187,5 +206,25 @@ public class KirtikaGUIController{
 		this.kirtika = kirtika;
 	}
 
+	private void init() {
+		tietokentat.add(fieldKirjailija);
+		tietokentat.add(fieldKieli);
+		tietokentat.add(fieldJulkaisija);
+		tietokentat.add(fieldJulkaisuvuosi);
+		tietokentat.add(fieldLuokitus);
+		tietokentat.add(fieldIsbn);
+		System.out.println(tietokentat.size());
+	}
+	
+	private void setBookText(int selectedId) {
+		String[] s = kirtika.annaKirjanTiedot(selectedId);
+		
+		for (int i = 0; i < s.length; i++) {
+			TextField tk = tietokentat.get(i);
+			tk.setText(s[i]);
+		}
+	}
+
+	
 	
 }

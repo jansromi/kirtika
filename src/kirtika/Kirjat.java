@@ -67,6 +67,10 @@ public class Kirjat {
 		return alkiot[i];
 	}
 	
+	public String[] annaKirjanTiedot(int i) {
+		return alkiot[i].annaKirjanTiedot();
+	}
+	
 	
 	public static void main(String[] args) {
 		Kirjat kirjat = new Kirjat();

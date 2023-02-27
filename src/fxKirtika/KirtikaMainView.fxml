@@ -48,7 +48,7 @@
    <left>
       <BorderPane prefHeight="684.0" prefWidth="371.0" BorderPane.alignment="CENTER">
          <center>
-            <ListChooser fx:id="chooserKirjat" prefHeight="603.0" prefWidth="346.0" rivit="Odysseia&#10;Pelon valtakunta&#10;Surun ja ilon kaupunki&#10;Hirtettyjen kettujen metsä&#10; " BorderPane.alignment="CENTER" />
+            <ListChooser fx:id="chooserKirjat" onMouseClicked="#listChooserCliked" prefHeight="603.0" prefWidth="346.0" rivit="" BorderPane.alignment="CENTER" />
          </center>
          <top>
             <Label prefHeight="1.0" prefWidth="40.0" text="Kirjasto" BorderPane.alignment="CENTER" />

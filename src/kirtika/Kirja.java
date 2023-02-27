@@ -2,6 +2,7 @@ package kirtika;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.Random;
 
 /**
  * 
@@ -43,13 +44,18 @@ public class Kirja {
 		
 	}
 	
+	private int getRnd() {
+		Random rnd = new Random();
+		return rnd.nextInt(99);
+	}
+	
 	/**
 	 * Asetetaan testiarvoiksi odysseian tiedot
 	 */
 	public void setOdysseia() {
 		this.isbn = "9789511318866";
 		this.kirjailija = "Homeros; Saarikoski, Pentti";
-		this.kirjanNimi = "Odysseia";
+		this.kirjanNimi = "Odysseia" + " " + getRnd();
 		this.kirjanKieli = "Suomi";
 		this.julkaisija = "Kustannusosakeyhtiö Otava";
 		this.julkaisuvuosi = 2017;
@@ -124,6 +130,18 @@ public class Kirja {
 	public void printBook(OutputStream os) {
 		printBook(new PrintStream(os));
 	}
+	
+	public String[] annaKirjanTiedot() {
+		String[] s = new String[6];
+		s[0] = this.kirjailija;
+		s[1] = this.kirjanKieli;
+		s[2] = this.julkaisija;
+		s[3] = Integer.toString(this.julkaisuvuosi);
+		s[4] = this.luokitus;
+		s[5] = this.isbn;
+		return s;
+	}
+	
 	
 	
 	public static void main(String[] args) {

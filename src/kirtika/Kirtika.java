@@ -7,9 +7,11 @@ package kirtika;
  */
 public class Kirtika {
 	private final Kirjat kirjat;
+	private final Genret genret;
 	
 	public Kirtika() {
 		this.kirjat = new Kirjat();
+		this.genret = new Genret();
 	}
 	
 	/**
@@ -40,6 +42,10 @@ public class Kirtika {
 	 */
 	public Kirja annaKirja(int i) throws IndexOutOfBoundsException{
 		return kirjat.anna(i);
+	}
+	
+	public String[] annaKirjanTiedot(int i) {
+		return kirjat.annaKirjanTiedot(i);
 	}
 	
 	public static void main(String[] args) {
