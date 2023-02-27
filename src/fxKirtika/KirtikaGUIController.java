@@ -3,6 +3,7 @@ package fxKirtika;
 import java.io.IOException;
 
 import fi.jyu.mit.fxgui.Dialogs;
+import fi.jyu.mit.fxgui.ListChooser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +14,11 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+import kirtika.Kirja;
+import kirtika.Kirtika;
 
 
 /**
@@ -25,6 +30,7 @@ import javafx.stage.Stage;
  */
 public class KirtikaGUIController{
 
+	
     @FXML
     private TextField fieldIsbn, fieldJulkaisija, fieldJulkaisuvuosi, 
     fieldKenelleLainattu, fieldKieli, fieldKirjailija, fieldLuokitus;
@@ -43,7 +49,11 @@ public class KirtikaGUIController{
 
     @FXML
     private MenuItem showLoanHistory;
-
+    
+    @FXML
+    private ListChooser<Kirja> chooserKirjat;
+    
+    
     /**
      * Kun muokkaustila täppä valitaan, tehdään
      * metatietokentistä muokattavia. Kun täppä
@@ -69,8 +79,6 @@ public class KirtikaGUIController{
         	fieldLuokitus.setEditable(false);
         	fieldIsbn.setEditable(false);
     	}
-    	
-    	
     }
     
     /**
@@ -116,24 +124,36 @@ public class KirtikaGUIController{
 		window.show();
 	}
 	
+	class CreateWindow extends Window {
+		private static Stage popUpStage;
+		
+		public CreateWindow(Kirtika kirtika, ListChooser<Kirja> chooserKirjat) throws IOException {
+			FXMLLoader ldr = new FXMLLoader();
+			ldr.setLocation(getClass().getResource("KirtikaAddBook.fxml"));
+			Parent root = ldr.load();
+			KirtikaAddBookController ctrl = ldr.getController();
+			ctrl.initData(kirtika, chooserKirjat);
+			
+			popUpStage = new Stage();
+			popUpStage.setTitle("Lisää kirja");
+			popUpStage.initModality(Modality.APPLICATION_MODAL);
+			
+			popUpStage.setScene(new Scene(root,400,400));
+			popUpStage.showAndWait();
+			
+		}
+		
+	}
 	
 	/**
 	 * Näyttää lomakkeen kirjojen lisäämistä varten
 	 * @param event
+	 * @throws IOException 
 	 */
 	@FXML
-	public void handleShowAddBookForm(ActionEvent event) {
-        Parent root;
-        try {
-        	root = FXMLLoader.load(getClass().getResource("KirtikaAddBook.fxml"));
-            Stage stage = new Stage();
-            stage.setTitle("Lisää kirja");
-            stage.setScene(new Scene(root, 450, 450));
-            stage.show();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+	public void handleShowAddBookForm(ActionEvent event) throws IOException {
+		@SuppressWarnings("unused")
+		CreateWindow bookForm = new CreateWindow(kirtika, chooserKirjat);
     }
 	
 	/**
@@ -154,5 +174,18 @@ public class KirtikaGUIController{
             e.printStackTrace();
         }
 	}
+
+	//===================================================================================
+	//
+	
+	private Kirtika kirtika;
+	/**
+	 * Asetetaan viite Kirtika-luokkaan
+	 * @param kirtika
+	 */
+	public void setKirtika(Kirtika kirtika) {
+		this.kirtika = kirtika;
+	}
+
 	
 }

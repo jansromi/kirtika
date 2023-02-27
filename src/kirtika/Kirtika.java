@@ -6,8 +6,12 @@ package kirtika;
  * @version 0.1, 19.2.2023
  */
 public class Kirtika {
-	private final Kirjat kirjat = new Kirjat();
-
+	private final Kirjat kirjat;
+	
+	public Kirtika() {
+		this.kirjat = new Kirjat();
+	}
+	
 	/**
 	 * @return kirjojen määrä rekisterissä
 	 */
@@ -18,9 +22,14 @@ public class Kirtika {
 	/**
 	 * Lisää kirjan rekisteriin
 	 * @param kirja joka lisätään
+	 * @throws SailoException jos lisäys ei onnistunut
 	 */
-	public void lisaa(Kirja kirja) {
+	public void lisaa(Kirja kirja) throws SailoException {
 		kirjat.lisaa(kirja);
+	}
+	
+	public String kirjatName() {
+		return kirjat.getFileName();
 	}
 	
 	/**
@@ -42,9 +51,16 @@ public class Kirtika {
 		ody2.setOdysseia();
 		Kirja ody3 = new Kirja();
 		ody3.setOdysseia();
-		kirtika.lisaa(ody);
-		kirtika.lisaa(ody2);
-		kirtika.lisaa(ody3);
+		
+		System.out.println(kirtika.kirjat.getFileName());
+		try {
+			kirtika.lisaa(ody);
+			kirtika.lisaa(ody2);
+			kirtika.lisaa(ody3);
+		} catch (SailoException e) {
+			//e.printStackTrace();
+			System.err.println(e.getMessage());
+		}
 		
 		kirtika.annaKirja(2).printBook(System.out);
 	}

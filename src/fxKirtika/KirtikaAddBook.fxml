@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="368.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxKirtika.KirtikaAddBookController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="399.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxKirtika.KirtikaAddBookController">
    <top>
       <Label text="Lisää uusi kirja" BorderPane.alignment="CENTER">
          <font>
@@ -47,18 +47,21 @@
             <RowConstraints maxHeight="223.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="298.0" minHeight="4.0" prefHeight="64.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="298.0" minHeight="10.0" prefHeight="64.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="298.0" minHeight="10.0" prefHeight="64.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Kirjailija" />
-            <Label text="Kieli" GridPane.rowIndex="1" />
-            <Label text="Julkaisija" GridPane.rowIndex="2" />
-            <Label text="Luokitus (Finna)" GridPane.rowIndex="3" />
-            <Label text="ISBN" GridPane.rowIndex="4" />
-            <TextField fx:id="fieldKirjailija" GridPane.columnIndex="1" />
-            <TextField fx:id="fieldKieli" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="fieldJulkaisija" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="fieldLuokitus" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="fieldIsbn" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="Kirjailija" GridPane.rowIndex="1" />
+            <Label text="Kieli" GridPane.rowIndex="2" />
+            <Label text="Julkaisija" GridPane.rowIndex="3" />
+            <Label text="Luokitus (Finna)" GridPane.rowIndex="4" />
+            <Label text="ISBN" GridPane.rowIndex="5" />
+            <TextField fx:id="fieldKirjailija" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="fieldKieli" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="fieldJulkaisija" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="fieldLuokitus" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="fieldIsbn" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label text="Kirjan nimi" />
+            <TextField fx:id="fieldKirjanNimi" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </left>

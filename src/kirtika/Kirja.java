@@ -47,7 +47,6 @@ public class Kirja {
 	 * Asetetaan testiarvoiksi odysseian tiedot
 	 */
 	public void setOdysseia() {
-		setKirjaId();
 		this.isbn = "9789511318866";
 		this.kirjailija = "Homeros; Saarikoski, Pentti";
 		this.kirjanNimi = "Odysseia";
@@ -65,6 +64,10 @@ public class Kirja {
 	 */
 	public int getKirjaId() {
 		return this.kirjaId;
+	}
+	
+	public String getKirjanNimi() {
+		return this.kirjanNimi;
 	}
 	
 	/**

@@ -17,6 +17,19 @@ public class Kirjat {
 		
 	}
 	
+	/**
+	 * Palauttaa tiedostonimen
+	 * @return tiedoston nimi
+	 */
+	public String getFileName() {
+		return this.tiedostonNimi;
+	}
+	
+	
+	/**
+	 * 
+	 * @return Kirjojen lukumäärä
+	 */
 	public int getLkm() {
 		return this.lkm;
 	}
@@ -26,6 +39,7 @@ public class Kirjat {
 	 * Kasvatetaan lkm-yhdellä
 	 * @param kirja lisättävä kirja
 	 * 
+	 * TODO: Poikkeuskäsittely
 	 * @example
 	 * <pre name="test">
 	 * Kirjat kirjat = new Kirjat();
@@ -62,26 +76,8 @@ public class Kirjat {
 		ody.setOdysseia(); ody2.setOdysseia(); ody3.setOdysseia();
 		
 		
-		for (int i = 0; i < 500; i++) {
-			kirjat.lisaa(ody3);
-		}
-		
 		System.out.println(kirjat.getLkm());
 		
-		//kirjat.anna(499).printBook(System.out);
-		/*
-		try {
-			kirjat.lisaa(ody); kirjat.lisaa(ody2); kirjat.lisaa(ody3);
-			
-			for (int i = 0; i < kirjat.getLkm(); i++) {
-				Kirja kirja = kirjat.anna(i);
-				System.out.println("kirja id:" + kirja.getKirjaId());
-				kirja.printBook(System.out);
-			}
-		} catch (Exception e) {
-			System.out.println("virhe oli: " + e);
-		}
-		*/
 		
 	}
 
