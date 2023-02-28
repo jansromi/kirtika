@@ -13,7 +13,15 @@ public class Kirtika {
 	public Kirtika() {
 		this.kirjat = new Kirjat();
 		this.genret = new Genret();
+		
+		
 		this.lainatut = new Lainatut();
+		
+		for (int i = 0; i < lainatut.getLainatutLkm(); i++) {
+			int lkId = lainatut.annaLainattuKirja(i).getLainattuKirjaId();
+			String s = kirjat.annaKirjanNimi(lkId);
+			lainatut.setLainatunKirjanNimi(lkId, s);
+		}
 	}
 	
 	/**
@@ -45,6 +53,9 @@ public class Kirtika {
 	public Kirja annaKirja(int i) throws IndexOutOfBoundsException{
 		return kirjat.anna(i);
 	}
+	
+	
+	
 	
 	/**
 	 * 

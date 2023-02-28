@@ -4,6 +4,8 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Random;
 
+import fi.jyu.mit.ohj2.Mjonot;
+
 /**
  * 
  * @author Jansromi
@@ -20,11 +22,24 @@ public class Kirja {
 	private String julkaisija = "";
 	private int julkaisuvuosi;
 	private String luokitus = "";
-	private boolean luettu;
+	private boolean lainassa, luettu;
 	private String infoPath = "";
 	
 	private static int seuraavaId = 1;
 	
+	/**
+	 * Testikonstruktiori
+	 * @param kirjaId
+	 * @param isbn
+	 * @param kirjailija
+	 * @param kirjanNimi
+	 * @param kirjanKieli
+	 * @param julkaisija
+	 * @param julkaisuvuosi
+	 * @param luokitus
+	 * @param luettu
+	 * @param infoPath
+	 */
 	public Kirja(int kirjaId, String isbn, String kirjailija, String kirjanNimi, String kirjanKieli, String julkaisija,
 			int julkaisuvuosi, String luokitus, boolean luettu, String infoPath) {
 		
@@ -40,14 +55,30 @@ public class Kirja {
 		this.infoPath = infoPath;
 	}
 	
-	public Kirja() {
-		
+	public Kirja(String line) {
+		StringBuilder sb = new StringBuilder(line);
+		this.kirjaId = Integer.parseInt(Mjonot.erota(sb, '|'));
+		this.isbn = Mjonot.erota(sb, '|');
+		this.kirjailija = Mjonot.erota(sb, '|');
+		this.kirjanNimi = Mjonot.erota(sb, '|');
+		this.kirjanKieli = Mjonot.erota(sb, '|');
+		this.julkaisija = Mjonot.erota(sb, '|');
+		this.julkaisuvuosi = Integer.parseInt(Mjonot.erota(sb, '|'));
+		this.luokitus = Mjonot.erota(sb, '|');
+		this.lainassa = Boolean.getBoolean(Mjonot.erota(sb, '|'));
+		this.luettu = Boolean.getBoolean(Mjonot.erota(sb, '|'));
+		this.infoPath = Mjonot.erota(sb, '|');
 	}
 	
 	private int getRnd() {
 		Random rnd = new Random();
 		return rnd.nextInt(99);
 	}
+	
+	public Kirja() {
+		
+	}
+	
 	
 	/**
 	 * Asetetaan testiarvoiksi odysseian tiedot
@@ -74,6 +105,15 @@ public class Kirja {
 	
 	public String getKirjanNimi() {
 		return this.kirjanNimi;
+	}
+	
+	/**
+	 * Onko kirjan id i
+	 * @param i
+	 * @return
+	 */
+	public boolean oletkoTamaId(int i) {
+		return this.kirjaId == i;
 	}
 	
 	/**
@@ -145,14 +185,6 @@ public class Kirja {
 	
 	
 	public static void main(String[] args) {
-		Kirja kirja = new Kirja();
-		kirja.setOdysseia();
-		Kirja kirja2 = new Kirja();
-		kirja2.setOdysseia();
-		
-		
-		kirja.printBook(System.out);
-		kirja2.printBook(System.out);
 	}
 	
 }

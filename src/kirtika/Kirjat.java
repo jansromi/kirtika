@@ -1,5 +1,9 @@
 package kirtika;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 /**
  * 
  * @author Jansromi
@@ -10,12 +14,42 @@ package kirtika;
 public class Kirjat {
 	private static final int MAX_KIRJAT		= 500;
 	private int 				lkm			= 0;
-	private String        tiedostonNimi     = "";
+	private String        tiedostonNimi     = "kirjat.dat";
 	private Kirja             alkiot[]      = new Kirja[MAX_KIRJAT];
 	
 	public Kirjat() {
-		
+		try {
+			alustaKirjat();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
+	
+	/**
+	 * Alustetaan kirjat tiedostosta
+	 * @throws FileNotFoundException jos genret.dat ei löydy
+	 */
+	private void alustaKirjat() throws FileNotFoundException {
+		File f = new File("C:/kurssit/ohj2/kirtika/src/data/" + tiedostonNimi);
+		Scanner scan = new Scanner(f);
+		
+		int i = 0;
+		
+		while (scan.hasNextLine()) {
+			   String line = scan.nextLine();
+			   if (i == 0) {
+				   i++;
+				   continue;
+			   }
+			   
+			   alkiot[i-1] = new Kirja(line);
+			   i++;
+			   lkm++;
+			}
+		scan.close();
+	}
+	
 	
 	/**
 	 * Palauttaa tiedostonimen
@@ -67,6 +101,20 @@ public class Kirjat {
 		return alkiot[i];
 	}
 	
+	//
+	public String annaKirjanNimi(int kId) {
+		for (Kirja kirja : alkiot) {
+			if (kirja.oletkoTamaId(kId)) return kirja.getKirjanNimi();
+		}
+		return "";
+	}
+	
+	
+	/**
+	 * Palauttaa kirjan kenttätiedot taulukossa
+	 * @param i
+	 * @return
+	 */
 	public String[] annaKirjanTiedot(int i) {
 		return alkiot[i].annaKirjanTiedot();
 	}
@@ -74,10 +122,10 @@ public class Kirjat {
 	
 	public static void main(String[] args) {
 		Kirjat kirjat = new Kirjat();
-		Kirja ody = new Kirja();
-		Kirja ody2 = new Kirja();
-		Kirja ody3 = new Kirja();
-		ody.setOdysseia(); ody2.setOdysseia(); ody3.setOdysseia();
+		//Kirja ody = new Kirja();
+		//Kirja ody2 = new Kirja();
+		//Kirja ody3 = new Kirja();
+		//ody.setOdysseia(); ody2.setOdysseia(); ody3.setOdysseia();
 		
 		
 		System.out.println(kirjat.getLkm());

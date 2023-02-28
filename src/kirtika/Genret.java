@@ -10,14 +10,25 @@ public class Genret {
 	private String tiedostonNimi = "genret.dat";
 	private ArrayList<Genre> alkiot = new ArrayList<>();
 	
+	/**
+	 * Alustus tiedostosta.
+	 * 
+	 * TODO: parempi poikkeuksenhallinta
+	 */
 	public Genret() {
-		//TODO: alustus tiedostosta
 		try {
 			initGenret();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * String-rivillinen testikonstruktori
+	 * @param s
+	 */
+	public Genret(String s) {
+		alkiot.add(new Genre(s));
 	}
 	
 	/**
@@ -25,7 +36,7 @@ public class Genret {
 	 * @throws FileNotFoundException jos genret.dat ei löydy
 	 */
 	private void initGenret() throws FileNotFoundException {
-		File f = new File("C:/kurssit/ohj2/kirtika/src/data/genret.dat");
+		File f = new File("C:/kurssit/ohj2/kirtika/src/data/" + tiedostonNimi);
 		Scanner scan = new Scanner(f);
 		
 		while (scan.hasNextLine()) {
@@ -43,11 +54,16 @@ public class Genret {
 	}
 	
 	/**
-	 * TODO: Toteuta
 	 * Etsii alkioista YKL-luokitusta vastaavan kuvauksen.
-	 * TODO: Jos ei löydy, niin haetaan netistä.
-	 * @param s
-	 * @return
+	 * @param s YKL-luokitus, esim "84.2"
+	 * @return YKL-kuvaus, esim "Suomalainen kaunokirjallisuus"
+	 * 
+	 * @example
+	 * <pre name="test">
+	 * Genret genret = new Genret("84.2|Suomalainen kertomakirjallisuus");
+	 * genret.etsiYklKuvaus("84.2") === "Suomalainen kertomakirjallisuus";
+	 * genret.etsiYklKuvaus("67") === "Ei tiedetä";
+	 * </pre>
 	 */
 	public String etsiYklKuvaus(String s) {
 		for (Genre genre : alkiot) {

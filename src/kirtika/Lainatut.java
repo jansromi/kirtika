@@ -28,6 +28,7 @@ public class Lainatut {
 		File f = new File("C:/kurssit/ohj2/kirtika/src/data/" + tiedostonNimi);
 		Scanner scan = new Scanner(f);
 		
+		int i = 1;
 		while (scan.hasNextLine()) {
 			   String line = scan.nextLine();
 			   if (line.equals("laina_id|kirja_id|laina_hlo|laina_alkupvm (YY-MM-DD) |laina_loppupvm")) continue;
@@ -44,6 +45,13 @@ public class Lainatut {
 	
 	public int getLainatutLkm() {
 		return alkiot.size();
+	}
+	
+	
+	public void setLainatunKirjanNimi(int lkId, String s) {
+		for (LainattuKirja lainattuKirja : alkiot) {
+			if (lainattuKirja.oletkoTamaKirja(lkId)) lainattuKirja.setLainatutKirjanNimi(s);
+		}
 	}
 
 	private void alustaFeikkidata() {

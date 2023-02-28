@@ -10,13 +10,14 @@ import javafx.beans.property.SimpleStringProperty;
 /**
  * TODO: Laina-id:t järkeväksi ratkaisuksi.
  * Nyt lukee ne tiedostosta.
+ * Refaktorointi Laina-luokaksi, koska taulukko ei niinkään keskity kirjoihin?
  * @author Roba
  *
  */
 public class LainattuKirja {
 	
 	private int lainaId;
-	private int kirjaId;
+	private int lainattuKirjaId;
 	private SimpleStringProperty kirjanNimi, lainaajanNimi;
 	private LocalDate lainaPvm, palautusPvm;
 
@@ -44,7 +45,7 @@ public class LainattuKirja {
 	public LainattuKirja(String line) {
 		StringBuilder sb = new StringBuilder(line);
 		this.lainaId = Integer.parseInt(Mjonot.erota(sb, '|'));
-		this.kirjaId = Integer.parseInt(Mjonot.erota(sb, '|'));
+		this.lainattuKirjaId = Integer.parseInt(Mjonot.erota(sb, '|'));
 		this.lainaajanNimi = new SimpleStringProperty(Mjonot.erota(sb, '|'));
 		this.lainaPvm = asetaAika(Mjonot.erota(sb, '|'));
 		if (sb.isEmpty()) {
@@ -59,6 +60,10 @@ public class LainattuKirja {
 		seuraavaLainaId++;
 	}
 
+	public void setLainatutKirjanNimi(String kirjanNimi) {
+		this.kirjanNimi = new SimpleStringProperty(kirjanNimi);
+	}
+	
 	public LocalDate getLainaPvm() {
 		return lainaPvm;
 	}
@@ -67,8 +72,8 @@ public class LainattuKirja {
 		return palautusPvm;
 	}
 
-	public int getKirjaId() {
-		return kirjaId;
+	public int getLainattuKirjaId() {
+		return lainattuKirjaId;
 	}
 
 	public int getLainaId() {
@@ -83,10 +88,22 @@ public class LainattuKirja {
 		return lainaajanNimi.get();
 	}
 	
+	public boolean oletkoTamaKirja(int lkId) {
+		return this.lainattuKirjaId == lkId;
+	}
+	
 	/**
 	 * 
 	 * @param s
 	 * @return
+	 * 
+	 * @example
+	 * <pre name="test">
+	 * #import java.time.LocalDate;
+	 * LocalDate a1 = asetaAika("2022-01-01");
+	 * a1.getYear() === 2022;
+	 * a1.getMonth() === 01;
+	 * </pre>
 	 */
 	public LocalDate asetaAika(String s) {
 		StringBuilder sb = new StringBuilder(s);
@@ -99,6 +116,7 @@ public class LainattuKirja {
 	public static void main(String[] args) {
 		String s = "1|1|Matti Meikäläinen|2022-01-01|";
 		LainattuKirja testi = new LainattuKirja(s);
+		LocalDate a1 = LocalDate.of(1, 1, 1);
 	}
 	
 }
