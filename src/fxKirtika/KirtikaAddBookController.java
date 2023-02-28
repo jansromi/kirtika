@@ -1,6 +1,7 @@
 package fxKirtika;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import fi.jyu.mit.fxgui.Dialogs;
@@ -48,17 +49,18 @@ public class KirtikaAddBookController implements Initializable{
     //
     
     private Kirtika kirtika;
-    private ListChooser<Kirja> chooserKirjat;
-    
+    //private ListChooser<Kirja> chooserKirjat;
+    //private ArrayList<Kirja> lista;
     /**
      * Alustustetaan AddBook-lomake käyttämään kirtikaa ja 
      * 
      * @param kirtika
      * @param chooserKirjat Päänäkymän kirjalistaus
      */
-    public void initData(Kirtika kirtika, ListChooser<Kirja> chooserKirjat) {
+    public void initData(Kirtika kirtika) {
     	this.kirtika = kirtika;
-    	this.chooserKirjat = chooserKirjat;
+    	//this.chooserKirjat = chooserKirjat;
+    	//this.lista = naytettavat;
     }
 
 	/**
@@ -71,7 +73,7 @@ public class KirtikaAddBookController implements Initializable{
 		
 		try {
 			kirtika.lisaa(uusi);
-			hae(uusi.getKirjaId());
+			//hae(uusi.getKirjaId());
 		} catch (SailoException e) {
 			Dialogs.showMessageDialog("Ongelmia kirjan lisäämisessä " + e.getMessage());
 		}
@@ -80,20 +82,22 @@ public class KirtikaAddBookController implements Initializable{
 
     /**
      * Päivitetään PÄÄNÄKYMÄN kirjalistaus, kun kirja on lisätty onnistuneesti
-     * @param kid kirjan id, joka valitaan aktiiviseksi
+     * @param kid kirjan id, joka valitaan aktiiviseksi. Tämän takia tarvitsee
+     * tuoda chooserKirjat
      */
-    private void hae(int kid) {
-    	chooserKirjat.clear();
+    //private void hae(int kid) {
+    	//chooserKirjat.clear();
     	
-    	int index = 0;
-		for (int i = 0; i < kirtika.getKirjat(); i++) {
-			Kirja kirja = kirtika.annaKirja(i);
-			if (kirja.getKirjaId() == kid) index = i;
-			chooserKirjat.add(kirja.getKirjanNimi(), kirja);
-		}
-		chooserKirjat.setSelectedIndex(index);
+    	//int index = 0;
+		//for (int i = 0; i < kirtika.getKirjat(); i++) {
+			//Kirja kirja = kirtika.annaKirja(i);
+			//if (kirja.getKirjaId() == kid) index = i;
+			//chooserKirjat.add(kirja.getKirjanNimi(), kirja);
+			//lista.add(kirja);
+		//}
+		//chooserKirjat.setSelectedIndex(index);
 		
-    }
+    //}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

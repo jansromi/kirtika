@@ -3,7 +3,6 @@ package fxKirtika;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Month;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import kirtika.Kirtika;
 
 public class KirtikaLoanViewController {
 	
@@ -29,6 +29,34 @@ public class KirtikaLoanViewController {
 	@FXML private TableColumn<LainattuKirja, LocalDate> lainaPvmColumn;
 	@FXML private TableColumn<LainattuKirja, LocalDate> palautusPvmColumn;
 
+
+	@FXML public void handleShowMainView(ActionEvent event) throws IOException {
+		FXMLLoader ldr = new FXMLLoader();
+		ldr.setLocation(getClass().getResource("KirtikaMainView.fxml"));
+		Parent root = ldr.load();
+		KirtikaGUIController ctrl = ldr.getController();
+		
+		Scene mainViewScene = new Scene(root);
+		Stage window = (Stage) myMenuBar.getScene().getWindow();
+		window.setScene(mainViewScene);
+		ctrl.setKirtika(kirtika);
+		ctrl.updateChooserKirjat();
+		window.show();
+	}
+	
+	//
+	//===========================================================================================================
+	//
+	
+	private Kirtika kirtika;
+	/**
+	 * Asetetaan viite Kirtika-luokkaan
+	 * @param kirtika
+	 */
+	public void initData(Kirtika kirtika) {
+		this.kirtika = kirtika;
+	}
+	
 	/**
 	* Initializes the controller class
 	*/
@@ -54,13 +82,5 @@ public class KirtikaLoanViewController {
 		return people;
 	}
 	
-	@FXML public void handleShowMainView(ActionEvent event) throws IOException {
-		Parent mainViewParent = FXMLLoader.load(getClass().getResource("KirtikaMainView.fxml"));
-		Scene mainViewScene = new Scene(mainViewParent);
-		
-		Stage window = (Stage) myMenuBar.getScene().getWindow();
-		window.setScene(mainViewScene);
-		window.show();
-	}
 	
 }

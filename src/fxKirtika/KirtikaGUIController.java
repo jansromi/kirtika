@@ -8,8 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ListChooser;
+import fi.jyu.mit.fxgui.StringAndObject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -73,8 +75,28 @@ public class KirtikaGUIController implements Initializable {
 		
 	}
 
-    
-    
+	
+	/**
+	 * Kirjalistauksen virkistys. 
+	 * Public jotta voidaan kutsua muista kontrollereista.
+	 */
+	@FXML
+	public void updateChooserKirjat() {
+		chooserKirjat.clear();
+	
+		for (int i = 0; i < kirtika.getKirjat(); i++) {
+			Kirja kirja = kirtika.annaKirja(i);
+			chooserKirjat.add(kirja.getKirjanNimi(), kirja);
+		}
+	}
+	
+    /**
+     * Kun kirjalistauksesta painetaan kirja.
+     */
+    @FXML
+    void listChooserCliked() {
+    	setBookText(chooserKirjat.getSelectedIndex());
+    }
     /**
      * Kun muokkaustila täppä valitaan, tehdään
      * metatietokentistä muokattavia. Kun täppä
@@ -111,14 +133,7 @@ public class KirtikaGUIController implements Initializable {
     	Dialogs.showMessageDialog("Ei osata vielä hakea");
     }
 	
-    /**
-     * Kun kirjalistauksesta painetaan kirja.
-     */
-    @FXML
-    void listChooserCliked() {
-    	System.out.println("hello");
-    	setBookText(chooserKirjat.getSelectedIndex());
-    }
+
     /**
      * Tallennetaan lisätietokenttään tekstiä
      */
@@ -138,14 +153,18 @@ public class KirtikaGUIController implements Initializable {
 
     }
 	
-	
 	/**
 	 * Kun tätä metodia kutsutaan, vaihdetaan scene lainausnäkymään
 	 * @throws IOException jos tiedostossa jotain häikkää
 	 */
 	@FXML public void handleShowLoanHistory(ActionEvent event) throws IOException {
-		Parent loanViewParent = FXMLLoader.load(getClass().getResource("KirtikaLoanView.fxml"));
-		Scene loanViewScene = new Scene(loanViewParent);
+		FXMLLoader ldr = new FXMLLoader();
+		System.out.println(chooserKirjat.getRivit());
+		ldr.setLocation(getClass().getResource("KirtikaLoanView.fxml"));
+		Parent root = ldr.load();
+		KirtikaLoanViewController ctrl = ldr.getController();
+		ctrl.initData(kirtika);
+		Scene loanViewScene = new Scene(root);
 		
 		Stage window = (Stage) myMenuBar.getScene().getWindow();
 		window.setScene(loanViewScene);
@@ -163,7 +182,7 @@ public class KirtikaGUIController implements Initializable {
 		ldr.setLocation(getClass().getResource("KirtikaAddBook.fxml"));
 		Parent root = ldr.load();
 		KirtikaAddBookController ctrl = ldr.getController();
-		ctrl.initData(kirtika, chooserKirjat);
+		ctrl.initData(kirtika);
 		
 		Stage popUpStage = new Stage();
 		popUpStage.setTitle("Lisää kirja");
@@ -171,6 +190,9 @@ public class KirtikaGUIController implements Initializable {
 		
 		popUpStage.setScene(new Scene(root,400,400));
 		popUpStage.showAndWait();
+		
+		updateChooserKirjat();
+		
 		
 		
     }
@@ -213,8 +235,8 @@ public class KirtikaGUIController implements Initializable {
 		tietokentat.add(fieldJulkaisuvuosi);
 		tietokentat.add(fieldLuokitus);
 		tietokentat.add(fieldIsbn);
-		System.out.println(tietokentat.size());
 	}
+
 	
 	private void setBookText(int selectedId) {
 		String[] s = kirtika.annaKirjanTiedot(selectedId);

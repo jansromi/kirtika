@@ -83,11 +83,11 @@
                   <Label text="Julkaisija" GridPane.rowIndex="3" />
                   <Label text="Luokitus" GridPane.rowIndex="5" />
                   <Label text="ISBN" GridPane.rowIndex="6" />
-                  <TextField fx:id="fieldKirjailija" editable="false" text="Homeros; Pentti Saarikoski" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="fieldKieli" editable="false" text="Suomi" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="fieldJulkaisija" editable="false" text="Kustannusosakeyhtiö Otava" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField fx:id="fieldLuokitus" editable="false" text="Kansaneepokset" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <TextField fx:id="fieldIsbn" editable="false" text="978-951-1-31886-6" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <TextField fx:id="fieldKirjailija" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="fieldKieli" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="fieldJulkaisija" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="fieldLuokitus" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField fx:id="fieldIsbn" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <CheckBox mnemonicParsing="false" text="Lainassa?" GridPane.rowIndex="7" />
                   <CheckBox mnemonicParsing="false" text="Luettu?" GridPane.rowIndex="8" />
                   <TextField fx:id="fieldKenelleLainattu" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="136.0" promptText="Kenelle lainattu" GridPane.columnIndex="1" GridPane.rowIndex="7" />
@@ -97,7 +97,7 @@
                      </GridPane.margin>
                   </DatePicker>
                   <Label text="Julkaisuvuosi" GridPane.rowIndex="4" />
-                  <TextField fx:id="fieldJulkaisuvuosi" editable="false" text="2017" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="fieldJulkaisuvuosi" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                </children>
                <VBox.margin>
                   <Insets top="6.0" />
