@@ -1,7 +1,10 @@
 package kirtika;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Lainatut {
 	
@@ -9,8 +12,31 @@ public class Lainatut {
 	private ArrayList<LainattuKirja> alkiot = new ArrayList<>();
 	
 	public Lainatut() {
-		alustaFeikkidata();
+		try {
+			alusta();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
+	
+	/**
+	 * 
+	 * @throws FileNotFoundException Jos tiedostoa ei saada auki
+	 */
+	private void alusta() throws FileNotFoundException {
+		File f = new File("C:/kurssit/ohj2/kirtika/src/data/" + tiedostonNimi);
+		Scanner scan = new Scanner(f);
+		
+		while (scan.hasNextLine()) {
+			   String line = scan.nextLine();
+			   if (line.equals("laina_id|kirja_id|laina_hlo|laina_alkupvm (YY-MM-DD) |laina_loppupvm")) continue;
+			   alkiot.add(new LainattuKirja(line));
+			}
+		scan.close();
+	}
+	
+	
 	
 	public LainattuKirja annaLainattuKirja(int i) {
 		return alkiot.get(i);
@@ -28,6 +54,11 @@ public class Lainatut {
 		alkiot.add(laina2);
 		LainattuKirja laina3 = new LainattuKirja("Odysseia", "Matti Meikäläinen", LocalDate.of(2022, 7, 7), LocalDate.of(2022, 8, 8));
 		alkiot.add(laina3);
+	}
+	
+	public static void main(String[] args) {
+		Lainatut lainatut = new Lainatut();
+		System.out.println("hellos");
 	}
 
 }

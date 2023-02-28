@@ -25,12 +25,14 @@ public class Genret {
 	 * @throws FileNotFoundException jos genret.dat ei löydy
 	 */
 	private void initGenret() throws FileNotFoundException {
-		File f = new File("C:/kurssit/ohj2/kirtika/bin/data/genret.dat");
+		File f = new File("C:/kurssit/ohj2/kirtika/src/data/genret.dat");
 		Scanner scan = new Scanner(f);
 		
 		while (scan.hasNextLine()) {
 			   String line = scan.nextLine();
 			   if (line.equals("genre_id|genre_info")) continue;
+			   
+			   // Alustaa genren tolppaparserilla
 			   alkiot.add(new Genre(line));
 			}
 		scan.close();
