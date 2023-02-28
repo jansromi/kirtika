@@ -8,10 +8,12 @@ package kirtika;
 public class Kirtika {
 	private final Kirjat kirjat;
 	private final Genret genret;
+	private final Lainatut lainatut;
 	
 	public Kirtika() {
 		this.kirjat = new Kirjat();
 		this.genret = new Genret();
+		this.lainatut = new Lainatut();
 	}
 	
 	/**
@@ -42,6 +44,19 @@ public class Kirtika {
 	 */
 	public Kirja annaKirja(int i) throws IndexOutOfBoundsException{
 		return kirjat.anna(i);
+	}
+	
+	/**
+	 * 
+	 * @param i
+	 * @return
+	 */
+	public LainattuKirja annaLainattuKirja(int i) {
+		return lainatut.annaLainattuKirja(i);
+	}
+	
+	public int getLainatutLkm() {
+		return lainatut.getLainatutLkm();
 	}
 	
 	/**

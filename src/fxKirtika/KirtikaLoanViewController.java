@@ -2,7 +2,6 @@ package fxKirtika;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.Month;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +15,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import kirtika.Kirtika;
+import kirtika.LainattuKirja;
 
 public class KirtikaLoanViewController {
 	
@@ -53,33 +53,37 @@ public class KirtikaLoanViewController {
 	 * Asetetaan viite Kirtika-luokkaan
 	 * @param kirtika
 	 */
-	public void initData(Kirtika kirtika) {
-		this.kirtika = kirtika;
+	public void initData() {
+		
 	}
 	
 	/**
 	* Initializes the controller class
 	*/
-	public void initialize() {
-		// set up columns
+	public void initialize(Kirtika kirtika) {
+		this.kirtika = kirtika;
 		kirjanNimiColumn.setCellValueFactory(new PropertyValueFactory<LainattuKirja, String>("kirjanNimi"));
 		lainaajanNimiColumn.setCellValueFactory(new PropertyValueFactory<LainattuKirja, String>("lainaajanNimi"));
 		lainaPvmColumn.setCellValueFactory(new PropertyValueFactory<LainattuKirja, LocalDate>("lainaPvm"));
 		palautusPvmColumn.setCellValueFactory(new PropertyValueFactory<LainattuKirja, LocalDate>("palautusPvm"));
+		tableView.setItems(getLainat());
+		
+		
+		// set up columns
+		//tableView.setItems(lainat);
 		
 		// load dummy data
-		tableView.setItems(getPeople());
+		//tableView.setItems(getPeople());
+		//tableView.setIte
 	}
 	
-	/*
-	 * returns an ObservableList of LainattuKirja objects
-	 */
-	public ObservableList<LainattuKirja> getPeople(){
-		ObservableList<LainattuKirja> people = FXCollections.observableArrayList();
-		people.add(new LainattuKirja("Odysseia", "Matti Meikäläinen", LocalDate.of(2023, Month.JANUARY, 13), null));
-		people.add(new LainattuKirja("Surun ja ilon kaupunki", "Maija Meikäläinen", LocalDate.of(2022, Month.FEBRUARY, 2), LocalDate.of(2022, 03, 02)));
-		people.add(new LainattuKirja("Odysseia", "Matti Meikäläinen", LocalDate.of(2022, Month.JANUARY, 1), LocalDate.of(2022, 12, 12)));
-		return people;
+	public ObservableList<LainattuKirja> getLainat(){
+		ObservableList<LainattuKirja> lainat = FXCollections.observableArrayList();
+			for (int i = 0; i < kirtika.getLainatutLkm(); i++) {
+				LainattuKirja lainattu = kirtika.annaLainattuKirja(i);
+				lainat.add(lainattu);
+			}
+		return lainat;
 	}
 	
 	

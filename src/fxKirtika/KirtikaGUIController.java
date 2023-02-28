@@ -66,8 +66,6 @@ public class KirtikaGUIController implements Initializable {
     @FXML
     private ListChooser<Kirja> chooserKirjat;
     
-    @FXML
-    private Button testButton;
     
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -163,7 +161,7 @@ public class KirtikaGUIController implements Initializable {
 		ldr.setLocation(getClass().getResource("KirtikaLoanView.fxml"));
 		Parent root = ldr.load();
 		KirtikaLoanViewController ctrl = ldr.getController();
-		ctrl.initData(kirtika);
+		ctrl.initialize(kirtika);
 		Scene loanViewScene = new Scene(root);
 		
 		Stage window = (Stage) myMenuBar.getScene().getWindow();
