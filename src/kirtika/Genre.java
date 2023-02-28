@@ -23,10 +23,17 @@ public class Genre {
 		this.genreDesc = sb.toString();
 	}
 	
+	/**
+	 * Asetetaan YKL:n mukainen luokitus
+	 * @param id
+	 */
 	public void setClassId(String id) {
 		this.genreId = id;
 	}
 	
+	/**
+	 * @return genren kuvaus
+	 */
 	public String getGenreDesc() {
 		return this.genreDesc;
 	}

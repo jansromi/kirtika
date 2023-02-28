@@ -88,6 +88,11 @@ public class LainattuKirja {
 		return lainaajanNimi.get();
 	}
 	
+	/**
+	 * 
+	 * @param lkId lainattu kirja id
+	 * @return Onko tällä oliolla tämä id
+	 */
 	public boolean oletkoTamaKirja(int lkId) {
 		return this.lainattuKirjaId == lkId;
 	}

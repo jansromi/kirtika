@@ -7,10 +7,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
-import java.util.ArrayList;
 import java.util.List;
 
-import kirtika.Kirja;
 
 
 /**
@@ -63,10 +61,9 @@ public class Queries {
 	 * </pre>
 	 */
 	public static String finnaQuery(String queryString, String type) {
-	    // initialize the url variable to an empty string
 	    String url = "";
 
-	    // set the url based on the given type
+	    // Alustetaan url sen mukaan, onko kyseessä isbn vai finna-id-haku
 	    switch (type) {
 	        case "isbn":
 	            url = "https://api.finna.fi/v1/search?lookfor=" + queryString;
@@ -78,30 +75,30 @@ public class Queries {
 	                    + "field[]=summary&prettyPrint=1";
 	            break;
 	        default:
-	            break;
+	            return null;
 	    }
 
-	    // create a new HttpClient instance
+	    // luodaan uusi asiakasinstanssi
 	    HttpClient client = HttpClient.newHttpClient();
 
-	    // create a new HttpRequest instance with the given url
+	    // luodaan uusi pyyntö urlilla
 	    HttpRequest request = HttpRequest.newBuilder()
 	            .uri(URI.create(url))
 	            .build();
 
 	    try {
-	        // send the request and get the response as a string
+	        // lähetetään pyyntö ja palautetaan se
 	        HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
 	        String result = response.body();
 	        return result;
 	    } catch (MalformedURLException e) {
-	        // print the stack trace if a MalformedURLException occurs
+	        //MalformedURLException = huono url
 	        e.printStackTrace();
 	    } catch (IOException e) {
 	        // print the stack trace if an IOException occurs
 	        e.printStackTrace();
 	    } catch (InterruptedException e) {
-	        // print the stack trace if an InterruptedException occurs
+	        // Pyyntö kestää liian kauan
 	        e.printStackTrace();
 	    } catch (Exception e) {
 	        // print the stack trace if any other type of exception occurs
@@ -120,24 +117,21 @@ public class Queries {
 	 * @throws InterruptedException 
 	 */
 	 public static String yklQuery(String yklNum) throws IOException, InterruptedException {
-		    // Build the URL to query for the YKL number
+		    // Rakennetaan url yklNumin avulla
 		    String url = "https://finto.fi/ykl/fi/page/" + yklNum;
 
-		    // Create a new HTTP client and request
+		    // Uusi HTTP asiakas and pyyntö
 		    HttpClient client = HttpClient.newHttpClient();
 		    HttpRequest request = HttpRequest.newBuilder()
 		            .uri(URI.create(url))
 		            .build();
 
-		    // Send the request and get the response
+		    // sijoitetaan responsen body result-muuttujaan
 		    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 		    String result = response.body();
 
-		    // Parse the genre from the response using the YKLParser
-		    result = YKLParser.parseGenre(result);
-		    
-		    // Return the parsed genre
-		    return result;
+		    // Parsetaan ja palautetaan oikea genre
+		    return YKLParser.parseGenre(result);
 	    }
 	
 	 

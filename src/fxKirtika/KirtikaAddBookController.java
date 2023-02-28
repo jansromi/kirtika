@@ -1,11 +1,9 @@
 package fxKirtika;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import fi.jyu.mit.fxgui.Dialogs;
-import fi.jyu.mit.fxgui.ListChooser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -49,8 +47,7 @@ public class KirtikaAddBookController implements Initializable{
     //
     
     private Kirtika kirtika;
-    //private ListChooser<Kirja> chooserKirjat;
-    //private ArrayList<Kirja> lista;
+    
     /**
      * Alustustetaan AddBook-lomake käyttämään kirtikaa ja 
      * 
@@ -59,8 +56,6 @@ public class KirtikaAddBookController implements Initializable{
      */
     public void initData(Kirtika kirtika) {
     	this.kirtika = kirtika;
-    	//this.chooserKirjat = chooserKirjat;
-    	//this.lista = naytettavat;
     }
 
 	/**
@@ -79,26 +74,7 @@ public class KirtikaAddBookController implements Initializable{
 		}
 		
 	}
-
-    /**
-     * Päivitetään PÄÄNÄKYMÄN kirjalistaus, kun kirja on lisätty onnistuneesti
-     * @param kid kirjan id, joka valitaan aktiiviseksi. Tämän takia tarvitsee
-     * tuoda chooserKirjat
-     */
-    //private void hae(int kid) {
-    	//chooserKirjat.clear();
-    	
-    	//int index = 0;
-		//for (int i = 0; i < kirtika.getKirjat(); i++) {
-			//Kirja kirja = kirtika.annaKirja(i);
-			//if (kirja.getKirjaId() == kid) index = i;
-			//chooserKirjat.add(kirja.getKirjanNimi(), kirja);
-			//lista.add(kirja);
-		//}
-		//chooserKirjat.setSelectedIndex(index);
-		
-    //}
-
+    
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub

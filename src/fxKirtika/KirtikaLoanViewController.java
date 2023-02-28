@@ -22,7 +22,7 @@ public class KirtikaLoanViewController {
 	@FXML
 	private MenuBar myMenuBar;
 	
-	//configure the table
+	// Taulukon sarakkeet
 	@FXML private TableView<LainattuKirja> tableView;
 	@FXML private TableColumn<LainattuKirja, String> kirjanNimiColumn;
 	@FXML private TableColumn<LainattuKirja, String> lainaajanNimiColumn;
@@ -49,34 +49,29 @@ public class KirtikaLoanViewController {
 	//
 	
 	private Kirtika kirtika;
-	/**
-	 * Asetetaan viite Kirtika-luokkaan
-	 * @param kirtika
-	 */
-	public void initData() {
-		
-	}
 	
 	/**
-	* Initializes the controller class
+	* Alustetaan kontrolleri käyttämään kirtikaa.
 	*/
 	public void initialize(Kirtika kirtika) {
 		this.kirtika = kirtika;
+		initTable();
+		tableView.setItems(getLainat());
+	}
+	
+	/**
+	 * Alustetaan taulukko käyttämään LainattuKirja-olioita.
+	 */
+	public void initTable() {
 		kirjanNimiColumn.setCellValueFactory(new PropertyValueFactory<LainattuKirja, String>("kirjanNimi"));
 		lainaajanNimiColumn.setCellValueFactory(new PropertyValueFactory<LainattuKirja, String>("lainaajanNimi"));
 		lainaPvmColumn.setCellValueFactory(new PropertyValueFactory<LainattuKirja, LocalDate>("lainaPvm"));
 		palautusPvmColumn.setCellValueFactory(new PropertyValueFactory<LainattuKirja, LocalDate>("palautusPvm"));
-		tableView.setItems(getLainat());
-		
-		
-		// set up columns
-		//tableView.setItems(lainat);
-		
-		// load dummy data
-		//tableView.setItems(getPeople());
-		//tableView.setIte
 	}
 	
+	/**
+	 * @return Lainat joita löydetään kirtikasta
+	 */
 	public ObservableList<LainattuKirja> getLainat(){
 		ObservableList<LainattuKirja> lainat = FXCollections.observableArrayList();
 			for (int i = 0; i < kirtika.getLainatutLkm(); i++) {

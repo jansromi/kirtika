@@ -13,11 +13,11 @@ public class Kirtika {
 	public Kirtika() {
 		this.kirjat = new Kirjat();
 		this.genret = new Genret();
-		
-		
 		this.lainatut = new Lainatut();
 		
+		// Alustetaan silmukassa lainat
 		for (int i = 0; i < lainatut.getLainatutLkm(); i++) {
+			// Yhdistetään kirja-id kirjan nimeen
 			int lkId = lainatut.annaLainattuKirja(i).getLainattuKirjaId();
 			String s = kirjat.annaKirjanNimi(lkId);
 			lainatut.setLainatunKirjanNimi(lkId, s);
@@ -60,7 +60,7 @@ public class Kirtika {
 	/**
 	 * 
 	 * @param i
-	 * @return
+	 * @return viite lainattuun kirjaan
 	 */
 	public LainattuKirja annaLainattuKirja(int i) {
 		return lainatut.annaLainattuKirja(i);

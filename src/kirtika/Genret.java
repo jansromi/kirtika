@@ -12,7 +12,6 @@ public class Genret {
 	
 	/**
 	 * Alustus tiedostosta.
-	 * 
 	 * TODO: parempi poikkeuksenhallinta
 	 */
 	public Genret() {
@@ -49,6 +48,10 @@ public class Genret {
 		scan.close();
 	}
 
+	/**
+	 * @param genre Genre jonka kuvaus palautetaan
+	 * @return Palauttaa genren kuvauksen
+	 */
 	public String getGenreDesc(Genre genre) {
 		return genre.getGenreDesc();
 	}
