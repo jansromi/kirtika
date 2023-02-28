@@ -113,10 +113,5 @@ public class LainattuKirja {
 		return LocalDate.of(vuosi, kuukausi, paiva);
 	}
 	
-	public static void main(String[] args) {
-		String s = "1|1|Matti Meikäläinen|2022-01-01|";
-		LainattuKirja testi = new LainattuKirja(s);
-		LocalDate a1 = LocalDate.of(1, 1, 1);
-	}
 	
 }
