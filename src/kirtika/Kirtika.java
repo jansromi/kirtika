@@ -14,8 +14,16 @@ public class Kirtika {
 		this.kirjat = new Kirjat();
 		this.genret = new Genret();
 		this.lainatut = new Lainatut();
-		
-		// Alustetaan silmukassa lainat
+		alustaLainattujenNimet();
+
+	}
+	
+	/**
+	 * Alustetaan silmukassa lainattujen kirjojen nimet,
+	 * sillä ovat tietokannassa vain id:llä
+	 */
+	public void alustaLainattujenNimet() {
+		// 
 		for (int i = 0; i < lainatut.getLainatutLkm(); i++) {
 			// Yhdistetään kirja-id kirjan nimeen
 			int lkId = lainatut.annaLainattuKirja(i).getLainattuKirjaId();

@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import kirtika.SailoException.TaulukkoTaysiException;
+
 /**
  * 
  * @author Jansromi
@@ -12,17 +14,17 @@ import java.util.Scanner;
  *
  */
 public class Kirjat {
-	private static final int MAX_KIRJAT		= 500;
+	private static int       maxKirjat		= 10;
 	private int 				lkm			= 0;
 	private String        tiedostonNimi     = "kirjat.dat";
-	private Kirja             alkiot[]      = new Kirja[MAX_KIRJAT];
+	private Kirja             alkiot[]      = new Kirja[maxKirjat];
 	
 	public Kirjat() {
 		try {
 			alustaKirjat();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("Tiedostoa kirjat.dat ei löytynyt");
+			// TODO: uusi tiedosto
 		}
 	}
 	
@@ -38,17 +40,36 @@ public class Kirjat {
 		
 		while (scan.hasNextLine()) {
 			   String line = scan.nextLine();
+			   
+			   // Skipataan eka rivi
 			   if (i == 0) {
 				   i++;
 				   continue;
 			   }
-			   
+			   // Jos alkiot täynnä, luodaan uusi taulukko
+			   if (lkm == maxKirjat) uusiTaulukko();
 			   alkiot[i-1] = new Kirja(line);
 			   i++;
 			   lkm++;
 			}
 		scan.close();
 	}
+	
+	/**
+	 * Jos vanha alkiot-taulukko täyttyy,
+	 * tehdään uusi taulukko joka on 2 kertaa suurempi kuin vanha.
+	 * Siirretään viitteet uuteen taulukkoon.
+	 */
+	public void uusiTaulukko() {
+		maxKirjat = maxKirjat * 2;
+		Kirja[] uudetAlkiot = new Kirja[maxKirjat];
+		for (int i = 0; i < alkiot.length; i++) {
+			uudetAlkiot[i] = alkiot[i];
+		}
+		this.alkiot = uudetAlkiot;
+	}
+	
+	
 	
 	
 	/**
@@ -83,7 +104,8 @@ public class Kirjat {
 	 * kirjat.getLkm() === 1;
 	 * </pre>
 	 */
-	public void lisaa(Kirja kirja) {
+	public void lisaa(Kirja kirja){
+		if (lkm >= maxKirjat) uusiTaulukko();
 		alkiot[lkm] = kirja;
 		lkm++;
 	}
@@ -101,7 +123,12 @@ public class Kirjat {
 		return alkiot[i];
 	}
 	
-	//
+	/**
+	 * 
+	 * @param kId kirja-id
+	 * @return kirja-idllä löytyvän kirjan nimi.
+	 * 		   "" jos ei löytynyt
+	 */
 	public String annaKirjanNimi(int kId) {
 		for (Kirja kirja : alkiot) {
 			if (kirja.oletkoTamaId(kId)) return kirja.getKirjanNimi();
@@ -119,18 +146,4 @@ public class Kirjat {
 		return alkiot[i].annaKirjanTiedot();
 	}
 	
-	
-	public static void main(String[] args) {
-		Kirjat kirjat = new Kirjat();
-		//Kirja ody = new Kirja();
-		//Kirja ody2 = new Kirja();
-		//Kirja ody3 = new Kirja();
-		//ody.setOdysseia(); ody2.setOdysseia(); ody3.setOdysseia();
-		
-		
-		System.out.println(kirjat.getLkm());
-		
-		
-	}
-
 }

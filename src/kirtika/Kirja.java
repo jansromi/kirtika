@@ -171,6 +171,10 @@ public class Kirja {
 		printBook(new PrintStream(os));
 	}
 	
+	/**
+	 * Kirjan tiedot tekstikenttiä varten
+	 * @return String[6]
+	 */
 	public String[] annaKirjanTiedot() {
 		String[] s = new String[6];
 		s[0] = this.kirjailija;
@@ -180,11 +184,6 @@ public class Kirja {
 		s[4] = this.luokitus;
 		s[5] = this.isbn;
 		return s;
-	}
-	
-	
-	
-	public static void main(String[] args) {
 	}
 	
 }

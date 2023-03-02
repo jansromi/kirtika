@@ -17,8 +17,11 @@ public class Lainatut {
 		try {
 			alusta();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("Tiedostoa lainat.dat ei löytynyt");
+			/*
+			 * TODO:
+			 * Luodaan uusi tiedosto?
+			 */
 		}
 	}
 	

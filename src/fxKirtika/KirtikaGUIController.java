@@ -83,6 +83,7 @@ public class KirtikaGUIController implements Initializable {
      */
     @FXML
     void listChooserCliked() {
+    	if (chooserKirjat.getSelectedIndex() == -1) return;
     	setBookText(chooserKirjat.getSelectedIndex());
     }
     /**

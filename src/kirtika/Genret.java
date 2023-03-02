@@ -18,7 +18,8 @@ public class Genret {
 		try {
 			initGenret();
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			System.err.println("Tiedostoa genret.dat ei löytynyt");
+			// TODO: Luodaan uusi tiedosto 
 		}
 	}
 	

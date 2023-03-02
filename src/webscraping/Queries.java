@@ -137,8 +137,8 @@ public class Queries {
 	 
 	public static void main(String[] args) throws IOException, InterruptedException {
 		//String s = finnaQuery("9789510185377", "isbn");
-		String s = finnaQuery("9512033585", "isbn");
-		//String s = finnaQuery("9789511350545", "isbn");
+		//String s = finnaQuery("9512033585", "isbn");
+		String s = finnaQuery("9789511350545", "isbn");
 		s = FinnaParser.parseId(s);
 		String s2 = finnaQuery(s, "finna");
 		System.out.println(FinnaParser.parseBookName(s2));
