@@ -99,9 +99,9 @@ public class Kirjat {
 	 * <pre name="test">
 	 * Kirjat kirjat = new Kirjat();
 	 * Kirja ody = new Kirja();
-	 * kirjat.getLkm() === 0;
+	 * int x = kirjat.getLkm();
 	 * kirjat.lisaa(ody);
-	 * kirjat.getLkm() === 1;
+	 * kirjat.getLkm() === x + 1;
 	 * </pre>
 	 */
 	public void lisaa(Kirja kirja){
