@@ -226,7 +226,10 @@ public class KirtikaGUIController implements Initializable {
 		tietokentat.add(fieldIsbn);
 	}
 
-	
+	/**
+	 * Asetetaan kirjan tiedot näkyviksi tietokenttiin
+	 * @param selectedId valitun kirjan id
+	 */
 	private void setBookText(int selectedId) {
 		String[] s = kirtika.annaKirjanTiedot(selectedId);
 		
