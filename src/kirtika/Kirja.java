@@ -57,7 +57,7 @@ public class Kirja {
 	
 	public Kirja(String line) {
 		StringBuilder sb = new StringBuilder(line);
-		this.kirjaId = Integer.parseInt(Mjonot.erota(sb, '|'));
+		this.setKirjaId(Integer.parseInt(Mjonot.erota(sb, '|')));
 		this.isbn = Mjonot.erota(sb, '|');
 		this.kirjailija = Mjonot.erota(sb, '|');
 		this.kirjanNimi = Mjonot.erota(sb, '|');
@@ -80,10 +80,26 @@ public class Kirja {
 	}
 	
 	
+	public String toString() {
+		return this.kirjaId + "|" +
+				this.isbn + "|" +
+				this.kirjailija + "|" +
+				this.kirjanNimi + "|" +
+				this.kirjanKieli + "|" +
+				this.julkaisija + "|" +
+				this.julkaisuvuosi + "|" +
+				this.luokitus + "|" +
+				this.lainassa + "|" +
+				this.luettu + "|" +
+				this.infoPath;
+		
+	}
+	
 	/**
 	 * Asetetaan testiarvoiksi odysseian tiedot
 	 */
 	public void setOdysseia() {
+		setKirjaId();
 		this.isbn = "9789511318866";
 		this.kirjailija = "Homeros; Saarikoski, Pentti";
 		this.kirjanNimi = "Odysseia" + " " + getRnd();
@@ -102,6 +118,8 @@ public class Kirja {
 	public int getKirjaId() {
 		return this.kirjaId;
 	}
+	
+
 	
 	public String getKirjanNimi() {
 		return this.kirjanNimi;
@@ -128,6 +146,15 @@ public class Kirja {
 	 */
 	public String getIsbn() {
 		return this.isbn;
+	}
+	
+	/**
+	 * Asettaa kirja-idn ja varmistaa että
+	 * tulevat id ovat suurempia
+	 */
+	private void setKirjaId(int id) {
+		this.kirjaId = id;
+		if (this.kirjaId >= seuraavaId) seuraavaId = id + 1;
 	}
 	
 	/**

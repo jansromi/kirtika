@@ -11,6 +11,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -24,6 +25,11 @@
         <menus>
           <Menu mnemonicParsing="false" text="Tiedosto">
             <items>
+                  <MenuItem fx:id="handleTallenna" mnemonicParsing="false" onAction="#tallenna" text="Tallenna">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
                   <MenuItem fx:id="showLoanHistory" mnemonicParsing="false" onAction="#handleShowLoanHistory" text="Näytä lainahistoria" />
               <MenuItem mnemonicParsing="false" text="Sulje ohjelma" />
             </items>
@@ -31,7 +37,10 @@
           <Menu mnemonicParsing="false" text="Muokkaa">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#handleShowAddBookForm" text="Lisää kirja" />
-                  <MenuItem mnemonicParsing="false" onAction="#deleteBook" text="Poista kirja" />
+                  <MenuItem fx:id="handleDeleteBook" mnemonicParsing="false" onAction="#deleteBook" text="Poista kirja">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="DELETE" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Tietoja">

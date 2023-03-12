@@ -32,6 +32,21 @@ public class Kirtika {
 		}
 	}
 	
+	public void tallenna() {
+		try {
+			kirjat.tallenna();
+		} catch (SailoException e) {
+			System.err.println("Ei voitu tallentaa: " + e.getMessage());
+		}
+	}
+	
+	/**
+	 * Poistaa kirjan rekisteristä
+	 */
+	public void poista(Kirja kirja) {
+		kirjat.poista(kirja);
+	}
+	
 	/**
 	 * @return kirjojen määrä rekisterissä
 	 */
@@ -48,6 +63,7 @@ public class Kirtika {
 		kirjat.lisaa(kirja);
 	}
 	
+	
 	public String kirjatName() {
 		return kirjat.getFileName();
 	}
@@ -61,9 +77,6 @@ public class Kirtika {
 	public Kirja annaKirja(int i) throws IndexOutOfBoundsException{
 		return kirjat.anna(i);
 	}
-	
-	
-	
 	
 	/**
 	 * 

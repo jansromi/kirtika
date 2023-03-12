@@ -44,7 +44,8 @@ public class LainattuKirja {
 	 */
 	public LainattuKirja(String line) {
 		StringBuilder sb = new StringBuilder(line);
-		this.lainaId = Integer.parseInt(Mjonot.erota(sb, '|'));
+		// TODO: korjaa
+		this.setLainaId(Integer.parseInt(Mjonot.erota(sb, '|')));
 		this.lainattuKirjaId = Integer.parseInt(Mjonot.erota(sb, '|'));
 		this.lainaajanNimi = new SimpleStringProperty(Mjonot.erota(sb, '|'));
 		this.lainaPvm = asetaAika(Mjonot.erota(sb, '|'));
@@ -59,11 +60,20 @@ public class LainattuKirja {
 		this.lainaId = seuraavaLainaId;
 		seuraavaLainaId++;
 	}
+	
+	private void setLainaId(int id) {
+		this.lainattuKirjaId = id;
+		if (this.lainattuKirjaId >= seuraavaLainaId) seuraavaLainaId = id + 1;
+	}
 
 	public void setLainatutKirjanNimi(String kirjanNimi) {
 		this.kirjanNimi = new SimpleStringProperty(kirjanNimi);
 	}
 	
+	/**
+	 * Gettereitä tarvitaan taulukkoa varten
+	 * @return
+	 */
 	public LocalDate getLainaPvm() {
 		return lainaPvm;
 	}

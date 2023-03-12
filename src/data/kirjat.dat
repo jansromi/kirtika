@@ -1,4 +1,4 @@
-kirja_id    |   isbn          |   kirjailija                  |   kirjan_nimi                | kirjan_kieli   |   julkaisija                   | julkaisuvuosi  | Luokitus    | lainassa | luettu | info_path
+kirja_id|isbn|kirjailija|kirjan_nimi|kirjan_kieli|julkaisija|julkaisuvuosi|luokitus|lainassa|luettu|info_path
 1|9789511318866|Homeros; Saarikoski, Pentti|Odysseia|suomi|Kustannusosakeyhtiö Otava|2017|81.4|true|true|...\kirtika\text\1_info.txt
 2|9789524831420|Thompson, Hunter S.|Pelon valtakunta|suomi|Sammakko|2010|86.53|false|false|...\kirtika\text\2_info.txt
 3|9789510340158|Waltari, Mika|Surun ja ilon kaupunki|suomi|WSOY|2008|84.2|false|true|...\kirtika\text\3_info.txt

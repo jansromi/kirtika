@@ -68,7 +68,7 @@ public class KirtikaAddBookController implements Initializable{
 		
 		try {
 			kirtika.lisaa(uusi);
-			//hae(uusi.getKirjaId());
+			//kirtika.tallenna()
 		} catch (SailoException e) {
 			Dialogs.showMessageDialog("Ongelmia kirjan lisäämisessä " + e.getMessage());
 		}

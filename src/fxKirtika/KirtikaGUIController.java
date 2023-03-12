@@ -54,6 +54,12 @@ public class KirtikaGUIController implements Initializable {
     private MenuItem showLoanHistory;
     
     @FXML
+    private MenuItem handleTallenna;
+    
+    @FXML
+    private MenuItem handleDeleteBook;
+    
+    @FXML
     private ListChooser<Kirja> chooserKirjat;
     
     
@@ -62,7 +68,15 @@ public class KirtikaGUIController implements Initializable {
 		init();
 		
 	}
-
+	
+	/**
+	 * Menu-valikon tallenna
+	 * @param event
+	 */
+    @FXML
+    void tallenna(ActionEvent event) {
+    	kirtika.tallenna();
+    }
 	
 	/**
 	 * Kirjalistauksen virkistys. 
@@ -137,7 +151,9 @@ public class KirtikaGUIController implements Initializable {
     @FXML
     void deleteBook(ActionEvent event) {
     	if(Dialogs.showQuestionDialog("Poista kirja", "Haluatko varmasti poistaa kirjan?", "Kyllä", "Ei")) {
-    		Dialogs.showMessageDialog("Ei osata poistaa tietoja");
+    		Kirja kirja = chooserKirjat.getSelectedObject();
+    		kirtika.poista(kirja);
+    		updateChooserKirjat();
     	}
 
     }

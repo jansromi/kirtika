@@ -2,6 +2,8 @@ package kirtika;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.Scanner;
 
 import kirtika.SailoException.TaulukkoTaysiException;
@@ -25,6 +27,8 @@ public class Kirjat {
 		} catch (FileNotFoundException e) {
 			System.err.println("Tiedostoa kirjat.dat ei löytynyt");
 			// TODO: uusi tiedosto
+			
+			
 		}
 	}
 	
@@ -51,6 +55,7 @@ public class Kirjat {
 			   alkiot[i-1] = new Kirja(line);
 			   i++;
 			   lkm++;
+
 			}
 		scan.close();
 	}
@@ -68,10 +73,7 @@ public class Kirjat {
 		}
 		this.alkiot = uudetAlkiot;
 	}
-	
-	
-	
-	
+		
 	/**
 	 * Palauttaa tiedostonimen
 	 * @return tiedoston nimi
@@ -87,6 +89,47 @@ public class Kirjat {
 	 */
 	public int getLkm() {
 		return this.lkm;
+	}
+	
+	/**
+	 * Poistaa kirjan alkioista.
+	 * Siirtää poistetun kirjan jälkeisiä alkioita 
+	 * yhden indeksin taaksepäin
+	 * @param kirja
+	 */
+	public void poista(Kirja kirja) {
+		for (int i = 0; i < this.getLkm(); i++) {
+			if (this.anna(i).oletkoTamaId(kirja.getKirjaId())) {
+				int j = i;
+				while (j < this.getLkm() - 1) {
+					alkiot[j] = alkiot[j + 1];
+					j++;
+				}
+				alkiot[j] = null;
+				lkm--;
+			}
+		}
+	}
+	
+	/**
+	 * Tallentaa kirjat tiedostoon
+	 * @throws SailoException  jos tallennus epäonnistuu
+	 */
+	public void tallenna() throws SailoException {
+		File ftied = new File("C:/kurssit/ohj2/kirtika/src/data/" + tiedostonNimi);
+		try (PrintStream fo = new PrintStream(new FileOutputStream(ftied, false))) {
+			for (int i = 0; i <= this.getLkm(); i++) {
+				// TODO: toinen ratkaisu? Näyttää tyhmältä
+				if (i == 0) {
+					fo.println("kirja_id|isbn|kirjailija|kirjan_nimi|kirjan_kieli|julkaisija|julkaisuvuosi|luokitus|lainassa|luettu|info_path");
+					continue;
+				}
+				Kirja kirja = this.anna(i - 1);
+				fo.println(kirja.toString());
+			}
+		} catch (FileNotFoundException e) {
+			throw new SailoException("tiedosto: " + ftied.getAbsolutePath() + " ei aukea");
+		}
 	}
 	
 	/**
@@ -108,6 +151,7 @@ public class Kirjat {
 		if (lkm >= maxKirjat) uusiTaulukko();
 		alkiot[lkm] = kirja;
 		lkm++;
+		
 	}
 	
 	/**
@@ -119,7 +163,6 @@ public class Kirjat {
 	 */
 	public Kirja anna(int i) throws IndexOutOfBoundsException{
 		if (i < 0 || lkm <= i) throw new IndexOutOfBoundsException("Laiton indeksi: " + i);
-		
 		return alkiot[i];
 	}
 	
@@ -144,6 +187,22 @@ public class Kirjat {
 	 */
 	public String[] annaKirjanTiedot(int i) {
 		return alkiot[i].annaKirjanTiedot();
+	}
+	
+	public static void main(String[] args) {
+		Kirjat kirjat = new Kirjat();
+		Kirja kir = kirjat.anna(1);
+		
+		System.out.println(kir.toString());
+		Kirja kir2 = new Kirja();
+		kir2.setOdysseia();
+		kirjat.lisaa(kir2);
+		try {
+			kirjat.tallenna();
+		} catch (SailoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }
