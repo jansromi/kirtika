@@ -3,13 +3,23 @@ package kirtika;
 /**
  * Kirtika-luokka joka sisältää välittäjämetodeja
  * @author Jansromi
- * @version 0.1, 19.2.2023
+ * @version 0.6, 12.3.2023
+ * 
+ * TODO: Mietitään, miten saadaan throwaukset järkevästi, että niille voidaan tehdä
+ * jotain käyttöliittymästä
+ * TODO: annaKirja-metodi käyttämään kirja-objektia listausindeksin sijaan. Listausindeksi ei välttämätt
+ * ole sama kuin kirja-id
+ * 
+ * 
  */
 public class Kirtika {
 	private final Kirjat kirjat;
 	private final Genret genret;
 	private final Lainatut lainatut;
 	
+	/**
+	 * Oletusmuodostaja
+	 */
 	public Kirtika() {
 		this.kirjat = new Kirjat();
 		this.genret = new Genret();
@@ -32,6 +42,11 @@ public class Kirtika {
 		}
 	}
 	
+	/**
+	 * Välittäjämetodi tallennukseen.
+	 * 
+	 * TODO: Pitäisikö exception throwata, jotta se voidaan näyttää käyttöliittymässä?
+	 */
 	public void tallenna() {
 		try {
 			kirjat.tallenna();
@@ -41,7 +56,7 @@ public class Kirtika {
 	}
 	
 	/**
-	 * Poistaa kirjan rekisteristä
+	 * Välittäjämetodi kirjan poistoon
 	 */
 	public void poista(Kirja kirja) {
 		kirjat.poista(kirja);
@@ -63,23 +78,29 @@ public class Kirtika {
 		kirjat.lisaa(kirja);
 	}
 	
-	
+	/**
+	 * Palauttaa kirjojen tallennuspaikan tiedostonimen.
+	 * 
+	 * TODO: Tarvitaanko?
+	 * @return
+	 */
 	public String kirjatName() {
 		return kirjat.getFileName();
 	}
 	
 	/**
-	 * 
+	 * Välittäjämetodi joka palauttaa tällä idllä kirjan.
 	 * @param i indeksi
 	 * @return indeksin kirja
 	 * @throws IndexOutOfBoundsException
+	 * 
+	 * TODO: Vaihdetaan parametri kirja-objektiksi
 	 */
 	public Kirja annaKirja(int i) throws IndexOutOfBoundsException{
 		return kirjat.anna(i);
 	}
 	
 	/**
-	 * 
 	 * @param i
 	 * @return viite lainattuun kirjaan
 	 */
@@ -87,6 +108,10 @@ public class Kirtika {
 		return lainatut.annaLainattuKirja(i);
 	}
 	
+	/**
+	 * Palauttaa lainattujen kirjojen lukumäärän
+	 * @return
+	 */
 	public int getLainatutLkm() {
 		return lainatut.getLainatutLkm();
 	}
@@ -113,8 +138,6 @@ public class Kirtika {
 		ody2.setOdysseia();
 		Kirja ody3 = new Kirja();
 		ody3.setOdysseia();
-		
-		System.out.println(kirtika.kirjat.getFileName());
 		try {
 			kirtika.lisaa(ody);
 			kirtika.lisaa(ody2);

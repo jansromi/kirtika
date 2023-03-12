@@ -6,13 +6,10 @@ import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-import kirtika.SailoException.TaulukkoTaysiException;
 
 /**
  * 
  * @author Jansromi
- * TODO:
- *		- Parseri tiedostonlukua varten.
  *
  */
 public class Kirjat {
@@ -27,8 +24,6 @@ public class Kirjat {
 		} catch (FileNotFoundException e) {
 			System.err.println("Tiedostoa kirjat.dat ei löytynyt");
 			// TODO: uusi tiedosto
-			
-			
 		}
 	}
 	
@@ -72,23 +67,6 @@ public class Kirjat {
 			uudetAlkiot[i] = alkiot[i];
 		}
 		this.alkiot = uudetAlkiot;
-	}
-		
-	/**
-	 * Palauttaa tiedostonimen
-	 * @return tiedoston nimi
-	 */
-	public String getFileName() {
-		return this.tiedostonNimi;
-	}
-	
-	
-	/**
-	 * 
-	 * @return Kirjojen lukumäärä
-	 */
-	public int getLkm() {
-		return this.lkm;
 	}
 	
 	/**
@@ -154,6 +132,19 @@ public class Kirjat {
 		
 	}
 	
+
+	//
+	// =========== Gettereitä ==========
+	//
+	
+	/**
+	 * Palauttaa tiedostonimen
+	 * @return tiedoston nimi
+	 */
+	public String getFileName() {
+		return this.tiedostonNimi;
+	}
+	
 	/**
 	 * Palauttaa viitteen kirjaolioon
 	 * @param i
@@ -189,20 +180,13 @@ public class Kirjat {
 		return alkiot[i].annaKirjanTiedot();
 	}
 	
-	public static void main(String[] args) {
-		Kirjat kirjat = new Kirjat();
-		Kirja kir = kirjat.anna(1);
-		
-		System.out.println(kir.toString());
-		Kirja kir2 = new Kirja();
-		kir2.setOdysseia();
-		kirjat.lisaa(kir2);
-		try {
-			kirjat.tallenna();
-		} catch (SailoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	/**
+	 * 
+	 * @return Kirjojen lukumäärä
+	 */
+	public int getLkm() {
+		return this.lkm;
 	}
+	
 	
 }

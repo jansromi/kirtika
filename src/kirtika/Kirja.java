@@ -28,33 +28,9 @@ public class Kirja {
 	private static int seuraavaId = 1;
 	
 	/**
-	 * Testikonstruktiori
-	 * @param kirjaId
-	 * @param isbn
-	 * @param kirjailija
-	 * @param kirjanNimi
-	 * @param kirjanKieli
-	 * @param julkaisija
-	 * @param julkaisuvuosi
-	 * @param luokitus
-	 * @param luettu
-	 * @param infoPath
+	 * Parse-konstruktori
+	 * @param line
 	 */
-	public Kirja(int kirjaId, String isbn, String kirjailija, String kirjanNimi, String kirjanKieli, String julkaisija,
-			int julkaisuvuosi, String luokitus, boolean luettu, String infoPath) {
-		
-		this.kirjaId = kirjaId;
-		this.isbn = isbn;
-		this.kirjailija = kirjailija;
-		this.kirjanNimi = kirjanNimi;
-		this.kirjanKieli = kirjanKieli;
-		this.julkaisija = julkaisija;
-		this.julkaisuvuosi = julkaisuvuosi;
-		this.luokitus = luokitus;
-		this.luettu = luettu;
-		this.infoPath = infoPath;
-	}
-	
 	public Kirja(String line) {
 		StringBuilder sb = new StringBuilder(line);
 		this.setKirjaId(Integer.parseInt(Mjonot.erota(sb, '|')));
@@ -70,16 +46,17 @@ public class Kirja {
 		this.infoPath = Mjonot.erota(sb, '|');
 	}
 	
-	private int getRnd() {
-		Random rnd = new Random();
-		return rnd.nextInt(99);
-	}
-	
+
+	/**
+	 * Vakio-konstruktori
+	 */
 	public Kirja() {
 		
 	}
 	
-	
+	/**
+	 * Override toString-metodiin
+	 */
 	public String toString() {
 		return this.kirjaId + "|" +
 				this.isbn + "|" +
@@ -113,14 +90,16 @@ public class Kirja {
 	
 	/**
 	 * @return Kirja-Id
-	 
 	 */
 	public int getKirjaId() {
 		return this.kirjaId;
 	}
 	
 
-	
+	/**
+	 * Palauttaa kirjan nimen
+	 * @return
+	 */
 	public String getKirjanNimi() {
 		return this.kirjanNimi;
 	}
@@ -135,7 +114,7 @@ public class Kirja {
 	}
 	
 	/**
-	 * 
+	 * Palauttaa kirjan isbn-numeron
 	 * @return Isbn string
 	 * @example
 	 * <pre name="test">
@@ -191,7 +170,7 @@ public class Kirja {
 	}
 	
 	/**
-	 * 
+	 * Tulostetaan kirjan tiedot
 	 * @param os
 	 */
 	public void printBook(OutputStream os) {
@@ -213,4 +192,12 @@ public class Kirja {
 		return s;
 	}
 	
+	/**
+	 * Testimetodi satunnaisten lukujen luontiin
+	 * @return
+	 */
+	private int getRnd() {
+		Random rnd = new Random();
+		return rnd.nextInt(99);
+	}
 }
