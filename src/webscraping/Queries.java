@@ -92,20 +92,13 @@ public class Queries {
 	        String result = response.body();
 	        return result;
 	    } catch (MalformedURLException e) {
-	        //MalformedURLException = huono url
-	        e.printStackTrace();
+	    	System.err.println("Huono url" + e.getLocalizedMessage());
 	    } catch (IOException e) {
-	        // print the stack trace if an IOException occurs
-	        e.printStackTrace();
+	    	System.err.println("IO-toiminnan häiriö" + e.getLocalizedMessage());
 	    } catch (InterruptedException e) {
-	        // Pyyntö kestää liian kauan
-	        e.printStackTrace();
-	    } catch (Exception e) {
-	        // print the stack trace if any other type of exception occurs
+	    	System.err.println("Pyyntö kestää liian kauan" + e.getLocalizedMessage());
 	        e.printStackTrace();
 	    }
-
-	    // return null if an error occurred
 	    return null;
 	}
 	

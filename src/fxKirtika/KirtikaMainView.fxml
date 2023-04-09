@@ -97,8 +97,7 @@
                   <TextField fx:id="fieldJulkaisija" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <TextField fx:id="fieldLuokitus" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <TextField fx:id="fieldIsbn" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <CheckBox mnemonicParsing="false" text="Lainassa?" GridPane.rowIndex="7" />
-                  <CheckBox mnemonicParsing="false" text="Luettu?" GridPane.rowIndex="8" />
+                  <CheckBox fx:id="checkLainassa" mnemonicParsing="false" onAction="#handleSetLoan" text="Lainassa?" GridPane.rowIndex="7" />
                   <TextField fx:id="fieldKenelleLainattu" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="136.0" promptText="Kenelle lainattu" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <DatePicker fx:id="fieldLainauspvm" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="102.0" promptText="Lainauspvm." GridPane.columnIndex="1" GridPane.rowIndex="7">
                      <GridPane.margin>

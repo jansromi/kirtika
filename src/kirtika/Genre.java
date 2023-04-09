@@ -8,11 +8,6 @@ public class Genre {
 	// Sama kuin ykl luokitus
 	private String genreId;
 	
-	public Genre() {
-		this.genreDesc = "";
-		this.genreId = "";
-	}
-	
 	/**
 	 * Alustetaan esim. tiedostosta.
 	 * @param s Tolpilla eroteltu merkkijono

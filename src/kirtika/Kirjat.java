@@ -28,9 +28,10 @@ public class Kirjat {
 	}
 	
 	/**
-	 * Alustetaan kirjat tiedostosta
-	 * @throws FileNotFoundException jos genret.dat ei löydy
-	 */
+	 * Initialize the collection from a file.
+	 * 
+	 * @throws FileNotFoundException if the file cannot be found.
+	 * */
 	private void alustaKirjat() throws FileNotFoundException {
 		File f = new File("C:/kurssit/ohj2/kirtika/src/data/" + tiedostonNimi);
 		Scanner scan = new Scanner(f);
@@ -39,15 +40,9 @@ public class Kirjat {
 		
 		while (scan.hasNextLine()) {
 			   String line = scan.nextLine();
-			   
-			   // Skipataan eka rivi
-			   if (i == 0) {
-				   i++;
-				   continue;
-			   }
-			   // Jos alkiot täynnä, luodaan uusi taulukko
-			   if (lkm == maxKirjat) uusiTaulukko();
-			   alkiot[i-1] = new Kirja(line);
+			   // If the array is full, create a new array.
+			   if (lkm == maxKirjat) resizeArray();
+			   alkiot[i] = new Kirja(line);
 			   i++;
 			   lkm++;
 
@@ -56,11 +51,13 @@ public class Kirjat {
 	}
 	
 	/**
-	 * Jos vanha alkiot-taulukko täyttyy,
-	 * tehdään uusi taulukko joka on 2 kertaa suurempi kuin vanha.
-	 * Siirretään viitteet uuteen taulukkoon.
-	 */
-	public void uusiTaulukko() {
+	 * If the old alkiot array is full,
+	 * create a new array that is twice as large as the old one.
+	 * Copy the references to the new array.
+	 * 
+	 * TODO: write tests for this method
+	 * */
+	public void resizeArray() {
 		maxKirjat = maxKirjat * 2;
 		Kirja[] uudetAlkiot = new Kirja[maxKirjat];
 		for (int i = 0; i < alkiot.length; i++) {
@@ -90,18 +87,13 @@ public class Kirjat {
 	}
 	
 	/**
-	 * Tallentaa kirjat tiedostoon
-	 * @throws SailoException  jos tallennus epäonnistuu
+	 * Saves the books to a file
+	 * @throws SailoException  if saving fails
 	 */
 	public void tallenna() throws SailoException {
 		File ftied = new File("C:/kurssit/ohj2/kirtika/src/data/" + tiedostonNimi);
 		try (PrintStream fo = new PrintStream(new FileOutputStream(ftied, false))) {
-			for (int i = 0; i <= this.getLkm(); i++) {
-				// TODO: toinen ratkaisu? Näyttää tyhmältä
-				if (i == 0) {
-					fo.println("kirja_id|isbn|kirjailija|kirjan_nimi|kirjan_kieli|julkaisija|julkaisuvuosi|luokitus|lainassa|luettu|info_path");
-					continue;
-				}
+			for (int i = 1; i <= this.getLkm(); i++) {
 				Kirja kirja = this.anna(i - 1);
 				fo.println(kirja.toString());
 			}
@@ -111,11 +103,11 @@ public class Kirjat {
 	}
 	
 	/**
-	 * Kirjan lisäys rekisteriin.
-	 * Kasvatetaan lkm-yhdellä
-	 * @param kirja lisättävä kirja
+	 * Adds a book to the registry.
+	 * Increases lkm by one.
+	 * @param kirja (book) to be added
 	 * 
-	 * TODO: Poikkeuskäsittely
+	 * TODO: Exception handling
 	 * @example
 	 * <pre name="test">
 	 * Kirjat kirjat = new Kirjat();
@@ -126,7 +118,7 @@ public class Kirjat {
 	 * </pre>
 	 */
 	public void lisaa(Kirja kirja){
-		if (lkm >= maxKirjat) uusiTaulukko();
+		if (lkm >= maxKirjat) resizeArray();
 		alkiot[lkm] = kirja;
 		lkm++;
 		
@@ -134,23 +126,22 @@ public class Kirjat {
 	
 
 	//
-	// =========== Gettereitä ==========
+	// =========== Getters ==========
 	//
 	
 	/**
-	 * Palauttaa tiedostonimen
-	 * @return tiedoston nimi
+	 * Returns the file name
+	 * @return file name
 	 */
 	public String getFileName() {
 		return this.tiedostonNimi;
 	}
 	
 	/**
-	 * Palauttaa viitteen kirjaolioon
+	 * Returns a reference to a book object
 	 * @param i
-	 * @return viite kirjaolioon, jolla on index i
+	 * @return reference to the book object with index i
 	 * @throws IndexOutOfBoundsException
-	 * 
 	 */
 	public Kirja anna(int i) throws IndexOutOfBoundsException{
 		if (i < 0 || lkm <= i) throw new IndexOutOfBoundsException("Laiton indeksi: " + i);
@@ -158,21 +149,20 @@ public class Kirjat {
 	}
 	
 	/**
-	 * 
-	 * @param kId kirja-id
-	 * @return kirja-idllä löytyvän kirjan nimi.
-	 * 		   "" jos ei löytynyt
+	 * @param bId book ID
+	 * @return the name of the book found with the book ID.
+	 * 		   null if not found
 	 */
-	public String annaKirjanNimi(int kId) {
+	public String annaKirjanNimi(int bId) {
 		for (Kirja kirja : alkiot) {
-			if (kirja.oletkoTamaId(kId)) return kirja.getKirjanNimi();
+			if (kirja.oletkoTamaId(bId)) return kirja.getKirjanNimi();
 		}
-		return "";
+		return null;
 	}
 	
 	
 	/**
-	 * Palauttaa kirjan kenttätiedot taulukossa
+	 * Returns the book's field information as an array
 	 * @param i
 	 * @return
 	 */
@@ -181,8 +171,7 @@ public class Kirjat {
 	}
 	
 	/**
-	 * 
-	 * @return Kirjojen lukumäärä
+	 * @return Amount of books
 	 */
 	public int getLkm() {
 		return this.lkm;

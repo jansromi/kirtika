@@ -125,8 +125,6 @@ public class FinnaParser {
 		return keysList;
 	}
 	
-
-	
 	/**
 	 * Palauttaa listan alkiot
 	 * @param list 
@@ -139,10 +137,4 @@ public class FinnaParser {
 		}
 		return result;
 	}
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

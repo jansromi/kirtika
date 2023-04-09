@@ -40,6 +40,8 @@ public class KirtikaGUIController implements Initializable {
     
     @FXML
     private CheckBox checkMuokkaustila;
+    @FXML
+    private CheckBox checkLainassa;
     
     @FXML
     private DatePicker fieldLainauspvm;
@@ -70,7 +72,7 @@ public class KirtikaGUIController implements Initializable {
 	}
 	
 	/**
-	 * Menu-valikon tallenna
+	 * Save function in the menu.
 	 * @param event
 	 */
     @FXML
@@ -79,8 +81,8 @@ public class KirtikaGUIController implements Initializable {
     }
 	
 	/**
-	 * Kirjalistauksen virkistys. 
-	 * Public jotta voidaan kutsua muista kontrollereista.
+	 * Refreshes the book listing. 
+	 * Public so that it can be called from other controllers.
 	 */
 	@FXML
 	public void updateChooserKirjat() {
@@ -92,8 +94,13 @@ public class KirtikaGUIController implements Initializable {
 		}
 	}
 	
+    @FXML
+    void handleSetLoan(ActionEvent event) {
+    	System.out.println("hello");
+    }
+	
     /**
-     * Kun kirjalistauksesta painetaan kirja.
+     * When a book is clicked from the book listing.
      */
     @FXML
     void listChooserCliked() {
@@ -197,9 +204,6 @@ public class KirtikaGUIController implements Initializable {
 		popUpStage.showAndWait();
 		
 		updateChooserKirjat();
-		
-		
-		
     }
 	
 	/**

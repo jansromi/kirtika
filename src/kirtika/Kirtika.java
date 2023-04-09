@@ -7,8 +7,6 @@ package kirtika;
  * 
  * TODO: Mietitään, miten saadaan throwaukset järkevästi, että niille voidaan tehdä
  * jotain käyttöliittymästä
- * TODO: annaKirja-metodi käyttämään kirja-objektia listausindeksin sijaan. Listausindeksi ei välttämätt
- * ole sama kuin kirja-id
  * 
  * 
  */

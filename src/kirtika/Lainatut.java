@@ -11,7 +11,7 @@ public class Lainatut {
 	private ArrayList<LainattuKirja> alkiot = new ArrayList<>();
 	
 	/**
-	 * Vakiokonstruktori
+	 * Default constructor
 	 */
 	public Lainatut() {
 		try {
@@ -26,8 +26,8 @@ public class Lainatut {
 	}
 	
 	/**
-	 * Alustaa lainat tiedostosta
-	 * @throws FileNotFoundException Jos tiedostoa ei saada auki
+	 * Initializes loans from file
+	 * @throws FileNotFoundException if file cannot be opened
 	 */
 	private void alusta() throws FileNotFoundException {
 		File f = new File("C:/kurssit/ohj2/kirtika/src/data/" + tiedostonNimi);
@@ -35,15 +35,14 @@ public class Lainatut {
 		
 		while (scan.hasNextLine()) {
 			   String line = scan.nextLine();
-			   if (line.equals("laina_id|kirja_id|laina_hlo|laina_alkupvm (YY-MM-DD) |laina_loppupvm")) continue;
 			   alkiot.add(new LainattuKirja(line));
 			}
 		scan.close();
 	}
 	
 	/**
-	 * Palauttaa viitteen LainattuKirja-olioon
-	 * @param i monesko kirja listassa
+	 * Returns a reference to the LainattuKirja object
+	 * @param i the index of the book in the list
 	 * @return
 	 */
 	public LainattuKirja annaLainattuKirja(int i) {
@@ -51,20 +50,20 @@ public class Lainatut {
 	}
 	
 	/**
-	 * @return Lainausten määrä
+	 * @return The number of loans
 	 */
 	public int getLainatutLkm() {
 		return alkiot.size();
 	}
 	
 	/**
-	 * Asettaa lainatun kirjan nimin
-	 * @param lkId lainatun kirjan id. HUOM! Sama kuin kirja-id
-	 * @param s Asetettava nimi
+	 * Sets the name of the borrowed book
+	 * @param lbId the id of the borrowed book. NOTE: Same as book-id
+	 * @param s The name to set
 	 */
-	public void setLainatunKirjanNimi(int lkId, String s) {
+	public void setLainatunKirjanNimi(int lbId, String s) {
 		for (LainattuKirja lainattuKirja : alkiot) {
-			if (lainattuKirja.oletkoTamaKirja(lkId)) lainattuKirja.setLainatutKirjanNimi(s);
+			if (lainattuKirja.oletkoTamaKirja(lbId)) lainattuKirja.setLainatutKirjanNimi(s);
 		}
 	}
 
