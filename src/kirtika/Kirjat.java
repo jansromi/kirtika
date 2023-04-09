@@ -93,8 +93,8 @@ public class Kirjat {
 	public void tallenna() throws SailoException {
 		File ftied = new File("C:/kurssit/ohj2/kirtika/src/data/" + tiedostonNimi);
 		try (PrintStream fo = new PrintStream(new FileOutputStream(ftied, false))) {
-			for (int i = 1; i <= this.getLkm(); i++) {
-				Kirja kirja = this.anna(i - 1);
+			for (int i = 0; i < this.getLkm(); i++) {
+				Kirja kirja = this.anna(i);
 				fo.println(kirja.toString());
 			}
 		} catch (FileNotFoundException e) {
@@ -124,10 +124,25 @@ public class Kirjat {
 		
 	}
 	
+	
 
 	//
-	// =========== Getters ==========
+	// =========== Getters / Setters ==========
 	//
+	
+	/**
+	 * Sets the value for lainassa.
+	 * @param bId Book id
+	 * @param b Boolean
+	 */
+	public void setLainattu(int bId, boolean b) {
+		for (Kirja kirja : alkiot) {
+			if (kirja.oletkoTamaId(bId)) {
+				kirja.setLainassa(b);
+				return;
+			}
+		}
+	}
 	
 	/**
 	 * Returns the file name
@@ -166,9 +181,20 @@ public class Kirjat {
 	 * @param i
 	 * @return
 	 */
-	public String[] annaKirjanTiedot(int i) {
-		return alkiot[i].annaKirjanTiedot();
+	public String[] annaKirjanTiedot(int bId) {
+		for (Kirja kirja : alkiot) {
+			if (kirja.oletkoTamaId(bId)) return kirja.annaKirjanTiedot();
+		}
+		return null;
 	}
+	
+	public boolean getLainattu(int bId) {
+		for (Kirja kirja : alkiot) {
+			if (kirja.oletkoTamaId(bId)) return kirja.getLainattu();
+		}
+		return false;
+	}
+	
 	
 	/**
 	 * @return Amount of books

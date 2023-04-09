@@ -12,6 +12,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -70,7 +71,7 @@
    <center>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <GridPane prefHeight="404.0" prefWidth="356.0">
+            <GridPane prefHeight="404.0" prefWidth="410.0">
                <columnConstraints>
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="545.0" minWidth="10.0" prefWidth="125.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="740.0" minWidth="10.0" prefWidth="228.0" />
@@ -83,8 +84,8 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="49.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
                   <Label alignment="TOP_CENTER" prefHeight="17.0" prefWidth="44.0" text="Kirjailija" GridPane.rowIndex="1" />
@@ -98,14 +99,15 @@
                   <TextField fx:id="fieldLuokitus" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <TextField fx:id="fieldIsbn" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <CheckBox fx:id="checkLainassa" mnemonicParsing="false" onAction="#handleSetLoan" text="Lainassa?" GridPane.rowIndex="7" />
-                  <TextField fx:id="fieldKenelleLainattu" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="136.0" promptText="Kenelle lainattu" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                  <DatePicker fx:id="fieldLainauspvm" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="102.0" promptText="Lainauspvm." GridPane.columnIndex="1" GridPane.rowIndex="7">
-                     <GridPane.margin>
-                        <Insets left="152.0" />
-                     </GridPane.margin>
-                  </DatePicker>
                   <Label text="Julkaisuvuosi" GridPane.rowIndex="4" />
                   <TextField fx:id="fieldJulkaisuvuosi" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                     <children>
+                        <TextField fx:id="fieldLainaaja" layoutY="19.0" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" onAction="#handleSetLoan" prefHeight="25.0" prefWidth="136.0" promptText="Kenelle lainattu" />
+                        <DatePicker fx:id="fieldLainauspvm" editable="false" layoutX="144.0" layoutY="2.0" maxWidth="-Infinity" minWidth="-Infinity" onAction="#handleSetLoanDate" prefHeight="25.0" prefWidth="111.0" promptText="Lainattu" />
+                        <DatePicker fx:id="fieldPalautuspvm" editable="false" layoutX="144.0" layoutY="32.0" maxWidth="-Infinity" minWidth="-Infinity" onAction="#handleSetReturnDate" prefHeight="25.0" prefWidth="111.0" promptText="Palautus" />
+                     </children>
+                  </AnchorPane>
                </children>
                <VBox.margin>
                   <Insets top="6.0" />

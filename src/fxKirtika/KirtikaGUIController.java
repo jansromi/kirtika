@@ -2,16 +2,22 @@ package fxKirtika;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ListChooser;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuBar;
@@ -21,6 +27,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import kirtika.Kirja;
 import kirtika.Kirtika;
+import kirtika.SailoException;
 
 
 /**
@@ -35,7 +42,7 @@ public class KirtikaGUIController implements Initializable {
 	
     @FXML
     private TextField fieldIsbn, fieldJulkaisija, fieldJulkaisuvuosi, 
-    fieldKenelleLainattu, fieldKieli, fieldKirjailija, fieldLuokitus;
+    fieldLainaaja, fieldKieli, fieldKirjailija, fieldLuokitus;
     private ArrayList<TextField> tietokentat = new ArrayList<>();
     
     @FXML
@@ -44,7 +51,7 @@ public class KirtikaGUIController implements Initializable {
     private CheckBox checkLainassa;
     
     @FXML
-    private DatePicker fieldLainauspvm;
+    private DatePicker fieldLainauspvm, fieldPalautuspvm;
 	
     @FXML
     private MenuBar myMenuBar;
@@ -68,7 +75,6 @@ public class KirtikaGUIController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		init();
-		
 	}
 	
 	/**
@@ -77,9 +83,44 @@ public class KirtikaGUIController implements Initializable {
 	 */
     @FXML
     void tallenna(ActionEvent event) {
-    	kirtika.tallenna();
+    	try {
+			kirtika.tallenna();
+		} catch (SailoException e) {
+			
+		}
     }
 	
+    /**
+     * Sets the date, when loan was given
+     */
+    @FXML
+    void handleSetLoanDate() {
+    	Kirja kirja = chooserKirjat.getSelectedObject();
+    	if (kirtika.getActiveLoan(kirja.getKirjaId()) != null) {
+    		kirtika.setLoanDate(kirja.getKirjaId(), fieldLainauspvm.getValue());
+        	Dialogs.showMessageDialog("Lainauspäiväksi asetettu " + fieldLainauspvm.getValue().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
+    	}
+    }
+    
+
+
+	/**
+     * Sets the date of (desired) return
+     * 
+     * TODO: If return date is set to be earlier than loan date.
+     */
+    @FXML
+    void handleSetReturnDate() {
+    	Kirja kirja = chooserKirjat.getSelectedObject();
+    	if (kirtika.getActiveLoan(kirja.getKirjaId()) != null) {
+    		kirtika.setReturnDate(kirja.getKirjaId(), fieldPalautuspvm.getValue());
+    		Dialogs.showMessageDialog("Palautuspäiväksi asetettu " + fieldPalautuspvm.getValue().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
+    	}
+    }
+    
+    
+
+
 	/**
 	 * Refreshes the book listing. 
 	 * Public so that it can be called from other controllers.
@@ -87,7 +128,6 @@ public class KirtikaGUIController implements Initializable {
 	@FXML
 	public void updateChooserKirjat() {
 		chooserKirjat.clear();
-	
 		for (int i = 0; i < kirtika.getKirjat(); i++) {
 			Kirja kirja = kirtika.annaKirja(i);
 			chooserKirjat.add(kirja.getKirjanNimi(), kirja);
@@ -100,16 +140,18 @@ public class KirtikaGUIController implements Initializable {
 	 */
     @FXML
     void handleSetLoan(ActionEvent event) {
-    	Kirja kirja = chooserKirjat.getSelectedObject();
+    	setLoan();
     }
 	
-    /**
+
+
+	/**
      * When a book is clicked from the book listing.
      */
     @FXML
     void listChooserCliked() {
     	if (chooserKirjat.getSelectedIndex() == -1) return;
-    	setBookText(chooserKirjat.getSelectedIndex());
+    	setBookText(chooserKirjat.getSelectedObject());
     }
     /**
      * Kun muokkaustila täppä valitaan, tehdään
@@ -240,7 +282,18 @@ public class KirtikaGUIController implements Initializable {
 	public void setKirtika(Kirtika kirtika) {
 		this.kirtika = kirtika;
 	}
-
+	
+	
+	/**
+	 * Selects the first book to be active
+	 */
+	public void selectFirst() {
+		if (chooserKirjat.getItems() == null) return;
+		chooserKirjat.setSelectedIndex(0);
+		Kirja kirja = chooserKirjat.getSelectedObject();
+		setBookText(kirja);
+	}
+	
 	private void init() {
 		tietokentat.add(fieldKirjailija);
 		tietokentat.add(fieldKieli);
@@ -253,15 +306,115 @@ public class KirtikaGUIController implements Initializable {
 	/**
 	 * Asetetaan kirjan tiedot näkyviksi tietokenttiin
 	 * @param selectedId valitun kirjan id
+	 * 
+	 * loan[0] = boolean if book is loaned or not
+	 * loan[1] = name of loaner
 	 */
-	private void setBookText(int selectedId) {
-		String[] s = kirtika.annaKirjanTiedot(selectedId);
+	private void setBookText(Kirja kirja) {
+		int bId = kirja.getKirjaId();
+		String[] s = kirtika.annaKirjanTiedot(bId);
 		
 		for (int i = 0; i < s.length; i++) {
 			TextField tk = tietokentat.get(i);
 			tk.setText(s[i]);
 		}
+		Object[] loan = kirtika.getBookLoanInfo(bId);
+		checkLainassa.setSelected((boolean)loan[0]);
+		fieldLainaaja.setText((String)loan[1]);
+		
+		
+		// Otherwise setting a value triggers the onAction-event 
+		// handleSetDate/handleSetReturnDate, which results in excess dialogs 
+		// every time book is changed.
+		EventHandler<ActionEvent> eventHandler = fieldLainauspvm.getOnAction();
+		fieldLainauspvm.setOnAction(null);
+		fieldLainauspvm.setValue((LocalDate)loan[2]);
+		fieldLainauspvm.setOnAction(eventHandler);
+		
+		eventHandler = fieldPalautuspvm.getOnAction();
+		fieldPalautuspvm.setOnAction(null);
+		fieldPalautuspvm.setValue((LocalDate)loan[3]);
+		fieldPalautuspvm.setOnAction(eventHandler);
 	}
+	
+	/**
+	 * Sets the loan status value for the book selected.
+	 * 
+	 * If checkbox is activated, it initializes a new loan.
+	 * If checkbox is deactivated, it closes a previous loan with current date.
+	 * 
+	 */
+	private void setLoan(){
+		Kirja kirja = chooserKirjat.getSelectedObject();
+		boolean b = checkLainassa.isSelected();
+		
+		if (b && fieldLainaaja.getText() != null && !fieldLainaaja.getText().isEmpty()) {
+			addNewLoan(kirja);
+		}
+		if (!b) closeLoan(kirja);
+	}
+
+	/**
+	 * When checkbox is activated, a new loan is added.
+	 * 
+	 * @param kirja Book to set as loaned
+	 */
+	private void addNewLoan(Kirja kirja) {
+		kirtika.addBookLoan(kirja, fieldLainaaja.getText());
+		kirja.setLainassa(true);
+		try {
+			kirtika.tallenna();
+		} catch (SailoException sE) {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("VAROITUS");
+			alert.setHeaderText("Kirjaluettelo");
+			alert.setContentText("Kirjojen tallennus ei onnistunut, sillä tiedostoa ei löytynyt");
+			alert.showAndWait();
+		}
+		try {
+			kirtika.saveBookLoans();
+		} catch (SailoException e) {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("VAROITUS");
+			alert.setHeaderText("Lainatut kirjat");
+			alert.setContentText("Lainan tallentaminen tiedostoon ei onnistunut");
+			alert.showAndWait();
+		}
+		Dialogs.showMessageDialog("Lainan lisääminen onnistui!");
+	}
+	
+	/**
+	 * When checkbox is deactivated, loan is set as closed.
+	 * 
+	 * If return date is not given, it will be set as current date.
+	 * @param kirja
+	 */
+	private void closeLoan(Kirja kirja) {
+		LocalDate returnDate = fieldPalautuspvm.getValue();
+		if (returnDate == null) returnDate = LocalDate.now();
+		try {
+			kirtika.closeLoan(kirja.getKirjaId(), returnDate);
+			Dialogs.showMessageDialog(kirja.getKirjanNimi() + " palautettiin onnistuneesti" + System.lineSeparator() + "päivämäärällä " + returnDate.toString());
+		} catch (SailoException e) {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("VAROITUS");
+			alert.setHeaderText("Lainatut kirjat");
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
+		}
+		
+		try {
+			kirtika.saveAll();
+		} catch (SailoException e) {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("VAROITUS");
+			alert.setHeaderText("Lainatut kirjat");
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
+		}
+		
+	}
+
 
 	
 	

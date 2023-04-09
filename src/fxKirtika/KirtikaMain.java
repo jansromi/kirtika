@@ -33,7 +33,7 @@ public class KirtikaMain extends Application {
 			Kirtika kirtika = new Kirtika();
 			kirtikaCtrl.setKirtika(kirtika);
 			kirtikaCtrl.updateChooserKirjat();
-			
+			kirtikaCtrl.selectFirst();
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();

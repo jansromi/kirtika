@@ -22,7 +22,7 @@ public class Kirja {
 	private String julkaisija = "";
 	private int julkaisuvuosi;
 	private String luokitus = "";
-	private boolean lainassa, luettu;
+	private boolean lainattu, luettu;
 	private String infoPath = "";
 	
 	private static int seuraavaId = 1;
@@ -41,7 +41,7 @@ public class Kirja {
 		this.julkaisija = Mjonot.erota(sb, '|');
 		this.julkaisuvuosi = Integer.parseInt(Mjonot.erota(sb, '|'));
 		this.luokitus = Mjonot.erota(sb, '|');
-		this.lainassa = Boolean.getBoolean(Mjonot.erota(sb, '|'));
+		this.lainattu = Boolean.parseBoolean(Mjonot.erota(sb, '|'));
 		this.luettu = Boolean.getBoolean(Mjonot.erota(sb, '|'));
 		this.infoPath = Mjonot.erota(sb, '|');
 	}
@@ -66,7 +66,7 @@ public class Kirja {
 				this.julkaisija + "|" +
 				this.julkaisuvuosi + "|" +
 				this.luokitus + "|" +
-				this.lainassa + "|" +
+				this.lainattu + "|" +
 				this.luettu + "|" +
 				this.infoPath;
 		
@@ -154,6 +154,10 @@ public class Kirja {
 		return this.kirjaId;
 	}
 	
+	public void setLainassa(boolean b) {
+		this.lainattu = b;
+	}
+	
 	/**
 	 * Tulostaa kirjan tiedot
 	 * @param out tulostustietovirta
@@ -190,6 +194,10 @@ public class Kirja {
 		s[4] = this.luokitus;
 		s[5] = this.isbn;
 		return s;
+	}
+	
+	public boolean getLainattu() {
+		return lainattu;
 	}
 	
 	/**

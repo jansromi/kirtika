@@ -14,7 +14,7 @@
           <TableColumn fx:id="kirjanNimiColumn" prefWidth="367.0" text="Kirjan nimi" />
           <TableColumn fx:id="lainaajanNimiColumn" minWidth="0.0" prefWidth="444.0" text="Lainaajan nimi" />
             <TableColumn fx:id="lainaPvmColumn" minWidth="4.0" prefWidth="176.0" text="Lainan päivämäärä" />
-            <TableColumn fx:id="palautusPvmColumn" prefWidth="212.0" text="Laina palautettu" />
+            <TableColumn fx:id="palautusPvmColumn" prefWidth="212.0" text="Lainan palautuspäivämäärä" />
         </columns>
       </TableView>
    </center>
@@ -29,7 +29,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Muokkaa">
             <items>
-              <MenuItem mnemonicParsing="false" text="Poista kirja" />
+              <MenuItem mnemonicParsing="false" onAction="#handleDeleteLoan" text="Poista laina" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Tietoja">

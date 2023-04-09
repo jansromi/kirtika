@@ -14,13 +14,13 @@ import javafx.beans.property.SimpleStringProperty;
  * @author Roba
  *
  */
-public class LainattuKirja {
+public class Laina {
 	
 	private int lainaId;
 	private int lainattuKirjaId;
 	private SimpleStringProperty kirjanNimi, lainaajanNimi;
 	private LocalDate lainaPvm, palautusPvm;
-
+	private boolean closed;
 	private static int seuraavaLainaId = 1;
 	
 	
@@ -31,7 +31,7 @@ public class LainattuKirja {
 	 * @param lainaAlkupvm
 	 * @param lainaLoppupvm
 	 */
-	public LainattuKirja(String kirjanNimi, String lainaHlo, LocalDate lainaAlkupvm, LocalDate lainaLoppupvm) {
+	public Laina(String kirjanNimi, String lainaHlo, LocalDate lainaAlkupvm, LocalDate lainaLoppupvm) {
 		setLainaId();
 		this.kirjanNimi = new SimpleStringProperty(kirjanNimi);
 		this.lainaajanNimi = new SimpleStringProperty(lainaHlo);
@@ -42,18 +42,31 @@ public class LainattuKirja {
 	/**
 	 * Yhden string-rivin konstruktori
 	 */
-	public LainattuKirja(String line) {
+	public Laina(String line) {
 		StringBuilder sb = new StringBuilder(line);
-		// TODO: korjaa
 		this.setLainaId(Integer.parseInt(Mjonot.erota(sb, '|')));
 		this.lainattuKirjaId = Integer.parseInt(Mjonot.erota(sb, '|'));
 		this.lainaajanNimi = new SimpleStringProperty(Mjonot.erota(sb, '|'));
 		this.lainaPvm = asetaAika(Mjonot.erota(sb, '|'));
-		if (sb.isEmpty()) {
-			this.palautusPvm = null;
-		} else {
-			this.palautusPvm = asetaAika(sb.toString());
-		}
+		this.palautusPvm = asetaAika(Mjonot.erota(sb, '|'));
+		this.closed = Boolean.parseBoolean(sb.toString());
+	}
+	
+	/**
+	 * Constructs a loan from a Kirja-object.
+	 * Set the loans start date to current date,
+	 * and the LoppuPvm to null
+	 * @param kirja
+	 */
+	public Laina(Kirja kirja, String loaner) {
+		setLainaId();
+		this.lainattuKirjaId = kirja.getKirjaId();
+		this.kirjanNimi = new SimpleStringProperty(kirja.getKirjanNimi());
+		this.lainaajanNimi = new SimpleStringProperty(loaner);
+		this.lainaPvm = LocalDate.now();
+		this.palautusPvm = null;
+		this.closed = false;
+		
 	}
 	
 	private void setLainaId() {
@@ -62,8 +75,8 @@ public class LainattuKirja {
 	}
 	
 	private void setLainaId(int id) {
-		this.lainattuKirjaId = id;
-		if (this.lainattuKirjaId >= seuraavaLainaId) seuraavaLainaId = id + 1;
+		this.lainaId = id;
+		if (this.lainaId >= seuraavaLainaId) seuraavaLainaId = id + 1;
 	}
 
 	public void setLainatutKirjanNimi(String kirjanNimi) {
@@ -98,6 +111,22 @@ public class LainattuKirja {
 		return lainaajanNimi.get();
 	}
 	
+	public boolean getClosed() {
+		return closed;
+	}
+	
+	public void setClosed(boolean b) {
+		closed = b;
+	}
+	
+	public void setPalautuspvm(LocalDate d) {
+		this.palautusPvm = d;
+	}
+	
+	public void setLainaPvm(LocalDate d) {
+		this.lainaPvm = d;
+	}
+	
 	/**
 	 * 
 	 * @param lkId lainattu kirja id
@@ -108,9 +137,18 @@ public class LainattuKirja {
 	}
 	
 	/**
+	 * Returns the LainattuKirja-object as bar-format
 	 * 
-	 * @param s
-	 * @return
+	 * TODO: tests
+	 */
+	public String toString() {
+		return lainaId + "|" + lainattuKirjaId + "|" + lainaajanNimi.get() + "|" + lainaPvm + "|" + palautusPvm + "|" + closed;
+	}
+	
+	/**
+	 * Builds a LocalDate-object from a string.
+	 * @param s Date as String (YYYY-MM-DD)
+	 * @return LocalDate-object
 	 * 
 	 * @example
 	 * <pre name="test">
@@ -121,6 +159,7 @@ public class LainattuKirja {
 	 * </pre>
 	 */
 	public LocalDate asetaAika(String s) {
+		if (s.equals("null")) return null;
 		StringBuilder sb = new StringBuilder(s);
 		int vuosi = Integer.parseInt(Mjonot.erota(sb, '-'));
 		int kuukausi = Integer.parseInt(Mjonot.erota(sb, '-'));

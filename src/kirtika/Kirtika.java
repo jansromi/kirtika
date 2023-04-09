@@ -1,5 +1,7 @@
 package kirtika;
 
+import java.time.LocalDate;
+
 /**
  * Kirtika-luokka joka sisältää välittäjämetodeja
  * @author Jansromi
@@ -44,13 +46,29 @@ public class Kirtika {
 	 * Välittäjämetodi tallennukseen.
 	 * 
 	 * TODO: Pitäisikö exception throwata, jotta se voidaan näyttää käyttöliittymässä?
+	 * @throws SailoException 
 	 */
-	public void tallenna() {
-		try {
+	public void tallenna() throws SailoException {
 			kirjat.tallenna();
-		} catch (SailoException e) {
-			System.err.println("Ei voitu tallentaa: " + e.getMessage());
-		}
+	}
+	
+	public void saveAll() throws SailoException {
+		kirjat.tallenna();
+		lainatut.saveBookLoans();
+	}
+	
+	public void saveBookLoans() throws SailoException {
+		lainatut.saveBookLoans();
+	}
+	
+	/**
+	 * Adds a new loan
+	 * 
+	 * @param kirja
+	 * @param b
+	 */
+	public void addBookLoan(Kirja kirja, String loaner) {
+		lainatut.addBookLoan(kirja, loaner);
 	}
 	
 	/**
@@ -58,6 +76,14 @@ public class Kirtika {
 	 */
 	public void poista(Kirja kirja) {
 		kirjat.poista(kirja);
+	}
+	
+	/**
+	 * Deletes the loan 
+	 * @param laina
+	 */
+	public void deleteLoan(int lId) {
+		lainatut.deleteLoan(lId);
 	}
 	
 	/**
@@ -102,7 +128,7 @@ public class Kirtika {
 	 * @param i
 	 * @return viite lainattuun kirjaan
 	 */
-	public LainattuKirja annaLainattuKirja(int i) {
+	public Laina annaLainattuKirja(int i) {
 		return lainatut.annaLainattuKirja(i);
 	}
 	
@@ -116,36 +142,88 @@ public class Kirtika {
 	
 	/**
 	 * Palauttaa kirjan tiedot taulukossa
-	 * @param i
+	 * @param bId book id
 	 * @return
 	 */
-	public String[] annaKirjanTiedot(int i) {
-		String[] s = kirjat.annaKirjanTiedot(i);
+	public String[] annaKirjanTiedot(int bId) {
+		String[] s = kirjat.annaKirjanTiedot(bId);
 		
 		// Vaihdetaan ykl-luokitus kuvaukseen
 		s[4] = genret.etsiYklKuvaus(s[4]);
 		return s;
 	}
 	
-	public static void main(String[] args) {
-		Kirtika kirtika = new Kirtika();
-		
-		Kirja ody = new Kirja();
-		ody.setOdysseia();
-		Kirja ody2 = new Kirja();
-		ody2.setOdysseia();
-		Kirja ody3 = new Kirja();
-		ody3.setOdysseia();
-		try {
-			kirtika.lisaa(ody);
-			kirtika.lisaa(ody2);
-			kirtika.lisaa(ody3);
-		} catch (SailoException e) {
-			//e.printStackTrace();
-			System.err.println(e.getMessage());
+	/**
+	 * Sets the given books lainattu-status
+	 * @param bId
+	 */
+	public void setLainattu(int bId, boolean b) {
+		kirjat.setLainattu(bId, b);
+	}
+	
+	/**
+	 * Sets the date when book was loaned
+	 * @param bId
+	 */
+	public void setLoanDate(int bId, LocalDate d) {
+		Laina laina = lainatut.getActiveLaina(bId);
+		if (laina == null) return;
+		laina.setLainaPvm(d);
+	}
+	
+	/**
+	 * Sets the date when book was loaned
+	 * @param bId
+	 */
+	public void setReturnDate(int bId, LocalDate d) {
+		Laina laina = lainatut.getActiveLaina(bId);
+		if (laina == null) return;
+		laina.setPalautuspvm(d);
+	}
+	
+	/**
+	 * Sets the loans return date
+	 * @throws SailoException 
+	 */
+	public void closeLoan(int bId, LocalDate returnDate) throws SailoException {
+		Laina laina = lainatut.getActiveLaina(bId);
+		if (laina == null) {
+			throw new SailoException("Annetulla kirjalla ei ollut aktiivista lainaa!");
 		}
-		
-		kirtika.annaKirja(2).printBook(System.out);
+		laina.setPalautuspvm(returnDate);
+		laina.setClosed(true);
+		setLainattu(bId, false);
+	}
+	
+	public Laina getActiveLoan(int bId) {
+		return lainatut.getActiveLaina(bId);
+	}
+	
+	/**
+	 * Fetches the loan information on selected book id
+	 * to be shown on GUI
+	 * obj[0] = boolean lainassa
+	 * obj[1] = String lainaaja
+	 * obj[2] = date when the loan was given
+	 * @param bId book id
+	 * @return
+	 */
+	public Object[] getBookLoanInfo(int bId) {
+		Object[] obj = new Object[4];
+		Laina laina = lainatut.getActiveLaina(bId);
+		if (laina != null) {
+			// should always return true
+			obj[0] = kirjat.getLainattu(bId);
+			obj[1] = laina.getLainaajanNimi();
+			obj[2] = laina.getLainaPvm();
+			obj[3] = laina.getPalautusPvm();
+		} else {
+			obj[0] = false;
+			obj[1] = "";
+			obj[2] = null;
+			obj[3] = null;
+		}
+		return obj;
 	}
 
 }
