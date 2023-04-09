@@ -94,9 +94,13 @@ public class KirtikaGUIController implements Initializable {
 		}
 	}
 	
+	/**
+	 * Sets the loan status value for the book selected.
+	 * @param event
+	 */
     @FXML
     void handleSetLoan(ActionEvent event) {
-    	System.out.println("hello");
+    	Kirja kirja = chooserKirjat.getSelectedObject();
     }
 	
     /**
