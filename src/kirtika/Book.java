@@ -1,10 +1,19 @@
 package kirtika;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
-
+import java.util.Scanner;
+//import kirtika.StringUtils.StringReplace;
 import fi.jyu.mit.ohj2.Mjonot;
 
 /**
@@ -117,6 +126,10 @@ public class Book {
 		bookClassification = "81.4";
 		bookRead = true;
 		bookInfoPath =  "...\\kirtika\\text\\1_info.txt";
+	}
+	
+	public void setFileName() {
+		String fName = bookId + bookName;
 	}
 	
 	/**
@@ -241,5 +254,27 @@ public class Book {
 	private int getRnd() {
 		Random rnd = new Random();
 		return rnd.nextInt(99);
+	}
+	
+	public static void main(String[] args) {
+		/*
+		try {
+		    String filePath = "src/data/book/1odysseia.txt"; // replace with your relative file path
+		    File file = new File(filePath);
+		    Scanner scanner = new Scanner(file);
+		    
+		    while (scanner.hasNextLine()) {
+		        String line = scanner.nextLine();
+		        System.out.println(line);
+		    }
+		    
+		    scanner.close();
+		} catch (FileNotFoundException e) {
+		    e.printStackTrace();
+		}
+		*/
+		Book b = new Book();
+		String s = "h\\irtettyjen kettujen metsä";
+		//String c = StringUtils.replaceScandics(s);
 	}
 }
