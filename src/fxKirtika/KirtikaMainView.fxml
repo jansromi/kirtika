@@ -38,6 +38,7 @@
           <Menu mnemonicParsing="false" text="Muokkaa">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#handleShowAddBookForm" text="Lisää kirja" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowAddBookFormISBN" text="Lisää kirja ISBN-numerolla" />
                   <MenuItem fx:id="handleDeleteBook" mnemonicParsing="false" onAction="#deleteBook" text="Poista kirja">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="DELETE" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
@@ -84,6 +85,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="49.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
                </rowConstraints>
@@ -91,23 +93,26 @@
                   <Label alignment="TOP_CENTER" prefHeight="17.0" prefWidth="44.0" text="Kirjailija" GridPane.rowIndex="1" />
                   <Label text="Kieli" GridPane.rowIndex="2" />
                   <Label text="Julkaisija" GridPane.rowIndex="3" />
-                  <Label text="Luokitus" GridPane.rowIndex="5" />
-                  <Label text="ISBN" GridPane.rowIndex="6" />
-                  <TextField fx:id="fieldWriters" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="fieldLanguage" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="fieldPublisher" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField fx:id="fieldClassification" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <TextField fx:id="fieldIsbn" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <CheckBox fx:id="checkLoaned" mnemonicParsing="false" onAction="#handleSetLoan" text="Lainassa?" GridPane.rowIndex="7" />
+                  <Label text="Luokituskuvaus" GridPane.rowIndex="5" />
+                  <Label text="ISBN" GridPane.rowIndex="7" />
+                  <TextField fx:id="fieldWriters" editable="false" onAction="#handleSetBookWriter" text="" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="fieldLanguage" editable="false" onAction="#handleSetBookLanguage" text="" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="fieldPublisher" editable="false" onAction="#handleSetBookPublisher" text="" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="fieldClassificationDesc" editable="false" onAction="#handleSetBookYklDesc" text="" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField fx:id="fieldClassificationId" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <TextField fx:id="fieldIsbn" editable="false" onAction="#handleSetBookIsbn" text="" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <CheckBox fx:id="checkLoaned" mnemonicParsing="false" onAction="#handleSetLoan" text="Lainassa?" GridPane.rowIndex="8" />
                   <Label text="Julkaisuvuosi" GridPane.rowIndex="4" />
-                  <TextField fx:id="fieldReleaseYear" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                  <TextField fx:id="fieldReleaseYear" editable="false" onAction="#handleSetBookReleaseYear" text="" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                      <children>
                         <TextField fx:id="fieldLoaner" layoutY="19.0" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" onAction="#handleSetLoan" prefHeight="25.0" prefWidth="136.0" promptText="Kenelle lainattu" />
                         <DatePicker fx:id="fieldLoanStartDate" editable="false" layoutX="144.0" layoutY="2.0" maxWidth="-Infinity" minWidth="-Infinity" onAction="#handleSetLoanDate" prefHeight="25.0" prefWidth="111.0" promptText="Lainattu" />
                         <DatePicker fx:id="fieldLoanReturnDate" editable="false" layoutX="144.0" layoutY="32.0" maxWidth="-Infinity" minWidth="-Infinity" onAction="#handleSetReturnDate" prefHeight="25.0" prefWidth="111.0" promptText="Palautus" />
                      </children>
                   </AnchorPane>
+                  <Label text="Luokitustunnus (YKL)" GridPane.rowIndex="6" />
+                  
                </children>
                <VBox.margin>
                   <Insets top="6.0" />

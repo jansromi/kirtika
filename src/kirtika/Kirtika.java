@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import webscraping.FinnaHaku;
+
 /**
  * Kirtika-luokka joka sisältää välittäjämetodeja
  * @author Jansromi
@@ -72,11 +74,27 @@ public class Kirtika {
 	    // If genre description is found, 
 	    // replace it with ykl description. Otherwise
 	    // set as default.
-	    if (!genres.getYklDesc(s[4]).equals("Unknown")) {
-	    	s[4] = genres.getYklDesc(s[4]);
+	    // TODO: if-clause seems shitty. Genres should manage this,
+	    // and set the desc
+	    if (!genres.getYklDesc(s[5]).equals("Unknown")) {
+	    	s[4] = genres.getYklDesc(s[5]);
 	    }
 	    
 	    return s;
+	}
+	
+	public ArrayList<String> fetchFinnaData(String isbn){
+		FinnaHaku fh = new FinnaHaku(isbn);
+		fh.fetchBookData();
+		ArrayList<String> data = new ArrayList<String>();
+		data.add(fh.getBookTitle());
+		data.add(fh.getBookWriter());
+		data.add(fh.getBookLanguages());
+		data.add("Otava");
+		data.add("2020");
+		data.add(isbn);
+		data.add(fh.getBookYKLClasses());
+		return data;
 	}
 	
 	/**

@@ -238,13 +238,14 @@ public class Book {
 	 * @return String[6]
 	 */
 	public String[] getBookInfo() {
-		String[] s = new String[6];
+		String[] s = new String[7];
 		s[0] = writers;
 		s[1] = bookLanguage;
 		s[2] = bookPublisher;
 		s[3] = Integer.toString(bookRelaseYear);
-		s[4] = bookClassification;
-		s[5] = isbn;
+		s[4] = "";
+		s[5] = bookClassification;
+		s[6] = isbn;
 		return s;
 	}
 	
@@ -268,6 +269,42 @@ public class Book {
 	private int getRnd() {
 		Random rnd = new Random();
 		return rnd.nextInt(99);
+	}
+	
+	// Setters for gui-editing
+	
+	private void setBookWriter(String s) {
+		writers = s;
+	}
+	
+	public boolean set(int k, String s) {
+		s = s.trim();
+		switch ( k ) {
+        case 0:
+            writers = s;
+            return true;
+        case 1:
+        	bookLanguage = s;
+        	return true;
+        case 2:
+        	bookPublisher = s;
+        	return true;
+        case 3: 
+        	try {
+				bookRelaseYear = Integer.parseInt(s);
+				return true;
+			} catch (NumberFormatException e) {
+				return false;
+			}
+        case 4:
+        	return true;
+        case 5:
+        	isbn = s;
+        	return true;
+        default:
+        	return false;
+        }
+
 	}
 	
 	public static void main(String[] args) {

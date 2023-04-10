@@ -52,6 +52,7 @@ public class KirtikaAddBookController implements Initializable{
     //
     
     private Kirtika kirtika;
+    private ArrayList<String> finnaData = new ArrayList<String>();
     
     /**
      * Sets the mediator-class
@@ -62,6 +63,20 @@ public class KirtikaAddBookController implements Initializable{
 		ArrayList<Genre> ar = kirtika.getGenres();
 		for (Genre genre : ar) {
 			choiceYklClassification.getItems().add(genre);
+		}
+    }
+    
+    /**
+     * Sets the data fetched from Finna
+     */
+    public void initFinnaData(ArrayList<String> list) {
+    	finnaData = list;
+    	setFinnaFields();
+    }
+    
+    private void setFinnaFields() {
+    	for (int i = 0; i < infoFields.size(); i++) {
+			infoFields.get(i).setText(finnaData.get(i));
 		}
     }
 

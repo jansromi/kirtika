@@ -46,7 +46,7 @@ public class KirtikaGUIController implements Initializable {
 	private TextArea areaBookNotes;
     @FXML
     private TextField fieldIsbn, fieldPublisher, fieldReleaseYear, 
-    fieldLoaner, fieldLanguage, fieldWriters, fieldClassification;
+    fieldLoaner, fieldLanguage, fieldWriters, fieldClassificationDesc, fieldClassificationId;
     private ArrayList<TextField> infoFields = new ArrayList<>();
     
     @FXML
@@ -103,6 +103,58 @@ public class KirtikaGUIController implements Initializable {
     	saveBookNotes();
     }
 
+    @FXML
+    void handleSetBookIsbn() {
+    	Book book = chooserBooks.getSelectedObject();
+    	if (book.set(5, fieldIsbn.getText())) {
+    		Dialogs.showMessageDialog("Muokkaus onnistui!");
+    	}
+    	displayBookInfo(book);
+    }
+    
+    @FXML
+    void handleSetBookLanguage() {
+        Book book = chooserBooks.getSelectedObject();
+        if (book.set(1, fieldLanguage.getText())) {
+            Dialogs.showMessageDialog("Muokkaus onnistui!");
+        }
+        displayBookInfo(book);
+    }
+
+    @FXML
+    void handleSetBookPublisher() {
+        Book book = chooserBooks.getSelectedObject();
+        if (book.set(2, fieldPublisher.getText())) {
+            Dialogs.showMessageDialog("Muokkaus onnistui!");
+        }
+        displayBookInfo(book);
+    }
+
+    @FXML
+    void handleSetBookReleaseYear() {
+        Book book = chooserBooks.getSelectedObject();
+        if (book.set(3, fieldReleaseYear.getText())) {
+            Dialogs.showMessageDialog("Muokkaus onnistui!");
+        }
+        displayBookInfo(book);
+    }
+
+    @FXML
+    void handleSetBookWriter() {
+        Book book = chooserBooks.getSelectedObject();
+        if (book.set(0, fieldWriters.getText())) {
+            Dialogs.showMessageDialog("Muokkaus onnistui!");
+        }
+        displayBookInfo(book);
+    }
+
+
+
+    @FXML
+    void handleSetBookYklDesc() {
+
+    }
+    
 	/**
      * Sets the date, when loan was given
      */
@@ -157,7 +209,7 @@ public class KirtikaGUIController implements Initializable {
     @FXML
     void listChooserCliked() {
     	if (chooserBooks.getSelectedIndex() == -1) return;
-    	setBookInfo(chooserBooks.getSelectedObject());
+    	displayBookInfo(chooserBooks.getSelectedObject());
     }
     
     /**
@@ -172,14 +224,14 @@ public class KirtikaGUIController implements Initializable {
             fieldLanguage.setEditable(true);
             fieldPublisher.setEditable(true);
             fieldReleaseYear.setEditable(true);
-            fieldClassification.setEditable(true);
+            fieldClassificationDesc.setEditable(true);
             fieldIsbn.setEditable(true);
         } else {
             fieldWriters.setEditable(false);
             fieldLanguage.setEditable(false);
             fieldPublisher.setEditable(false);
             fieldReleaseYear.setEditable(false);
-            fieldClassification.setEditable(false);
+            fieldClassificationDesc.setEditable(false);
             fieldIsbn.setEditable(false);
         }
     }
@@ -230,11 +282,27 @@ public class KirtikaGUIController implements Initializable {
      */
     @FXML
     public void handleShowAddBookForm() throws IOException {
+    	showAddBookForm(false);
+    }
+    
+    @FXML
+    void handleShowAddBookFormISBN(ActionEvent event) throws IOException {
+    	showAddBookForm(true);
+    }
+    
+    private void showAddBookForm(boolean isISBNSelected) throws IOException {
         FXMLLoader ldr = new FXMLLoader();
         ldr.setLocation(getClass().getResource("KirtikaAddBook.fxml"));
         Parent root = ldr.load();
         KirtikaAddBookController ctrl = ldr.getController();
+        
         ctrl.initKirtika(kirtika);
+        
+        if (isISBNSelected) {
+        	String s = Dialogs.showInputDialog("Anna kirjan ISBN-numero", null);
+        	ArrayList<String> finnaData = kirtika.fetchFinnaData(s);
+        	ctrl.initFinnaData(finnaData);
+        }
         
         Stage popUpStage = new Stage();
         popUpStage.setTitle("Lisää kirja");
@@ -307,7 +375,7 @@ public class KirtikaGUIController implements Initializable {
 		if (chooserBooks.getItems() == null) return;
 		chooserBooks.setSelectedIndex(0);
 		Book book = chooserBooks.getSelectedObject();
-		setBookInfo(book);
+		displayBookInfo(book);
 	}
 	
 	private void init() {
@@ -315,7 +383,8 @@ public class KirtikaGUIController implements Initializable {
 		infoFields.add(fieldLanguage);
 		infoFields.add(fieldPublisher);
 		infoFields.add(fieldReleaseYear);
-		infoFields.add(fieldClassification);
+		infoFields.add(fieldClassificationDesc);
+		infoFields.add(fieldClassificationId);
 		infoFields.add(fieldIsbn);
 	}
 
@@ -326,7 +395,7 @@ public class KirtikaGUIController implements Initializable {
 	 * loan[0] = boolean if book is loaned or not
 	 * loan[1] = name of loaner
 	 */
-	private void setBookInfo(Book book) {
+	private void displayBookInfo(Book book) {
 	    displayMainBookInfo(book);
 	    displayBookLoanInfo(book);
 	    displayBookNotes(book);

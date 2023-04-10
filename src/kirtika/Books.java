@@ -253,5 +253,11 @@ public class Books {
 		return this.amt;
 	}
 	
+	// Set methods for editing book
+	
+	public void setBookIsbn(Book book) {
+		
+	}
+	
 	
 }
