@@ -1,5 +1,6 @@
 package kirtika;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -172,6 +173,10 @@ public class Kirtika {
 	 */
 	public void saveBookLoans() throws SailoException {
 	    loans.saveBookLoans();
+	}
+	
+	public void saveBookNotes(Book book, String notes) throws IOException {
+		books.saveBookNotes(book, notes);
 	}
 	
 	/**

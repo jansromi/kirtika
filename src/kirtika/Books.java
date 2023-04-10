@@ -3,6 +3,7 @@ package kirtika;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Scanner;
@@ -101,6 +102,11 @@ public class Books {
 		}
 	}
 	
+	public void saveBookNotes(Book book) {
+		String fPath = book.getFilePath();
+		
+	}
+	
 	/**
 	 * Adds a book to the registry.
 	 * Increases amt by one.
@@ -146,6 +152,15 @@ public class Books {
 	    }
 	    
 	    return sb.toString();
+	}
+	
+	public void saveBookNotes(Book book, String notes) throws IOException {
+	    String filePath = book.getFilePath();
+
+	    try (FileWriter writer = new FileWriter(filePath)) {
+	        writer.write(notes);
+	        System.out.println("Successfully saved notes to file: " + filePath);
+	    }
 	}
 	
 	/**

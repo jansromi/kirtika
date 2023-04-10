@@ -93,8 +93,17 @@ public class KirtikaGUIController implements Initializable {
 			
 		}
     }
-	
+    
     /**
+     * Saves the book notes
+     * @param event
+     */
+    @FXML
+    void handleSaveBookNotes(ActionEvent event) {
+    	saveBookNotes();
+    }
+
+	/**
      * Sets the date, when loan was given
      */
     @FXML
@@ -183,13 +192,6 @@ public class KirtikaGUIController implements Initializable {
     void searchBooks(ActionEvent event) {
     	Dialogs.showMessageDialog("Ei osata vielä hakea");
     }
-
-    /**
-     * Tallennetaan lisätietokenttään tekstiä
-     */
-	@FXML private void handleTallennaLisatiedot() {
-		Dialogs.showMessageDialog("Ei osata tallentaa");
-	}
 	
 	/**
 	 * Deletion of a book
@@ -289,6 +291,14 @@ public class KirtikaGUIController implements Initializable {
 		this.kirtika = kirtika;
 	}
 	
+    private void saveBookNotes() {
+		try {
+			kirtika.saveBookNotes(chooserBooks.getSelectedObject(), areaBookNotes.getText());
+			Dialogs.showMessageDialog("Tallennus onnistui!");
+		} catch (IOException e) {
+			showWarningDialog("VAROITUS", "Kirjan lisätietojen tallentaminen ei onnistunut", e.getMessage());
+		}
+	}
 	
 	/**
 	 * Selects the first book to be active
