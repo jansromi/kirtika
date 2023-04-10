@@ -24,7 +24,7 @@ public class KirtikaMain extends Application {
 			final Pane root = (Pane)ldr.load();
 			final KirtikaGUIController kirtikaCtrl = (KirtikaGUIController)ldr.getController();
 			
-			Scene sceneMain = new Scene(root, 1200,709);
+			Scene sceneMain = new Scene(root, 1220,710);
 			
 			sceneMain.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setTitle("Kirtika - Kirjatietokanta");

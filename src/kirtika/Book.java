@@ -2,6 +2,7 @@ package kirtika;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Random;
 
 import fi.jyu.mit.ohj2.Mjonot;
@@ -70,6 +71,36 @@ public class Book {
 				bookRead + "|" +
 				bookInfoPath;
 		
+	}
+	
+	/**
+	 * Sets values based on inputs given in the GUI.
+	 * 
+	 * @param list Values
+	 * list[0] = bookName
+	 * list[1] = writers
+	 * list[2] = bookLanguage
+	 * list[3] = bookPublisher
+	 * list[4] = isbn
+	 * list[5] = bookClassification
+	 */
+	public void setGuiValues(ArrayList<String> list) {
+		bookName = list.get(0);
+		writers = list.get(1);
+		bookLanguage = list.get(2);
+		bookPublisher = list.get(3);
+		
+		try {
+			bookRelaseYear = Integer.parseInt(list.get(4));
+		} catch (NumberFormatException e) {
+			bookRelaseYear = 0;
+		}
+		
+		isbn = list.get(5);
+		bookClassification = list.get(6);
+		bookLoaned = false;
+		bookRead = false;
+		setBookId();
 	}
 	
 	/**

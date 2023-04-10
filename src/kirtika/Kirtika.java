@@ -1,6 +1,7 @@
 package kirtika;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  * Kirtika-luokka joka sisältää välittäjämetodeja
@@ -11,7 +12,7 @@ import java.time.LocalDate;
  */
 public class Kirtika {
 	private final Books books;
-	private final Genret genret;
+	private final Genres genres;
 	private final Loans loans;
 	
 	/**
@@ -19,7 +20,7 @@ public class Kirtika {
 	 */
 	public Kirtika() {
 		this.books = new Books();
-		this.genret = new Genret();
+		this.genres = new Genres();
 		this.loans = new Loans();
 		setLoanedBookNames();
 
@@ -59,8 +60,13 @@ public class Kirtika {
 	public String[] getBookInfo(int bId) {
 	    String[] s = books.getBookInfo(bId);
 
-	    // Replaces YKL classification with description
-	    s[4] = genret.etsiYklKuvaus(s[4]);
+	    // If genre description is found, 
+	    // replace it with ykl description. Otherwise
+	    // set as default.
+	    if (!genres.getYklDesc(s[4]).equals("Unknown")) {
+	    	s[4] = genres.getYklDesc(s[4]);
+	    }
+	    
 	    return s;
 	}
 	
@@ -76,7 +82,7 @@ public class Kirtika {
 	 */
 	public Object[] getBookLoanInfo(int bId) {
 		Object[] obj = new Object[4];
-		Loan loan = loans.getActiveLaina(bId);
+		Loan loan = loans.getActiveLoan(bId);
 		if (loan != null) {
 			// should always return true
 			obj[0] = books.getBookLoaned(bId);
@@ -100,7 +106,7 @@ public class Kirtika {
 	 *         Possible if one messes with the data.
 	 */
 	public void closeLoan(int bId, LocalDate returnDate) throws SailoException {
-		Loan loan = loans.getActiveLaina(bId);
+		Loan loan = loans.getActiveLoan(bId);
 		if (loan == null) {
 			throw new SailoException("Annetulla kirjalla ei ollut aktiivista lainaa!");
 		}
@@ -167,8 +173,6 @@ public class Kirtika {
 	public void deleteBook(Book book) {
 	    books.deleteBook(book);
 	}
-
-
 	
 	/**
 	 * A mediator method that returns a book with this index.
@@ -228,7 +232,7 @@ public class Kirtika {
 	 * @param bId
 	 */
 	public void setLoanDate(int bId, LocalDate d) {
-		Loan loan = loans.getActiveLaina(bId);
+		Loan loan = loans.getActiveLoan(bId);
 		if (loan == null) return;
 		loan.setLoanStartDate(d);;
 	}
@@ -238,12 +242,11 @@ public class Kirtika {
 	 * @param bId
 	 */
 	public void setReturnDate(int bId, LocalDate d) {
-		Loan loan = loans.getActiveLaina(bId);
+		Loan loan = loans.getActiveLoan(bId);
 		if (loan == null) return;
 		loan.setLoanReturnDate(d);
 	}
 
-	
 	/**
 	 * 
 	 * @param bId
@@ -251,7 +254,14 @@ public class Kirtika {
 	 * 		   Null if there was no loan with given ID.
 	 */
 	public Loan getActiveLoan(int bId) {
-		return loans.getActiveLaina(bId);
+		return loans.getActiveLoan(bId);
+	}
+	
+	/**
+	 * @return All found genres
+	 */
+	public ArrayList<Genre> getGenres() {
+		return genres.getGenres();
 	}
 
 }

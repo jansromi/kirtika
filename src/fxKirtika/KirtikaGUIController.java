@@ -22,6 +22,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -40,8 +41,11 @@ import kirtika.SailoException;
 public class KirtikaGUIController implements Initializable {
 
 	
+	
+	@FXML
+	private TextArea areaBookNotes;
     @FXML
-    private TextField fieldIsbn, fieldPublisher, fieldRelaseYear, 
+    private TextField fieldIsbn, fieldPublisher, fieldReleaseYear, 
     fieldLoaner, fieldLanguage, fieldWriters, fieldClassification;
     private ArrayList<TextField> infoFields = new ArrayList<>();
     
@@ -101,8 +105,6 @@ public class KirtikaGUIController implements Initializable {
         	Dialogs.showMessageDialog("Lainauspäiväksi asetettu " + fieldLoanStartDate.getValue().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
     	}
     }
-    
-
 
 	/**
      * Sets the date of (desired) return
@@ -117,9 +119,6 @@ public class KirtikaGUIController implements Initializable {
     		Dialogs.showMessageDialog("Palautuspäiväksi asetettu " + fieldLoanReturnDate.getValue().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
     	}
     }
-    
-    
-
 
 	/**
 	 * Refreshes the book listing. 
@@ -142,8 +141,6 @@ public class KirtikaGUIController implements Initializable {
     void handleSetLoan(ActionEvent event) {
     	setLoan();
     }
-	
-
 
 	/**
      * When a book is clicked from the book listing.
@@ -151,7 +148,7 @@ public class KirtikaGUIController implements Initializable {
     @FXML
     void listChooserCliked() {
     	if (chooserBooks.getSelectedIndex() == -1) return;
-    	setBookText(chooserBooks.getSelectedObject());
+    	setBookInfo(chooserBooks.getSelectedObject());
     }
     
     /**
@@ -165,14 +162,14 @@ public class KirtikaGUIController implements Initializable {
             fieldWriters.setEditable(true);
             fieldLanguage.setEditable(true);
             fieldPublisher.setEditable(true);
-            fieldRelaseYear.setEditable(true);
+            fieldReleaseYear.setEditable(true);
             fieldClassification.setEditable(true);
             fieldIsbn.setEditable(true);
         } else {
             fieldWriters.setEditable(false);
             fieldLanguage.setEditable(false);
             fieldPublisher.setEditable(false);
-            fieldRelaseYear.setEditable(false);
+            fieldReleaseYear.setEditable(false);
             fieldClassification.setEditable(false);
             fieldIsbn.setEditable(false);
         }
@@ -186,7 +183,6 @@ public class KirtikaGUIController implements Initializable {
     void searchBooks(ActionEvent event) {
     	Dialogs.showMessageDialog("Ei osata vielä hakea");
     }
-	
 
     /**
      * Tallennetaan lisätietokenttään tekstiä
@@ -215,7 +211,6 @@ public class KirtikaGUIController implements Initializable {
      */
     @FXML public void handleShowLoanHistory(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        System.out.println(chooserBooks.getRivit());
         loader.setLocation(getClass().getResource("KirtikaLoanView.fxml"));
         Parent root = loader.load();
         KirtikaLoanViewController ctrl = loader.getController();
@@ -243,7 +238,7 @@ public class KirtikaGUIController implements Initializable {
         popUpStage.setTitle("Lisää kirja");
         popUpStage.initModality(Modality.APPLICATION_MODAL);
         
-        popUpStage.setScene(new Scene(root, 400, 400));
+        popUpStage.setScene(new Scene(root, 400, 420));
         popUpStage.showAndWait();
         
         updateChooserBooks();
@@ -251,10 +246,9 @@ public class KirtikaGUIController implements Initializable {
 	
 	/**
 	 * Shows the About-view
-	 * @param event
 	 */
 	@FXML
-	public void handleShowAboutView(ActionEvent event) {
+	public void handleShowAboutView() {
 		Parent root;
         try {
         	root = FXMLLoader.load(getClass().getResource("KirtikaAboutView.fxml"));
@@ -266,6 +260,20 @@ public class KirtikaGUIController implements Initializable {
         catch (IOException e) {
             e.printStackTrace();
         }
+	}
+	
+	/**
+	 * Shows a warning dialog.
+	 * @param title The title of the dialog
+	 * @param headerText The header text of the dialog
+	 * @param contentText The content text of the dialog
+	 */
+	private void showWarningDialog(String title, String headerText, String contentText) {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle(title);
+		alert.setHeaderText(headerText);
+		alert.setContentText(contentText);
+		alert.showAndWait();
 	}
 
 	//===================================================================================
@@ -289,14 +297,14 @@ public class KirtikaGUIController implements Initializable {
 		if (chooserBooks.getItems() == null) return;
 		chooserBooks.setSelectedIndex(0);
 		Book book = chooserBooks.getSelectedObject();
-		setBookText(book);
+		setBookInfo(book);
 	}
 	
 	private void init() {
 		infoFields.add(fieldWriters);
 		infoFields.add(fieldLanguage);
 		infoFields.add(fieldPublisher);
-		infoFields.add(fieldRelaseYear);
+		infoFields.add(fieldReleaseYear);
 		infoFields.add(fieldClassification);
 		infoFields.add(fieldIsbn);
 	}
@@ -308,31 +316,59 @@ public class KirtikaGUIController implements Initializable {
 	 * loan[0] = boolean if book is loaned or not
 	 * loan[1] = name of loaner
 	 */
-	private void setBookText(Book book) {
+	private void setBookInfo(Book book) {
+	    displayMainBookInfo(book);
+	    displayBookLoanInfo(book);
+	    displayBookNotes(book);
+	}
+	
+	/**
+	 * Displays the main info textfields.
+	 * @param book Which books loan info to show
+	 */
+	private void displayMainBookInfo(Book book) {
+	    int bId = book.getBookId();
+	    String[] s = kirtika.getBookInfo(bId);
+	    for (int i = 0; i < s.length; i++) {
+	        TextField tf = infoFields.get(i);
+	        tf.setText(s[i]);
+	    }
+	}
+	
+	/**
+	 * Displays the books loan info
+	 * @param book Which books loan info to show
+	 * 
+	 * obj[0] = value for checkbox
+	 * obj[1] = lenders name
+	 * obj[2] = date of loan
+	 * obj[4] = return date
+	 */
+	private void displayBookLoanInfo(Book book) {
 		int bId = book.getBookId();
-		String[] s = kirtika.getBookInfo(bId);
+	    Object[] loan = kirtika.getBookLoanInfo(bId);
+	    checkLoaned.setSelected((boolean) loan[0]);
+	    fieldLoaner.setText((String) loan[1]);
+
+	    updateFieldWithoutActionEvent(fieldLoanStartDate, (LocalDate) loan[2]);
+	    updateFieldWithoutActionEvent(fieldLoanReturnDate, (LocalDate) loan[3]);
+	}
+	
+	private void displayBookNotes(Book notes) {
 		
-		for (int i = 0; i < s.length; i++) {
-			TextField tk = infoFields.get(i);
-			tk.setText(s[i]);
-		}
-		Object[] loan = kirtika.getBookLoanInfo(bId);
-		checkLoaned.setSelected((boolean)loan[0]);
-		fieldLoaner.setText((String)loan[1]);
-		
-		
-		// Otherwise setting a value triggers the onAction-event 
-		// handleSetDate/handleSetReturnDate, which results in excess dialogs 
-		// every time book is changed.
-		EventHandler<ActionEvent> eventHandler = fieldLoanStartDate.getOnAction();
-		fieldLoanStartDate.setOnAction(null);
-		fieldLoanStartDate.setValue((LocalDate)loan[2]);
-		fieldLoanStartDate.setOnAction(eventHandler);
-		
-		eventHandler = fieldLoanReturnDate.getOnAction();
-		fieldLoanReturnDate.setOnAction(null);
-		fieldLoanReturnDate.setValue((LocalDate)loan[3]);
-		fieldLoanReturnDate.setOnAction(eventHandler);
+	}
+	
+	/**
+	 * Setting a value for DatePicker-fields
+	 * triggers the onAction-event without using this method
+	 * @param field DatePicker where date is shown
+	 * @param value LocalDate to be shown
+	 */
+	private void updateFieldWithoutActionEvent(DatePicker field, LocalDate value) {
+		EventHandler<ActionEvent> eventHandler = field.getOnAction();
+	    field.setOnAction(null);
+	    field.setValue(value);
+	    field.setOnAction(eventHandler);
 	}
 	
 	/**
@@ -346,11 +382,12 @@ public class KirtikaGUIController implements Initializable {
 		Book book = chooserBooks.getSelectedObject();
 		boolean b = checkLoaned.isSelected();
 		
+		// Checkbox is selected, and field for Loaner has text.
 		if (b && fieldLoaner.getText() != null && !fieldLoaner.getText().isEmpty()) {
 			addNewLoan(book);
 		}
+		// Unchecking closes the loan
 		if (!b) closeLoan(book);
-		
 		
 	}
 
@@ -362,27 +399,16 @@ public class KirtikaGUIController implements Initializable {
 	private void addNewLoan(Book book) {
 		kirtika.addBookLoan(book, fieldLoaner.getText());
 		book.setBookLoaned(true);
+		
+		// Save data to files
 		try {
-			kirtika.save();
-		} catch (SailoException sE) {
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle("VAROITUS");
-			alert.setHeaderText("Kirjaluettelo");
-			alert.setContentText("Kirjojen tallennus ei onnistunut, sillä tiedostoa ei löytynyt");
-			alert.showAndWait();
-		}
-		try {
-			kirtika.saveBookLoans();
+			kirtika.saveAll();
+			Dialogs.showMessageDialog("Lainan lisääminen onnistui!");
 		} catch (SailoException e) {
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle("VAROITUS");
-			alert.setHeaderText("Loans kirjat");
-			alert.setContentText("Lainan tallentaminen tiedostoon ei onnistunut");
-			alert.showAndWait();
+			showWarningDialog("VAROITUS", "Tiedostojen tallentaminen ei onnistunut", e.getMessage());
 		}
-		Dialogs.showMessageDialog("Lainan lisääminen onnistui!");
 	}
-	
+
 	/**
 	 * When checkbox is deactivated, loan is set as closed.
 	 * 
@@ -391,31 +417,15 @@ public class KirtikaGUIController implements Initializable {
 	 */
 	private void closeLoan(Book book) {
 		LocalDate returnDate = fieldLoanReturnDate.getValue();
-		if (returnDate == null) returnDate = LocalDate.now();
+		if (returnDate == null) {
+			returnDate = LocalDate.now();
+		}
 		try {
 			kirtika.closeLoan(book.getBookId(), returnDate);
 			Dialogs.showMessageDialog(book.getBookName() + " palautettiin onnistuneesti" + System.lineSeparator() + "päivämäärällä " + returnDate.toString());
-		} catch (SailoException e) {
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle("VAROITUS");
-			alert.setHeaderText("Loans kirjat");
-			alert.setContentText(e.getMessage());
-			alert.showAndWait();
-		}
-		
-		try {
 			kirtika.saveAll();
 		} catch (SailoException e) {
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle("VAROITUS");
-			alert.setHeaderText("Loans kirjat");
-			alert.setContentText(e.getMessage());
-			alert.showAndWait();
+			showWarningDialog("VAROITUS", "Kirjan palauttaminen ei onnistunut", e.getMessage());
 		}
-		
 	}
-
-
-	
-	
 }

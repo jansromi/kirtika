@@ -119,7 +119,7 @@ public class Loans {
 	 * 
 	 * @return
 	 */
-	public Loan getActiveLaina(int bId) {
+	public Loan getActiveLoan(int bId) {
 		for (Loan loan : items) {
 			if (loan.matchesBookId(bId) && !loan.isLoanActive()) return loan;
 		}
