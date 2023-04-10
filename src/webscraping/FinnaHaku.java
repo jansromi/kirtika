@@ -20,7 +20,7 @@ import org.json.JSONObject;
  * Uses the FinnaParser-class for parsing JSON-objects for clarity, but this could be done with the JSON-parser
  * 
  * @author Jansromi
- * @version 30.3.2023
+ * @version 10.4.2023
  *
  */
 public class FinnaHaku {
