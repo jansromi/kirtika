@@ -354,8 +354,8 @@ public class KirtikaGUIController implements Initializable {
 	    updateFieldWithoutActionEvent(fieldLoanReturnDate, (LocalDate) loan[3]);
 	}
 	
-	private void displayBookNotes(Book notes) {
-		
+	private void displayBookNotes(Book book) {
+		areaBookNotes.setText(kirtika.getBookNotes(book));
 	}
 	
 	/**

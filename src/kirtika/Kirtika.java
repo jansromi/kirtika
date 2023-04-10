@@ -99,6 +99,15 @@ public class Kirtika {
 	}
 	
 	/**
+	 * TODO: COMMENT
+	 * @param book
+	 * @return
+	 */
+	public String getBookNotes(Book book) {
+		return books.getBookNotes(book);
+	}
+	
+	/**
 	 * Sets the active loans return date, 
 	 * and sets the loan as closed.
 	 * Finally sets the bookLoaned-property as closed.

@@ -3,6 +3,7 @@ package kirtika;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Scanner;
 
@@ -125,6 +126,27 @@ public class Books {
 	//
 	// =========== Getters / Setters ==========
 	//
+	
+	public String getBookNotes(Book book) {
+		String filePath = book.getFilePath();
+	    StringBuilder sb = new StringBuilder();
+
+	    try (Scanner scanner = new Scanner(new File(filePath))) {
+	        while (scanner.hasNextLine()) {
+	            sb.append(scanner.nextLine());
+	        }
+	    } catch (FileNotFoundException e) {
+	        try {
+	            File newFile = new File(filePath);
+	            newFile.createNewFile();
+	            System.out.println("Created new file: " + filePath);
+	        } catch (IOException ex) {
+	            ex.printStackTrace();
+	        }
+	    }
+	    
+	    return sb.toString();
+	}
 	
 	/**
 	 * Sets the value for bookLoaned.

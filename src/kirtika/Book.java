@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
-//import kirtika.StringUtils.StringReplace;
 import fi.jyu.mit.ohj2.Mjonot;
+import utils.StringSanitizer;
 
 /**
  * 
@@ -33,9 +33,10 @@ public class Book {
 	private int bookRelaseYear;
 	private String bookClassification = "";
 	private boolean bookLoaned, bookRead;
-	private String bookInfoPath = "";
+	private String bookFilePath = "";
 	
 	private static int nextBookId = 1;
+	private static String path = "src/data/book/";
 	
 	/**
 	 * Default constructor
@@ -60,7 +61,7 @@ public class Book {
 		bookClassification = Mjonot.erota(sb, '|');
 		bookLoaned = Boolean.parseBoolean(Mjonot.erota(sb, '|'));
 		bookRead = Boolean.getBoolean(Mjonot.erota(sb, '|'));
-		bookInfoPath = Mjonot.erota(sb, '|');
+		bookFilePath = Mjonot.erota(sb, '|');
 	}
 	
 	/**
@@ -78,7 +79,7 @@ public class Book {
 				bookClassification + "|" +
 				bookLoaned + "|" +
 				bookRead + "|" +
-				bookInfoPath;
+				bookFilePath;
 		
 	}
 	
@@ -110,6 +111,7 @@ public class Book {
 		bookLoaned = false;
 		bookRead = false;
 		setBookId();
+		setFilePath();
 	}
 	
 	/**
@@ -125,11 +127,16 @@ public class Book {
 		bookRelaseYear = 2017;
 		bookClassification = "81.4";
 		bookRead = true;
-		bookInfoPath =  "...\\kirtika\\text\\1_info.txt";
+		setFilePath();
 	}
 	
-	public void setFileName() {
-		String fName = bookId + bookName;
+	/**
+	 * Sets a safe filepath for the book
+	 */
+	public void setFilePath() {
+		String fName = StringSanitizer.replaceNordicChars(bookName).toLowerCase();
+		fName = StringSanitizer.replaceSpecialChars(fName);
+		bookFilePath = path + bookId + fName + ".txt";
 	}
 	
 	/**
@@ -242,6 +249,13 @@ public class Book {
 	}
 	
 	/**
+	 * @return books filepath
+	 */
+	public String getFilePath() {
+		return bookFilePath;
+	}
+	
+	/**
 	 * @return boolean bookLoaned
 	 */
 	public boolean bookLoaned() {
@@ -274,7 +288,8 @@ public class Book {
 		}
 		*/
 		Book b = new Book();
-		String s = "h\\irtettyjen kettujen metsä";
-		//String c = StringUtils.replaceScandics(s);
+		b.setOdysseia();
+		b.setFilePath();
+		System.out.println();
 	}
 }
