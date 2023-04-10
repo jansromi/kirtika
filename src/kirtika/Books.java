@@ -73,6 +73,7 @@ public class Books {
 	 * @param book to be removed
 	 */
 	public void deleteBook(Book book) {
+		deleteBookNotes(book);
 		for (int i = 0; i < this.getAmt(); i++) {
 			if (this.get(i).matchesId(book.getBookId())) {
 				int j = i;
@@ -86,6 +87,20 @@ public class Books {
 		}
 	}
 	
+	/**
+	 * Removes the associated Book note txt-file
+	 * from file path
+	 */
+	private void deleteBookNotes(Book book) {
+		 File file = new File(book.getFilePath());
+	        if (file.delete()) {
+	            System.out.println("File deleted successfully.");
+	        } else {
+	            System.out.println("Failed to delete file.");
+	        }
+		
+	}
+
 	/**
 	 * Saves the books to a file
 	 * @throws SailoException  if saving fails

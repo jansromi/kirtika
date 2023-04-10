@@ -37,6 +37,14 @@ public class Kirtika {
 	}
 	
 	/**
+	 * A mediator method for deleting a book.
+	 *
+	 * @param book the book to be deleted
+	 */
+	public void deleteBook(Book book) {
+	    books.deleteBook(book);
+	}
+	/**
 	 * Adds a new loan.
 	 *
 	 * @param book the loaned book
@@ -179,14 +187,7 @@ public class Kirtika {
 		books.saveBookNotes(book, notes);
 	}
 	
-	/**
-	 * A mediator method for deleting a book.
-	 *
-	 * @param book the book to be deleted
-	 */
-	public void deleteBook(Book book) {
-	    books.deleteBook(book);
-	}
+
 	
 	/**
 	 * A mediator method that returns a book with this index.
