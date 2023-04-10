@@ -10,15 +10,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import kirtika.Kirja;
+import kirtika.Book;
 import kirtika.Kirtika;
 import kirtika.SailoException;
 
 /**
  * 
- * @author Robert Mikael Jansson
- * @version 20.1.2023
- * Kirjanlisäyslomakkeen kontrolleri
+ * @author Jansromi
+ * @version 9.4.2023
  *
  */
 public class KirtikaAddBookController implements Initializable{
@@ -31,53 +30,48 @@ public class KirtikaAddBookController implements Initializable{
     fieldKirjailija, fieldKirjanNimi, fieldLuokitus;
 
     /**
-     * Uuden kirjan lisäys
-     * TODO: Errorhanderit
+     * Handle for adding a new book to Kirtika
+     * TODO: Errorhandlers
      * @param event
      */
     @FXML
-    void tallennaKirja(ActionEvent event) {
-    	uusiKirja();
+    void addBook(ActionEvent event) {
+    	newBook();
     	((Node)(event.getSource())).getScene().getWindow().hide();
     }
     
     
-    // FXML-koodit yllä
+    // 
 	//=======================================================================================
     //
     
     private Kirtika kirtika;
     
     /**
-     * Alustustetaan AddBook-lomake käyttämään kirtikaa ja 
-     * 
+     * Sets the mediator-class
      * @param kirtika
-     * @param chooserKirjat Päänäkymän kirjalistaus
      */
-    public void initData(Kirtika kirtika) {
+    public void initKirtika(Kirtika kirtika) {
     	this.kirtika = kirtika;
     }
 
 	/**
-     * Uuden kirjan lisäys rekisteriin
+     * Adding a new book to the registery
      */
-    private void uusiKirja() {
-		Kirja uusi = new Kirja();
-		uusi.setKirjaId();
-		uusi.setOdysseia();
+    private void newBook() {
+		Book book = new Book();
+		book.setBookId();
+		book.setOdysseia();
 		
 		try {
-			kirtika.lisaa(uusi);
-			//kirtika.tallenna()
+			kirtika.addBook(book);
 		} catch (SailoException e) {
 			Dialogs.showMessageDialog("Ongelmia kirjan lisäämisessä " + e.getMessage());
 		}
-		
 	}
     
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
 		
 	}
 

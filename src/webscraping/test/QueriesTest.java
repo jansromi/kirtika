@@ -32,7 +32,7 @@ public class QueriesTest {
     String s = finnaQuery("9789511297444", "isbn"); 
     String[] json = s.split("\\{"); 
     assertEquals("From: Queries line: 53", "\"resultCount\":1,\"records\":[", json[1]); 
-    assertEquals("From: Queries line: 54", " value : 1 /Book /Book / , translated : Kirja }], id : anders.1500431 , images :[], languages :[ fin ], nonPresenterAuthors :[", json[6].replace('"', ' ').replace('\\', ' '));
+    assertEquals("From: Queries line: 54", " value : 1 /Book /Book / , translated : Book }], id : anders.1500431 , images :[], languages :[ fin ], nonPresenterAuthors :[", json[6].replace('"', ' ').replace('\\', ' '));
     String finna = "anders.1654424"; 
     String s2 = finnaQuery("anders.1654424", "finna"); 
     String[] json2 = s2.split(System.lineSeparator()); 

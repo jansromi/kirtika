@@ -21,7 +21,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import kirtika.Kirtika;
-import kirtika.Laina;
+import kirtika.Loan;
 import kirtika.SailoException;
 
 public class KirtikaLoanViewController {
@@ -29,14 +29,12 @@ public class KirtikaLoanViewController {
 	@FXML
 	private MenuBar myMenuBar;
 	
-	// Taulukon sarakkeet
-	@FXML private TableView<Laina> tableView;
-	@FXML private TableColumn<Laina, String> kirjanNimiColumn;
-	@FXML private TableColumn<Laina, String> lainaajanNimiColumn;
-	@FXML private TableColumn<Laina, LocalDate> lainaPvmColumn;
-	@FXML private TableColumn<Laina, LocalDate> palautusPvmColumn;
-	
-    
+	// Columns of the table
+	@FXML private TableView<Loan> tableView;
+	@FXML private TableColumn<Loan, String> bookNameColumn;
+	@FXML private TableColumn<Loan, String> lenderNameColumn;
+	@FXML private TableColumn<Loan, LocalDate> loanStartDateColumn;
+	@FXML private TableColumn<Loan, LocalDate> loanEndDateColumn;
 
 	@FXML public void handleShowMainView(ActionEvent event) throws IOException {
 		FXMLLoader ldr = new FXMLLoader();
@@ -48,7 +46,7 @@ public class KirtikaLoanViewController {
 		Stage window = (Stage) myMenuBar.getScene().getWindow();
 		window.setScene(mainViewScene);
 		ctrl.setKirtika(kirtika);
-		ctrl.updateChooserKirjat();
+		ctrl.updateChooserBooks();
 		window.show();
 	}
 	
@@ -65,7 +63,7 @@ public class KirtikaLoanViewController {
 	private Kirtika kirtika;
 	
 	/**
-	* Alustetaan kontrolleri käyttämään kirtikaa.
+	* Initializes the controller to use Kirtika
 	*/
 	public void initialize(Kirtika kirtika) {
 		this.kirtika = kirtika;
@@ -73,19 +71,21 @@ public class KirtikaLoanViewController {
 		tableView.setItems(getLainat());
 	}
 	
+	/**
+	 * Method for deleting a loan. 
+	 */
 	public void deleteLoan() {
-		Laina laina = tableView.getSelectionModel().getSelectedItem();
-		if (laina == null) return;
+		Loan loan = tableView.getSelectionModel().getSelectedItem();
+		if (loan == null) return;
 		if (Dialogs.showQuestionDialog("Huomio!", "Haluatko varmasti poistaa valitun lainan?", "Kyllä", "Ei")) {
-			kirtika.deleteLoan(laina.getLainaId());
+			kirtika.deleteLoan(loan.getLoanId());
 			try {
-				kirtika.setLainattu(laina.getLainattuKirjaId(), false);
-				kirtika.saveBookLoans();
-				kirtika.tallenna();
+				kirtika.setBookAsLoaned(loan.getLoanedBookId(), false);
+				kirtika.saveAll();
 			} catch (SailoException e) {
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("VAROITUS");
-				alert.setHeaderText("Lainatut kirjat");
+				alert.setHeaderText("Loans kirjat");
 				alert.setContentText("Lainan käsittely ei onnistunut, sillä tiedostoa ei löytynyt");
 				alert.showAndWait();
 			}
@@ -94,16 +94,18 @@ public class KirtikaLoanViewController {
 	}
 	
 	/**
-	 * Alustetaan taulukko käyttämään LainattuKirja-olioita.
+	 * Initializes the table to display Loan objects.
+	 * Sets up custom cell factories for the loanStartDateColumn and loanEndDateColumn
+	 * to format the dates as DD-MM-YYYY.
 	 */
 	public void initTable() {
-		kirjanNimiColumn.setCellValueFactory(new PropertyValueFactory<Laina, String>("kirjanNimi"));
-		lainaajanNimiColumn.setCellValueFactory(new PropertyValueFactory<Laina, String>("lainaajanNimi"));
-		lainaPvmColumn.setCellValueFactory(new PropertyValueFactory<Laina, LocalDate>("lainaPvm"));
-		palautusPvmColumn.setCellValueFactory(new PropertyValueFactory<Laina, LocalDate>("palautusPvm"));
+		bookNameColumn.setCellValueFactory(new PropertyValueFactory<Loan, String>("bookName"));
+		lenderNameColumn.setCellValueFactory(new PropertyValueFactory<Loan, String>("loanerName"));
+		loanStartDateColumn.setCellValueFactory(new PropertyValueFactory<Loan, LocalDate>("loanStartDate"));
+		loanEndDateColumn.setCellValueFactory(new PropertyValueFactory<Loan, LocalDate>("loanEndDate"));
 		
-	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-	    lainaPvmColumn.setCellFactory(column -> new TableCell<Laina, LocalDate>() {
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+	    loanStartDateColumn.setCellFactory(column -> new TableCell<Loan, LocalDate>() {
 	        @Override
 	        protected void updateItem(LocalDate item, boolean empty) {
 	            super.updateItem(item, empty);
@@ -114,7 +116,7 @@ public class KirtikaLoanViewController {
 	            }
 	        }
 	    });
-	    palautusPvmColumn.setCellFactory(column -> new TableCell<Laina, LocalDate>() {
+	    loanEndDateColumn.setCellFactory(column -> new TableCell<Loan, LocalDate>() {
 	        @Override
 	        protected void updateItem(LocalDate item, boolean empty) {
 	            super.updateItem(item, empty);
@@ -128,12 +130,12 @@ public class KirtikaLoanViewController {
 	}
 	
 	/**
-	 * @return Lainat joita löydetään kirtikasta
+	 * @return Found loans from kirtika.
 	 */
-	public ObservableList<Laina> getLainat(){
-		ObservableList<Laina> lainat = FXCollections.observableArrayList();
-			for (int i = 0; i < kirtika.getLainatutLkm(); i++) {
-				Laina lainattu = kirtika.annaLainattuKirja(i);
+	public ObservableList<Loan> getLainat(){
+		ObservableList<Loan> lainat = FXCollections.observableArrayList();
+			for (int i = 0; i < kirtika.getLoansAmt(); i++) {
+				Loan lainattu = kirtika.getLoanedBook(i);
 				lainat.add(lainattu);
 			}
 		return lainat;

@@ -5,218 +5,84 @@ import java.time.LocalDate;
 /**
  * Kirtika-luokka joka sisältää välittäjämetodeja
  * @author Jansromi
- * @version 0.6, 12.3.2023
- * 
- * TODO: Mietitään, miten saadaan throwaukset järkevästi, että niille voidaan tehdä
- * jotain käyttöliittymästä
+ * @version 0.9, 9.4.2023
  * 
  * 
  */
 public class Kirtika {
-	private final Kirjat kirjat;
+	private final Books books;
 	private final Genret genret;
-	private final Lainatut lainatut;
+	private final Loans loans;
 	
 	/**
-	 * Oletusmuodostaja
+	 * Default constructor
 	 */
 	public Kirtika() {
-		this.kirjat = new Kirjat();
+		this.books = new Books();
 		this.genret = new Genret();
-		this.lainatut = new Lainatut();
-		alustaLainattujenNimet();
+		this.loans = new Loans();
+		setLoanedBookNames();
 
 	}
 	
 	/**
-	 * Alustetaan silmukassa lainattujen kirjojen nimet,
-	 * sillä ovat tietokannassa vain id:llä
+	 * Adds a book to the registry
+	 * @param book to be added
+	 * @throws SailoException if adding fails
 	 */
-	public void alustaLainattujenNimet() {
-		// 
-		for (int i = 0; i < lainatut.getLainatutLkm(); i++) {
-			// Yhdistetään kirja-id kirjan nimeen
-			int lkId = lainatut.annaLainattuKirja(i).getLainattuKirjaId();
-			String s = kirjat.annaKirjanNimi(lkId);
-			lainatut.setLainatunKirjanNimi(lkId, s);
-		}
+	public void addBook(Book book) throws SailoException {
+		books.addBook(book);
 	}
 	
 	/**
-	 * Välittäjämetodi tallennukseen.
-	 * 
-	 * TODO: Pitäisikö exception throwata, jotta se voidaan näyttää käyttöliittymässä?
-	 * @throws SailoException 
+	 * Adds a new loan.
+	 *
+	 * @param book the loaned book
+	 * @param loaner the name of the person who borrowed the book
 	 */
-	public void tallenna() throws SailoException {
-			kirjat.tallenna();
+	public void addBookLoan(Book book, String loaner) {
+	    loans.addBookLoan(book, loaner);
 	}
-	
-	public void saveAll() throws SailoException {
-		kirjat.tallenna();
-		lainatut.saveBookLoans();
-	}
-	
-	public void saveBookLoans() throws SailoException {
-		lainatut.saveBookLoans();
-	}
-	
+
 	/**
-	 * Adds a new loan
-	 * 
-	 * @param kirja
-	 * @param b
-	 */
-	public void addBookLoan(Kirja kirja, String loaner) {
-		lainatut.addBookLoan(kirja, loaner);
-	}
-	
-	/**
-	 * Välittäjämetodi kirjan poistoon
-	 */
-	public void poista(Kirja kirja) {
-		kirjat.poista(kirja);
-	}
-	
-	/**
-	 * Deletes the loan 
-	 * @param laina
-	 */
-	public void deleteLoan(int lId) {
-		lainatut.deleteLoan(lId);
-	}
-	
-	/**
-	 * @return kirjojen määrä rekisterissä
-	 */
-	public int getKirjat() {
-		return kirjat.getLkm();
-	}
-	
-	/**
-	 * Lisää kirjan rekisteriin
-	 * @param kirja joka lisätään
-	 * @throws SailoException jos lisäys ei onnistunut
-	 */
-	public void lisaa(Kirja kirja) throws SailoException {
-		kirjat.lisaa(kirja);
-	}
-	
-	/**
-	 * Palauttaa kirjojen tallennuspaikan tiedostonimen.
-	 * 
-	 * TODO: Tarvitaanko?
-	 * @return
-	 */
-	public String kirjatName() {
-		return kirjat.getFileName();
-	}
-	
-	/**
-	 * Välittäjämetodi joka palauttaa tällä idllä kirjan.
-	 * @param i indeksi
-	 * @return indeksin kirja
-	 * @throws IndexOutOfBoundsException
-	 * 
-	 * TODO: Vaihdetaan parametri kirja-objektiksi
-	 */
-	public Kirja annaKirja(int i) throws IndexOutOfBoundsException{
-		return kirjat.anna(i);
-	}
-	
-	/**
-	 * @param i
-	 * @return viite lainattuun kirjaan
-	 */
-	public Laina annaLainattuKirja(int i) {
-		return lainatut.annaLainattuKirja(i);
-	}
-	
-	/**
-	 * Palauttaa lainattujen kirjojen lukumäärän
-	 * @return
-	 */
-	public int getLainatutLkm() {
-		return lainatut.getLainatutLkm();
-	}
-	
-	/**
-	 * Palauttaa kirjan tiedot taulukossa
+	 * Returns an array of relevant book information
+	 * to be shown in GUI
 	 * @param bId book id
-	 * @return
+	 * @return String[6] where
+	 * s[0] = writers;
+	 * s[1] = bookLanguage;
+	 * s[2] = bookPublisher;
+	 * s[3] = Integer.toString(bookRelaseYear);
+	 * s[4] = bookClassification;
+	 * s[5] = isbn;
 	 */
-	public String[] annaKirjanTiedot(int bId) {
-		String[] s = kirjat.annaKirjanTiedot(bId);
-		
-		// Vaihdetaan ykl-luokitus kuvaukseen
-		s[4] = genret.etsiYklKuvaus(s[4]);
-		return s;
-	}
-	
-	/**
-	 * Sets the given books lainattu-status
-	 * @param bId
-	 */
-	public void setLainattu(int bId, boolean b) {
-		kirjat.setLainattu(bId, b);
-	}
-	
-	/**
-	 * Sets the date when book was loaned
-	 * @param bId
-	 */
-	public void setLoanDate(int bId, LocalDate d) {
-		Laina laina = lainatut.getActiveLaina(bId);
-		if (laina == null) return;
-		laina.setLainaPvm(d);
-	}
-	
-	/**
-	 * Sets the date when book was loaned
-	 * @param bId
-	 */
-	public void setReturnDate(int bId, LocalDate d) {
-		Laina laina = lainatut.getActiveLaina(bId);
-		if (laina == null) return;
-		laina.setPalautuspvm(d);
-	}
-	
-	/**
-	 * Sets the loans return date
-	 * @throws SailoException 
-	 */
-	public void closeLoan(int bId, LocalDate returnDate) throws SailoException {
-		Laina laina = lainatut.getActiveLaina(bId);
-		if (laina == null) {
-			throw new SailoException("Annetulla kirjalla ei ollut aktiivista lainaa!");
-		}
-		laina.setPalautuspvm(returnDate);
-		laina.setClosed(true);
-		setLainattu(bId, false);
-	}
-	
-	public Laina getActiveLoan(int bId) {
-		return lainatut.getActiveLaina(bId);
+	public String[] getBookInfo(int bId) {
+	    String[] s = books.getBookInfo(bId);
+
+	    // Replaces YKL classification with description
+	    s[4] = genret.etsiYklKuvaus(s[4]);
+	    return s;
 	}
 	
 	/**
 	 * Fetches the loan information on selected book id
 	 * to be shown on GUI
-	 * obj[0] = boolean lainassa
-	 * obj[1] = String lainaaja
-	 * obj[2] = date when the loan was given
+	 * obj[0] = boolean bookLoaned
+	 * obj[1] = String loanerName
+	 * obj[2] = LocalDate when the loan was given
+	 * obj[3] = LocalDate when the loan is supposed to be returned
 	 * @param bId book id
 	 * @return
 	 */
 	public Object[] getBookLoanInfo(int bId) {
 		Object[] obj = new Object[4];
-		Laina laina = lainatut.getActiveLaina(bId);
-		if (laina != null) {
+		Loan loan = loans.getActiveLaina(bId);
+		if (loan != null) {
 			// should always return true
-			obj[0] = kirjat.getLainattu(bId);
-			obj[1] = laina.getLainaajanNimi();
-			obj[2] = laina.getLainaPvm();
-			obj[3] = laina.getPalautusPvm();
+			obj[0] = books.getBookLoaned(bId);
+			obj[1] = loan.getLoanerName();
+			obj[2] = loan.getLoanStartDate();
+			obj[3] = loan.getLoanEndDate();
 		} else {
 			obj[0] = false;
 			obj[1] = "";
@@ -224,6 +90,168 @@ public class Kirtika {
 			obj[3] = null;
 		}
 		return obj;
+	}
+	
+	/**
+	 * Sets the active loans return date, 
+	 * and sets the loan as closed.
+	 * Finally sets the bookLoaned-property as closed.
+	 * @throws SailoException if the given bId had no accociated loan ID. 
+	 *         Possible if one messes with the data.
+	 */
+	public void closeLoan(int bId, LocalDate returnDate) throws SailoException {
+		Loan loan = loans.getActiveLaina(bId);
+		if (loan == null) {
+			throw new SailoException("Annetulla kirjalla ei ollut aktiivista lainaa!");
+		}
+		loan.setLoanReturnDate(returnDate);
+		loan.setLoanStatus(true);;
+		setBookAsLoaned(bId, false);
+	}
+	
+	/**
+	 * Deletes a loan from the registry.
+	 *
+	 * @param lId the ID of the loan to be deleted
+	 */
+	public void deleteLoan(int lId) {
+	    loans.deleteLoan(lId);
+	}
+	
+	/**
+	 * Initializes the names of the loaned books in a loop, since they are only stored in the database by ID.
+	 */
+	public void setLoanedBookNames() {
+	    for (int i = 0; i < loans.getLoansAmt(); i++) {
+	        // Combines the book ID with its name
+	    	Loan loan = loans.getLoan(i);
+	        int loanedBookId = loan.getLoanedBookId();
+	        String bookName = books.getBookName(loanedBookId);
+	        loans.setLoanedBookName(loanedBookId, bookName);
+	    }
+	}
+	
+	/**
+	 * A mediator method for saving.
+	 *
+	 * @throws SailoException if saving fails
+	 */
+	public void save() throws SailoException {
+	    books.save();
+	}
+
+	/**
+	 * Saves all data.
+	 *
+	 * @throws SailoException if saving fails
+	 */
+	public void saveAll() throws SailoException {
+	    books.save();
+	    loans.saveBookLoans();
+	}
+
+	/**
+	 * Saves loan data.
+	 *
+	 * @throws SailoException if saving fails
+	 */
+	public void saveBookLoans() throws SailoException {
+	    loans.saveBookLoans();
+	}
+	
+	/**
+	 * A mediator method for deleting a book.
+	 *
+	 * @param book the book to be deleted
+	 */
+	public void deleteBook(Book book) {
+	    books.deleteBook(book);
+	}
+
+
+	
+	/**
+	 * A mediator method that returns a book with this index.
+	 * @param i index
+	 * @return book at this index
+	 * @throws IndexOutOfBoundsException
+	 */
+	public Book getBook(int i) throws IndexOutOfBoundsException{
+		return books.get(i);
+	}
+	
+	/**
+	 * Returns the number of books in the registry.
+	 *
+	 * @return the number of books in the registry
+	 */
+	public int getBooks() {
+	    return books.getAmt();
+	}
+	
+	/**
+	 * Returns the file name where books are saved.
+	 *
+	 * TODO: Is this needed?
+	 * @return file name
+	 */
+	public String getBooksFileName() {
+		return books.getFileName();
+	}
+
+	
+	/**
+	 * Returns a reference to a loan by index
+	 * @return reference to the loan
+	 */
+	public Loan getLoanedBook(int i) {
+	    return loans.getLoanedBook(i);
+	}
+
+	/**
+	 * @return the number of loaned books
+	 */
+	public int getLoansAmt() {
+	    return loans.getLoansAmt();
+	}
+
+	/**
+	 * Sets the given books loaned-status
+	 * @param bId
+	 */
+	public void setBookAsLoaned(int bId, boolean b) {
+		books.setBookLoaned(bId, b);
+	}
+	
+	/**
+	 * Sets the date when book was loaned
+	 * @param bId
+	 */
+	public void setLoanDate(int bId, LocalDate d) {
+		Loan loan = loans.getActiveLaina(bId);
+		if (loan == null) return;
+		loan.setLoanStartDate(d);;
+	}
+	
+	/**
+	 * Sets the date when book is supposed to be returned.
+	 * @param bId
+	 */
+	public void setReturnDate(int bId, LocalDate d) {
+		Loan loan = loans.getActiveLaina(bId);
+		if (loan == null) return;
+		loan.setLoanReturnDate(d);
+	}
+
+	
+	/**
+	 * 
+	 * @param bId
+	 * @return The associated loan with given book ID.
+	 * 		   Null if there was no loan with given ID.
+	 */
+	public Loan getActiveLoan(int bId) {
+		return loans.getActiveLaina(bId);
 	}
 
 }

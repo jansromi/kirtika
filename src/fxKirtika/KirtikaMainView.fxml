@@ -26,7 +26,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="Tiedosto">
             <items>
-                  <MenuItem fx:id="handleTallenna" mnemonicParsing="false" onAction="#tallenna" text="Tallenna">
+                  <MenuItem fx:id="handleSave" mnemonicParsing="false" onAction="#save" text="Tallenna">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
@@ -58,13 +58,13 @@
    <left>
       <BorderPane prefHeight="684.0" prefWidth="371.0" BorderPane.alignment="CENTER">
          <center>
-            <ListChooser fx:id="chooserKirjat" onMouseClicked="#listChooserCliked" prefHeight="603.0" prefWidth="346.0" rivit="" BorderPane.alignment="CENTER" />
+            <ListChooser fx:id="chooserBooks" onMouseClicked="#listChooserCliked" prefHeight="603.0" prefWidth="346.0" rivit="" BorderPane.alignment="CENTER" />
          </center>
          <top>
             <Label prefHeight="1.0" prefWidth="40.0" text="Kirjasto" BorderPane.alignment="CENTER" />
          </top>
          <bottom>
-            <TextField fx:id="searchBar" onAction="#haeKirjoja" promptText="Haku..." BorderPane.alignment="CENTER" />
+            <TextField fx:id="searchBar" onAction="#searchBooks" promptText="Haku..." BorderPane.alignment="CENTER" />
          </bottom>
       </BorderPane>
    </left>
@@ -93,19 +93,19 @@
                   <Label text="Julkaisija" GridPane.rowIndex="3" />
                   <Label text="Luokitus" GridPane.rowIndex="5" />
                   <Label text="ISBN" GridPane.rowIndex="6" />
-                  <TextField fx:id="fieldKirjailija" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="fieldKieli" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="fieldJulkaisija" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField fx:id="fieldLuokitus" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField fx:id="fieldWriters" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="fieldLanguage" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="fieldPublisher" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="fieldClassification" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <TextField fx:id="fieldIsbn" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <CheckBox fx:id="checkLainassa" mnemonicParsing="false" onAction="#handleSetLoan" text="Lainassa?" GridPane.rowIndex="7" />
+                  <CheckBox fx:id="checkLoaned" mnemonicParsing="false" onAction="#handleSetLoan" text="Lainassa?" GridPane.rowIndex="7" />
                   <Label text="Julkaisuvuosi" GridPane.rowIndex="4" />
-                  <TextField fx:id="fieldJulkaisuvuosi" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="fieldRelaseYear" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                      <children>
-                        <TextField fx:id="fieldLainaaja" layoutY="19.0" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" onAction="#handleSetLoan" prefHeight="25.0" prefWidth="136.0" promptText="Kenelle lainattu" />
-                        <DatePicker fx:id="fieldLainauspvm" editable="false" layoutX="144.0" layoutY="2.0" maxWidth="-Infinity" minWidth="-Infinity" onAction="#handleSetLoanDate" prefHeight="25.0" prefWidth="111.0" promptText="Lainattu" />
-                        <DatePicker fx:id="fieldPalautuspvm" editable="false" layoutX="144.0" layoutY="32.0" maxWidth="-Infinity" minWidth="-Infinity" onAction="#handleSetReturnDate" prefHeight="25.0" prefWidth="111.0" promptText="Palautus" />
+                        <TextField fx:id="fieldLoaner" layoutY="19.0" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" onAction="#handleSetLoan" prefHeight="25.0" prefWidth="136.0" promptText="Kenelle lainattu" />
+                        <DatePicker fx:id="fieldLoanStartDate" editable="false" layoutX="144.0" layoutY="2.0" maxWidth="-Infinity" minWidth="-Infinity" onAction="#handleSetLoanDate" prefHeight="25.0" prefWidth="111.0" promptText="Lainattu" />
+                        <DatePicker fx:id="fieldLoanReturnDate" editable="false" layoutX="144.0" layoutY="32.0" maxWidth="-Infinity" minWidth="-Infinity" onAction="#handleSetReturnDate" prefHeight="25.0" prefWidth="111.0" promptText="Palautus" />
                      </children>
                   </AnchorPane>
                </children>
@@ -118,7 +118,7 @@
                   <Insets top="250.0" />
                </VBox.margin>
                <children>
-                  <CheckBox fx:id="checkMuokkaustila" mnemonicParsing="false" onAction="#editMetaInfo" prefHeight="32.0" prefWidth="92.0" text="Muokkaustila">
+                  <CheckBox fx:id="checkEditMode" mnemonicParsing="false" onAction="#editMetaInfo" prefHeight="32.0" prefWidth="92.0" text="Muokkaustila">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>

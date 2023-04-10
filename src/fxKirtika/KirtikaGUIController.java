@@ -25,7 +25,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import kirtika.Kirja;
+import kirtika.Book;
 import kirtika.Kirtika;
 import kirtika.SailoException;
 
@@ -41,17 +41,17 @@ public class KirtikaGUIController implements Initializable {
 
 	
     @FXML
-    private TextField fieldIsbn, fieldJulkaisija, fieldJulkaisuvuosi, 
-    fieldLainaaja, fieldKieli, fieldKirjailija, fieldLuokitus;
-    private ArrayList<TextField> tietokentat = new ArrayList<>();
+    private TextField fieldIsbn, fieldPublisher, fieldRelaseYear, 
+    fieldLoaner, fieldLanguage, fieldWriters, fieldClassification;
+    private ArrayList<TextField> infoFields = new ArrayList<>();
     
     @FXML
-    private CheckBox checkMuokkaustila;
+    private CheckBox checkEditMode;
     @FXML
-    private CheckBox checkLainassa;
+    private CheckBox checkLoaned;
     
     @FXML
-    private DatePicker fieldLainauspvm, fieldPalautuspvm;
+    private DatePicker fieldLoanStartDate, fieldLoanReturnDate;
 	
     @FXML
     private MenuBar myMenuBar;
@@ -63,13 +63,13 @@ public class KirtikaGUIController implements Initializable {
     private MenuItem showLoanHistory;
     
     @FXML
-    private MenuItem handleTallenna;
+    private MenuItem handleSave;
     
     @FXML
     private MenuItem handleDeleteBook;
     
     @FXML
-    private ListChooser<Kirja> chooserKirjat;
+    private ListChooser<Book> chooserBooks;
     
     
 	@Override
@@ -82,9 +82,9 @@ public class KirtikaGUIController implements Initializable {
 	 * @param event
 	 */
     @FXML
-    void tallenna(ActionEvent event) {
+    void save(ActionEvent event) {
     	try {
-			kirtika.tallenna();
+			kirtika.save();
 		} catch (SailoException e) {
 			
 		}
@@ -95,10 +95,10 @@ public class KirtikaGUIController implements Initializable {
      */
     @FXML
     void handleSetLoanDate() {
-    	Kirja kirja = chooserKirjat.getSelectedObject();
-    	if (kirtika.getActiveLoan(kirja.getKirjaId()) != null) {
-    		kirtika.setLoanDate(kirja.getKirjaId(), fieldLainauspvm.getValue());
-        	Dialogs.showMessageDialog("Lainauspäiväksi asetettu " + fieldLainauspvm.getValue().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
+    	Book book = chooserBooks.getSelectedObject();
+    	if (kirtika.getActiveLoan(book.getBookId()) != null) {
+    		kirtika.setLoanDate(book.getBookId(), fieldLoanStartDate.getValue());
+        	Dialogs.showMessageDialog("Lainauspäiväksi asetettu " + fieldLoanStartDate.getValue().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
     	}
     }
     
@@ -111,10 +111,10 @@ public class KirtikaGUIController implements Initializable {
      */
     @FXML
     void handleSetReturnDate() {
-    	Kirja kirja = chooserKirjat.getSelectedObject();
-    	if (kirtika.getActiveLoan(kirja.getKirjaId()) != null) {
-    		kirtika.setReturnDate(kirja.getKirjaId(), fieldPalautuspvm.getValue());
-    		Dialogs.showMessageDialog("Palautuspäiväksi asetettu " + fieldPalautuspvm.getValue().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
+    	Book book = chooserBooks.getSelectedObject();
+    	if (kirtika.getActiveLoan(book.getBookId()) != null) {
+    		kirtika.setReturnDate(book.getBookId(), fieldLoanReturnDate.getValue());
+    		Dialogs.showMessageDialog("Palautuspäiväksi asetettu " + fieldLoanReturnDate.getValue().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
     	}
     }
     
@@ -126,11 +126,11 @@ public class KirtikaGUIController implements Initializable {
 	 * Public so that it can be called from other controllers.
 	 */
 	@FXML
-	public void updateChooserKirjat() {
-		chooserKirjat.clear();
-		for (int i = 0; i < kirtika.getKirjat(); i++) {
-			Kirja kirja = kirtika.annaKirja(i);
-			chooserKirjat.add(kirja.getKirjanNimi(), kirja);
+	public void updateChooserBooks() {
+		chooserBooks.clear();
+		for (int i = 0; i < kirtika.getBooks(); i++) {
+			Book book = kirtika.getBook(i);
+			chooserBooks.add(book.getBookName(), book);
 		}
 	}
 	
@@ -150,42 +150,40 @@ public class KirtikaGUIController implements Initializable {
      */
     @FXML
     void listChooserCliked() {
-    	if (chooserKirjat.getSelectedIndex() == -1) return;
-    	setBookText(chooserKirjat.getSelectedObject());
-    }
-    /**
-     * Kun muokkaustila täppä valitaan, tehdään
-     * metatietokentistä muokattavia. Kun täppä
-     * valitaan epäaktiiviseksi, niin kentät
-     * palautetaan staattisiksi
-     * @param event
-     */
-    @FXML
-    void editMetaInfo(ActionEvent event) {
-    	if (checkMuokkaustila.isSelected()) {
-    	fieldKirjailija.setEditable(true);
-    	fieldKieli.setEditable(true);
-    	fieldJulkaisija.setEditable(true);
-    	fieldJulkaisuvuosi.setEditable(true);
-    	fieldLuokitus.setEditable(true);
-    	fieldIsbn.setEditable(true);
-    	}
-    	else {
-    		fieldKirjailija.setEditable(false);
-        	fieldKieli.setEditable(false);
-        	fieldJulkaisija.setEditable(false);
-        	fieldJulkaisuvuosi.setEditable(false);
-        	fieldLuokitus.setEditable(false);
-        	fieldIsbn.setEditable(false);
-    	}
+    	if (chooserBooks.getSelectedIndex() == -1) return;
+    	setBookText(chooserBooks.getSelectedObject());
     }
     
     /**
-     * Kirjojen haku enterillä
+     * When the edit mode checkbox is selected, make the metadata fields editable.
+     * When the checkbox is deselected, make the fields static again.
+     *
+     */
+    @FXML
+    void editMetaInfo() {
+        if (checkEditMode.isSelected()) {
+            fieldWriters.setEditable(true);
+            fieldLanguage.setEditable(true);
+            fieldPublisher.setEditable(true);
+            fieldRelaseYear.setEditable(true);
+            fieldClassification.setEditable(true);
+            fieldIsbn.setEditable(true);
+        } else {
+            fieldWriters.setEditable(false);
+            fieldLanguage.setEditable(false);
+            fieldPublisher.setEditable(false);
+            fieldRelaseYear.setEditable(false);
+            fieldClassification.setEditable(false);
+            fieldIsbn.setEditable(false);
+        }
+    }
+    
+    /**
+     * Search books 
      * @param event
      */
     @FXML
-    void haeKirjoja(ActionEvent event) {
+    void searchBooks(ActionEvent event) {
     	Dialogs.showMessageDialog("Ei osata vielä hakea");
     }
 	
@@ -198,62 +196,61 @@ public class KirtikaGUIController implements Initializable {
 	}
 	
 	/**
-	 * Kirjan poisto
+	 * Deletion of a book
 	 * @param event
 	 */
     @FXML
     void deleteBook(ActionEvent event) {
     	if(Dialogs.showQuestionDialog("Poista kirja", "Haluatko varmasti poistaa kirjan?", "Kyllä", "Ei")) {
-    		Kirja kirja = chooserKirjat.getSelectedObject();
-    		kirtika.poista(kirja);
-    		updateChooserKirjat();
+    		Book book = chooserBooks.getSelectedObject();
+    		kirtika.deleteBook(book);
+    		updateChooserBooks();
     	}
 
     }
 	
-	/**
-	 * Kun tätä metodia kutsutaan, vaihdetaan scene lainausnäkymään
-	 * @throws IOException jos tiedostossa jotain häikkää
-	 */
-	@FXML public void handleShowLoanHistory(ActionEvent event) throws IOException {
-		FXMLLoader ldr = new FXMLLoader();
-		System.out.println(chooserKirjat.getRivit());
-		ldr.setLocation(getClass().getResource("KirtikaLoanView.fxml"));
-		Parent root = ldr.load();
-		KirtikaLoanViewController ctrl = ldr.getController();
-		ctrl.initialize(kirtika);
-		Scene loanViewScene = new Scene(root);
-		
-		Stage window = (Stage) myMenuBar.getScene().getWindow();
-		window.setScene(loanViewScene);
-		window.show();
-	}
+    /**
+     * When this method is called, the scene is changed to the loan view.
+     * @throws IOException if there is an error with the file.
+     */
+    @FXML public void handleShowLoanHistory(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        System.out.println(chooserBooks.getRivit());
+        loader.setLocation(getClass().getResource("KirtikaLoanView.fxml"));
+        Parent root = loader.load();
+        KirtikaLoanViewController ctrl = loader.getController();
+        ctrl.initialize(kirtika);
+        Scene loanViewScene = new Scene(root);
+            
+        Stage window = (Stage) myMenuBar.getScene().getWindow();
+        window.setScene(loanViewScene);
+        window.show();
+    }
 	
-	/**
-	 * Näyttää lomakkeen kirjojen lisäämistä varten
-	 * @param event
-	 * @throws IOException 
-	 */
-	@FXML
-	public void handleShowAddBookForm(ActionEvent event) throws IOException {
-		FXMLLoader ldr = new FXMLLoader();
-		ldr.setLocation(getClass().getResource("KirtikaAddBook.fxml"));
-		Parent root = ldr.load();
-		KirtikaAddBookController ctrl = ldr.getController();
-		ctrl.initData(kirtika);
-		
-		Stage popUpStage = new Stage();
-		popUpStage.setTitle("Lisää kirja");
-		popUpStage.initModality(Modality.APPLICATION_MODAL);
-		
-		popUpStage.setScene(new Scene(root,400,400));
-		popUpStage.showAndWait();
-		
-		updateChooserKirjat();
+    /**
+     * Shows the form for adding books
+     * @throws IOException
+     */
+    @FXML
+    public void handleShowAddBookForm() throws IOException {
+        FXMLLoader ldr = new FXMLLoader();
+        ldr.setLocation(getClass().getResource("KirtikaAddBook.fxml"));
+        Parent root = ldr.load();
+        KirtikaAddBookController ctrl = ldr.getController();
+        ctrl.initKirtika(kirtika);
+        
+        Stage popUpStage = new Stage();
+        popUpStage.setTitle("Lisää kirja");
+        popUpStage.initModality(Modality.APPLICATION_MODAL);
+        
+        popUpStage.setScene(new Scene(root, 400, 400));
+        popUpStage.showAndWait();
+        
+        updateChooserBooks();
     }
 	
 	/**
-	 * Näyttää versiotietolomakkeen
+	 * Shows the About-view
 	 * @param event
 	 */
 	@FXML
@@ -275,8 +272,9 @@ public class KirtikaGUIController implements Initializable {
 	//
 	
 	private Kirtika kirtika;
+	
 	/**
-	 * Asetetaan viite Kirtika-luokkaan
+	 * Sets the reference to Kirtika-class
 	 * @param kirtika
 	 */
 	public void setKirtika(Kirtika kirtika) {
@@ -288,53 +286,53 @@ public class KirtikaGUIController implements Initializable {
 	 * Selects the first book to be active
 	 */
 	public void selectFirst() {
-		if (chooserKirjat.getItems() == null) return;
-		chooserKirjat.setSelectedIndex(0);
-		Kirja kirja = chooserKirjat.getSelectedObject();
-		setBookText(kirja);
+		if (chooserBooks.getItems() == null) return;
+		chooserBooks.setSelectedIndex(0);
+		Book book = chooserBooks.getSelectedObject();
+		setBookText(book);
 	}
 	
 	private void init() {
-		tietokentat.add(fieldKirjailija);
-		tietokentat.add(fieldKieli);
-		tietokentat.add(fieldJulkaisija);
-		tietokentat.add(fieldJulkaisuvuosi);
-		tietokentat.add(fieldLuokitus);
-		tietokentat.add(fieldIsbn);
+		infoFields.add(fieldWriters);
+		infoFields.add(fieldLanguage);
+		infoFields.add(fieldPublisher);
+		infoFields.add(fieldRelaseYear);
+		infoFields.add(fieldClassification);
+		infoFields.add(fieldIsbn);
 	}
 
 	/**
-	 * Asetetaan kirjan tiedot näkyviksi tietokenttiin
-	 * @param selectedId valitun kirjan id
+	 * Displays the books informations on main view
+	 * @param book The displayed book
 	 * 
 	 * loan[0] = boolean if book is loaned or not
 	 * loan[1] = name of loaner
 	 */
-	private void setBookText(Kirja kirja) {
-		int bId = kirja.getKirjaId();
-		String[] s = kirtika.annaKirjanTiedot(bId);
+	private void setBookText(Book book) {
+		int bId = book.getBookId();
+		String[] s = kirtika.getBookInfo(bId);
 		
 		for (int i = 0; i < s.length; i++) {
-			TextField tk = tietokentat.get(i);
+			TextField tk = infoFields.get(i);
 			tk.setText(s[i]);
 		}
 		Object[] loan = kirtika.getBookLoanInfo(bId);
-		checkLainassa.setSelected((boolean)loan[0]);
-		fieldLainaaja.setText((String)loan[1]);
+		checkLoaned.setSelected((boolean)loan[0]);
+		fieldLoaner.setText((String)loan[1]);
 		
 		
 		// Otherwise setting a value triggers the onAction-event 
 		// handleSetDate/handleSetReturnDate, which results in excess dialogs 
 		// every time book is changed.
-		EventHandler<ActionEvent> eventHandler = fieldLainauspvm.getOnAction();
-		fieldLainauspvm.setOnAction(null);
-		fieldLainauspvm.setValue((LocalDate)loan[2]);
-		fieldLainauspvm.setOnAction(eventHandler);
+		EventHandler<ActionEvent> eventHandler = fieldLoanStartDate.getOnAction();
+		fieldLoanStartDate.setOnAction(null);
+		fieldLoanStartDate.setValue((LocalDate)loan[2]);
+		fieldLoanStartDate.setOnAction(eventHandler);
 		
-		eventHandler = fieldPalautuspvm.getOnAction();
-		fieldPalautuspvm.setOnAction(null);
-		fieldPalautuspvm.setValue((LocalDate)loan[3]);
-		fieldPalautuspvm.setOnAction(eventHandler);
+		eventHandler = fieldLoanReturnDate.getOnAction();
+		fieldLoanReturnDate.setOnAction(null);
+		fieldLoanReturnDate.setValue((LocalDate)loan[3]);
+		fieldLoanReturnDate.setOnAction(eventHandler);
 	}
 	
 	/**
@@ -345,25 +343,27 @@ public class KirtikaGUIController implements Initializable {
 	 * 
 	 */
 	private void setLoan(){
-		Kirja kirja = chooserKirjat.getSelectedObject();
-		boolean b = checkLainassa.isSelected();
+		Book book = chooserBooks.getSelectedObject();
+		boolean b = checkLoaned.isSelected();
 		
-		if (b && fieldLainaaja.getText() != null && !fieldLainaaja.getText().isEmpty()) {
-			addNewLoan(kirja);
+		if (b && fieldLoaner.getText() != null && !fieldLoaner.getText().isEmpty()) {
+			addNewLoan(book);
 		}
-		if (!b) closeLoan(kirja);
+		if (!b) closeLoan(book);
+		
+		
 	}
 
 	/**
 	 * When checkbox is activated, a new loan is added.
 	 * 
-	 * @param kirja Book to set as loaned
+	 * @param book Book to set as loaned
 	 */
-	private void addNewLoan(Kirja kirja) {
-		kirtika.addBookLoan(kirja, fieldLainaaja.getText());
-		kirja.setLainassa(true);
+	private void addNewLoan(Book book) {
+		kirtika.addBookLoan(book, fieldLoaner.getText());
+		book.setBookLoaned(true);
 		try {
-			kirtika.tallenna();
+			kirtika.save();
 		} catch (SailoException sE) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("VAROITUS");
@@ -376,7 +376,7 @@ public class KirtikaGUIController implements Initializable {
 		} catch (SailoException e) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("VAROITUS");
-			alert.setHeaderText("Lainatut kirjat");
+			alert.setHeaderText("Loans kirjat");
 			alert.setContentText("Lainan tallentaminen tiedostoon ei onnistunut");
 			alert.showAndWait();
 		}
@@ -387,18 +387,18 @@ public class KirtikaGUIController implements Initializable {
 	 * When checkbox is deactivated, loan is set as closed.
 	 * 
 	 * If return date is not given, it will be set as current date.
-	 * @param kirja
+	 * @param book
 	 */
-	private void closeLoan(Kirja kirja) {
-		LocalDate returnDate = fieldPalautuspvm.getValue();
+	private void closeLoan(Book book) {
+		LocalDate returnDate = fieldLoanReturnDate.getValue();
 		if (returnDate == null) returnDate = LocalDate.now();
 		try {
-			kirtika.closeLoan(kirja.getKirjaId(), returnDate);
-			Dialogs.showMessageDialog(kirja.getKirjanNimi() + " palautettiin onnistuneesti" + System.lineSeparator() + "päivämäärällä " + returnDate.toString());
+			kirtika.closeLoan(book.getBookId(), returnDate);
+			Dialogs.showMessageDialog(book.getBookName() + " palautettiin onnistuneesti" + System.lineSeparator() + "päivämäärällä " + returnDate.toString());
 		} catch (SailoException e) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("VAROITUS");
-			alert.setHeaderText("Lainatut kirjat");
+			alert.setHeaderText("Loans kirjat");
 			alert.setContentText(e.getMessage());
 			alert.showAndWait();
 		}
@@ -408,7 +408,7 @@ public class KirtikaGUIController implements Initializable {
 		} catch (SailoException e) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("VAROITUS");
-			alert.setHeaderText("Lainatut kirjat");
+			alert.setHeaderText("Loans kirjat");
 			alert.setContentText(e.getMessage());
 			alert.showAndWait();
 		}

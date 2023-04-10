@@ -9,13 +9,13 @@ import javafx.fxml.FXMLLoader;
 
 /**
  * 
- * @author Roba
+ * @author Jansromi
  *
  */
 public class KirtikaMain extends Application {
 	
 	/**
-	 * Ohjelman käynnistyessä näytetään päänäkymä
+	 * Called when the application is launched
 	 */
 	@Override
 	public void start(Stage primaryStage) {
@@ -32,7 +32,7 @@ public class KirtikaMain extends Application {
 			
 			Kirtika kirtika = new Kirtika();
 			kirtikaCtrl.setKirtika(kirtika);
-			kirtikaCtrl.updateChooserKirjat();
+			kirtikaCtrl.updateChooserBooks();
 			kirtikaCtrl.selectFirst();
 			primaryStage.show();
 		} catch(Exception e) {

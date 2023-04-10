@@ -52,7 +52,7 @@ public class Queries {
 	 * String s = finnaQuery("9789511297444", "isbn");
 	 * String[] json = s.split("\\{");
 	 * json[1] === "\"resultCount\":1,\"records\":[";
-	 * json[6].replace('"', ' ').replace('\\', ' ') === " value : 1 /Book /Book / , translated : Kirja }], id : anders.1500431 , images :[], languages :[ fin ], nonPresenterAuthors :["
+	 * json[6].replace('"', ' ').replace('\\', ' ') === " value : 1 /Book /Book / , translated : Book }], id : anders.1500431 , images :[], languages :[ fin ], nonPresenterAuthors :["
 	 * 
 	 * String finna = "anders.1654424";
 	 * String s2 = finnaQuery("anders.1654424", "finna");

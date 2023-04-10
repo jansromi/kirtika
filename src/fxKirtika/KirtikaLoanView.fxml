@@ -11,10 +11,10 @@
    <center>
       <TableView fx:id="tableView" prefHeight="517.0" prefWidth="939.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="kirjanNimiColumn" prefWidth="367.0" text="Kirjan nimi" />
-          <TableColumn fx:id="lainaajanNimiColumn" minWidth="0.0" prefWidth="444.0" text="Lainaajan nimi" />
-            <TableColumn fx:id="lainaPvmColumn" minWidth="4.0" prefWidth="176.0" text="Lainan päivämäärä" />
-            <TableColumn fx:id="palautusPvmColumn" prefWidth="212.0" text="Lainan palautuspäivämäärä" />
+          <TableColumn fx:id="bookNameColumn" prefWidth="367.0" text="Kirjan nimi" />
+          <TableColumn fx:id="lenderNameColumn" minWidth="0.0" prefWidth="444.0" text="Lainaajan nimi" />
+            <TableColumn fx:id="loanStartDateColumn" minWidth="4.0" prefWidth="176.0" text="Lainan päivämäärä" />
+            <TableColumn fx:id="loanEndDateColumn" prefWidth="212.0" text="Lainan palautuspäivämäärä" />
         </columns>
       </TableView>
    </center>
