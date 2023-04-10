@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Kirtika-luokka joka sisältää välittäjämetodeja
  * @author Jansromi
- * @version 0.9, 9.4.2023
+ * @version 1, 10.4.2023
  * 
  * 
  */
