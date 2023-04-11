@@ -96,7 +96,24 @@ public class Kirtika {
 	/**
 	 * Fetches data from Finna API.
 	 * @param isbn
-	 * @return
+	 * @return ArrayList of book data, where
+	 * [0] == books title
+	 * [1] == books main writer
+	 * [2] == books language
+	 * [3] == books publisher
+	 * [4] == books release year
+	 * [5] == books isbn
+	 * [6] == YKL classification id
+	 * 
+	 * @example
+	 * <pre name="test">
+	 * #import java.util.ArrayList;
+	 * Kirtika kirtika = new Kirtika();
+	 * ArrayList list = kirtika.fetchFinnaData("9789524953856");
+	 * list.get(0) === "Talous ja moraali";
+	 * list.get(1) === "Korkman, Sixten, 1948- kirjoittaja; ";
+	 * list.get(2) === "fin; ";
+	 * </pre>
 	 */
 	public ArrayList<String> fetchFinnaData(String isbn){
 		FinnaHaku fh = new FinnaHaku(isbn);

@@ -7,7 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class FinnaParser {
+public final class FinnaParser {
 	/**
 	 * Search result parser.
 	 * @param content JSON search data from Finna API
