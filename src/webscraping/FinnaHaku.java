@@ -54,6 +54,14 @@ public class FinnaHaku {
 	private String rawResponse;
 	private JSONObject bookData;
 	
+	public static class BookNotFoundException extends Exception {
+        private static final long serialVersionUID = 1L;
+        public BookNotFoundException(String msg) {
+            super(msg);
+        }
+    }
+	
+	
 	/**
 	 * Constructor with isbn. Does a query with 
 	 * given isbn and sets the FinnaID for the book.
@@ -67,11 +75,12 @@ public class FinnaHaku {
 	
 	/**
 	 * Sets the relevant data for the book
+	 * @throws BookNotFoundException 
 	 */
-	public void fetchBookData() {
+	public void fetchBookData() throws BookNotFoundException {
 		if (finnaId == null) {
-			System.err.println("FinnaID not found! ");
-			return;
+			System.err.println("FinnaID not found!");
+			throw new BookNotFoundException("Book was not found");
 		}
 		query(false);
 		bookData = FinnaParser.parseFirstRecord(rawResponse);

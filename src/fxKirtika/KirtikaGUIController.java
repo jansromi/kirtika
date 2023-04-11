@@ -29,6 +29,7 @@ import javafx.stage.Stage;
 import kirtika.Book;
 import kirtika.Kirtika;
 import kirtika.SailoException;
+import webscraping.FinnaHaku.BookNotFoundException;
 
 
 /**
@@ -300,8 +301,16 @@ public class KirtikaGUIController implements Initializable {
         
         if (isISBNSelected) {
         	String s = Dialogs.showInputDialog("Anna kirjan ISBN-numero", null);
-        	ArrayList<String> finnaData = kirtika.fetchFinnaData(s);
-        	ctrl.initFinnaData(finnaData);
+        	if (s == null) return;
+        	ArrayList<String> finnaData;
+			try {
+				finnaData = kirtika.fetchFinnaData(s);
+				ctrl.initFinnaData(finnaData);
+			} catch (BookNotFoundException e) {
+				showWarningDialog("Virhe", "ISBN-haku epäonnistui", "Annetulla ISBN-koodilla ei löytynyt kirjoja Finnan rajapinnasta");
+				return;
+			}
+        	
         }
         
         Stage popUpStage = new Stage();

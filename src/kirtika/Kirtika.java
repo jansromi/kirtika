@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import webscraping.FinnaHaku;
+import webscraping.FinnaHaku.BookNotFoundException;
 
 /**
  * Main class Kirtika consists mostly of mediator methods.
@@ -104,6 +105,7 @@ public class Kirtika {
 	 * [4] == books release year
 	 * [5] == books isbn
 	 * [6] == YKL classification id
+	 * @throws BookNotFoundException 
 	 * 
 	 * @example
 	 * <pre name="test">
@@ -115,7 +117,7 @@ public class Kirtika {
 	 * list.get(2) === "fin; ";
 	 * </pre>
 	 */
-	public ArrayList<String> fetchFinnaData(String isbn){
+	public ArrayList<String> fetchFinnaData(String isbn) throws BookNotFoundException{
 		FinnaHaku fh = new FinnaHaku(isbn);
 		fh.fetchBookData();
 		ArrayList<String> data = new ArrayList<String>();
