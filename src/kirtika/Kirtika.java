@@ -50,6 +50,15 @@ public class Kirtika {
 	public void deleteBook(Book book) {
 	    books.deleteBook(book);
 	}
+	
+	/**
+	 * A mediator method for deleting a books 
+	 * associated note text file.
+	 * @param book the books which notes are deleted
+	 */
+	public void deleteBookNotes(Book book) {
+		books.deleteBookNotes(book);
+	}
 	/**
 	 * Adds a new loan.
 	 *
@@ -105,10 +114,11 @@ public class Kirtika {
 	 * [4] == books release year
 	 * [5] == books isbn
 	 * [6] == YKL classification id
-	 * @throws BookNotFoundException 
+	 * @throws BookNotFoundException when book is not found
 	 * 
 	 * @example
 	 * <pre name="test">
+	 * #THROWS BookNotFoundException
 	 * #import java.util.ArrayList;
 	 * Kirtika kirtika = new Kirtika();
 	 * ArrayList list = kirtika.fetchFinnaData("9789524953856");

@@ -39,16 +39,20 @@ public class Loan {
 	}
 	
 	/**
-	 * Yhden string-rivin konstruktori
+	 * Line constructor
 	 */
 	public Loan(String line) {
 		StringBuilder sb = new StringBuilder(line);
 		this.setLoanId(Integer.parseInt(Mjonot.erota(sb, '|')));
 		this.loanedBookId = Integer.parseInt(Mjonot.erota(sb, '|'));
 		this.loanerName = new SimpleStringProperty(Mjonot.erota(sb, '|'));
-		this.loanStartDate = setDate(Mjonot.erota(sb, '|'));
-		this.loanEndDate = setDate(Mjonot.erota(sb, '|'));
+		this.loanStartDate = SetDate.setDate(Mjonot.erota(sb, '|'));
+		this.loanEndDate = SetDate.setDate(Mjonot.erota(sb, '|'));
 		this.loanActive = Boolean.parseBoolean(sb.toString());
+	}
+	
+	public Loan() {
+		
 	}
 	
 	/**
@@ -77,26 +81,32 @@ public class Loan {
 		return this.loanedBookId == lbId;
 	}
 	
-	/**
-	 * Builds a LocalDate-object from a string.
-	 * @param s Date as String (YYYY-MM-DD)
-	 * @return LocalDate-object
-	 * 
-	 * @example
-	 * <pre name="test">
-	 * #import java.time.LocalDate;
-	 * LocalDate a1 = asetaAika("2022-01-01");
-	 * a1.getYear() === 2022;
-	 * a1.getMonth() === 01;
-	 * </pre>
-	 */
-	public LocalDate setDate(String s) {
-		if (s.equals("null")) return null;
-		StringBuilder sb = new StringBuilder(s);
-		int y = Integer.parseInt(Mjonot.erota(sb, '-'));
-		int m = Integer.parseInt(Mjonot.erota(sb, '-'));
-		int d = Integer.parseInt(sb.toString());
-		return LocalDate.of(y, m, d);
+	public static class SetDate {
+		
+		/**
+		 * Builds a LocalDate-object from a string.
+		 * @param s Date as String (YYYY-MM-DD)
+		 * @return LocalDate-object
+		 * 
+		 * @example
+		 * <pre name="test">
+		 * #import java.time.LocalDate;
+		 * #import kirtika.Loan;
+		 * 
+		 * Loan loan = new Loan();
+		 * LocalDate a1 = SetDate.setDate("2022-01-01");
+		 * a1.getYear() === 2022;
+		 * a1.getMonthValue() === 1;
+		 * </pre>
+		 */
+		public static LocalDate setDate(String s) {
+			if (s.equals("null")) return null;
+			StringBuilder sb = new StringBuilder(s);
+			int y = Integer.parseInt(Mjonot.erota(sb, '-'));
+			int m = Integer.parseInt(Mjonot.erota(sb, '-'));
+			int d = Integer.parseInt(sb.toString());
+			return LocalDate.of(y, m, d);
+		}
 	}
 	
 	/**

@@ -11,6 +11,12 @@ public class Genre {
     /**
      * Initialized from a file, etc.
      * @param s A string delimited by pipes ('|')
+     * 
+     * @example
+     * <pre name="test">
+     * Genre genre = new Genre("84.2|Suomalainen kertomakirjallisuus");
+     * genre.getGenreId() === "84.2";
+     * </pre>
      */
     public Genre(String s) {
         StringBuilder sb = new StringBuilder(s);
@@ -53,6 +59,12 @@ public class Genre {
     
     /**
      * Overrides the toString method
+     * 
+     * @example
+     * <pre name="test">
+     * Genre genre = new Genre("84.2|Suomalainen kertomakirjallisuus");
+     * genre.toString() === "84.2 Suomalainen kertomakirjallisuus";
+     * </pre>
      */
     @Override
     public String toString() {

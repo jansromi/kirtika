@@ -67,7 +67,7 @@ public class Genres {
 	 * <pre name="test">
 	 * Genres genret = new Genres("84.2|Suomalainen kertomakirjallisuus");
 	 * genret.getYklDesc("84.2") === "Suomalainen kertomakirjallisuus";
-	 * genret.getYlkDesc("67") === "Unknown";
+	 * genret.getYklDesc("67") === "Unknown";
 	 * </pre>
 	 */
 	public String getYklDesc(String s) {

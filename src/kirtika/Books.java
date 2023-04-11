@@ -36,6 +36,14 @@ public class Books {
 	}
 	
 	/**
+	 * Test constructor
+	 * @param b
+	 */
+	public Books(boolean b){
+		
+	}
+	
+	/**
 	 * Initialize the collection from a file.
 	 * 
 	 * @throws FileNotFoundException if the file cannot be found.
@@ -62,7 +70,18 @@ public class Books {
 	 * create a new array that is twice as large as the old one.
 	 * Copy the references to the new array.
 	 * 
-	 * TODO: write tests for this method
+	 * @example
+	 * <pre name="test">
+	 * Books books = new Books(true);
+	 * Book book = new Book();
+	 * book.setOdysseia();
+	 * books.getItemsLength() === 10;
+	 * books.addItems(book, 10);
+	 * books.getAmt() === 10;
+	 * books.getItemsLength() === 10;
+	 * books.addBook(book);
+	 * books.getItemsLength() === 20;
+	 * </pre>
 	 * */
 	public void resizeArray() {
 		maxItems = maxItems * 2;
@@ -74,8 +93,23 @@ public class Books {
 	}
 	
 	/**
-	 * Removes a book from the list and shifts all subsequent elements one index back..
+	 * Removes a book from the list and shifts all subsequent elements one index back
 	 * @param book to be removed
+	 * 
+	 * @example
+	 * <pre name="test">
+	 * Books books = new Books(true);
+	 * Book book1 = new Book();
+	 * book1.setOdysseia();
+	 * books.addItems(book1, 3);
+	 * Book book2 = new Book();
+	 * book2.setOdysseia();
+	 * books.addBook(book2);
+	 * books.get(3) === book2;
+	 * books.addItems(book1, 3);
+	 * books.deleteBook(book2);
+	 * books.get(3) === book1;
+	 * </pre>
 	 */
 	public void deleteBook(Book book) {
 		deleteBookNotes(book);
@@ -93,66 +127,25 @@ public class Books {
 	}
 	
 	/**
-	 * Removes the associated Book note txt-file
-	 * from file path
-	 */
-	private void deleteBookNotes(Book book) {
-		 File file = new File(book.getFilePath());
-	        if (file.delete()) {
-	            System.out.println("File deleted successfully.");
-	        } else {
-	            System.out.println("Failed to delete file.");
-	        }
-		
-	}
-
-	/**
-	 * Saves the books to a file
-	 * @throws SailoException  if saving fails
-	 */
-	public void save() throws SailoException {
-		File ftied = new File("C:/kurssit/ohj2/kirtika/src/data/" + booksFilePath);
-		try (PrintStream fo = new PrintStream(new FileOutputStream(ftied, false))) {
-			for (int i = 0; i < this.getAmt(); i++) {
-				Book book = this.get(i);
-				fo.println(book.toString());
-			}
-		} catch (FileNotFoundException e) {
-			throw new SailoException("tiedosto: " + ftied.getAbsolutePath() + " ei aukea");
-		}
-	}
-	
-	public void saveBookNotes(Book book) {
-		String fPath = book.getFilePath();
-		
-	}
-	
-	/**
-	 * Adds a book to the registry.
-	 * Increases amt by one.
-	 * @param book (book) to be added
+	 * Retrieves the given books associated note text file.
+	 * If file is not found, creates a new one.
+	 * @param book
+	 * @return Book note text file as a string
 	 * 
-	 * TODO: Exception handling
 	 * @example
 	 * <pre name="test">
-	 * Books kirjat = new Books();
-	 * Book ody = new Book();
-	 * int x = kirjat.getAmt();
-	 * kirjat.addBook(ody);
-	 * kirjat.getAmt() === x + 1;
-	 * </pre>
-	 */
-	public void addBook(Book book){
-		if (amt >= maxItems) resizeArray();
-		items[amt] = book;
-		amt++;
-		
-	}
-	
-	/**
+	 * #THROWS IOException
+	 * #import java.io.IOException;
 	 * 
-	 * @param book
-	 * @return
+	 * Books books = new Books(true);
+	 * Book book = new Book();
+	 * book.setOdysseia();
+	 * books.addBook(book);
+	 * books.getBookNotes(book) === "";
+	 * books.saveBookNotes(book, "Nymfit najadit Zeun tyttäret!");
+	 * books.getBookNotes(book) === "Nymfit najadit Zeun tyttäret!";
+	 * books.deleteBookNotes(book);
+	 * </pre>
 	 */
 	public String getBookNotes(Book book) {
 		String noteFilePath = book.getFilePath();
@@ -175,6 +168,32 @@ public class Books {
 	    return sb.toString();
 	}
 	
+	/**
+	 * Removes the associated Book note txt-file
+	 * from file path
+	 * 
+	 * @example
+	 * <pre name="test">
+	 * Books books = new Books();
+	 * </pre>
+	 */
+	public void deleteBookNotes(Book book) {
+		 File file = new File(book.getFilePath());
+		 boolean b = file.delete();
+	        if (b) {
+	            System.out.println("File deleted successfully.");
+	        } else {
+	            System.out.println("Failed to delete file.");
+	        }
+		
+	}
+	
+	/**
+	 * Overwrites the books associated note file with given string.
+	 * @param book
+	 * @param notes String to replace contents in text file
+	 * @throws IOException If writing failed
+	 */
 	public void saveBookNotes(Book book, String notes) throws IOException {
 	    String filePath = book.getFilePath();
 
@@ -182,6 +201,44 @@ public class Books {
 	        writer.write(notes);
 	        System.out.println("Successfully saved notes to file: " + filePath);
 	    }
+	}
+
+	/**
+	 * Saves the books to a file
+	 * @throws SailoException  if saving fails
+	 */
+	public void save() throws SailoException {
+		File ftied = new File("C:/kurssit/ohj2/kirtika/src/data/" + booksFilePath);
+		try (PrintStream fo = new PrintStream(new FileOutputStream(ftied, false))) {
+			for (int i = 0; i < this.getAmt(); i++) {
+				Book book = this.get(i);
+				fo.println(book.toString());
+			}
+		} catch (FileNotFoundException e) {
+			throw new SailoException("tiedosto: " + ftied.getAbsolutePath() + " ei aukea");
+		}
+	}
+	
+	/**
+	 * Adds a book to the registry.
+	 * Increases amt by one.
+	 * @param book (book) to be added
+	 * 
+	 * TODO: Exception handling
+	 * @example
+	 * <pre name="test">
+	 * Books kirjat = new Books();
+	 * Book ody = new Book();
+	 * int x = kirjat.getAmt();
+	 * kirjat.addBook(ody);
+	 * kirjat.getAmt() === x + 1;
+	 * </pre>
+	 */
+	public void addBook(Book book){
+		if (amt >= maxItems) resizeArray();
+		items[amt] = book;
+		amt++;
+		
 	}
 	
 	/**
@@ -252,18 +309,30 @@ public class Books {
 		return null;
 	}
 	
+	// TEST METHODS
+	
+	/**
+	 * @return the length of items-array
+	 */
+	public int getItemsLength() {
+		return items.length;
+	}
+	
+	/**
+	 * Add n-amount of given book into items-array
+	 * @param book
+	 * @param n
+	 */
+	public void addItems(Book book, int n) {
+		for (int i = 0; i < n; i++) {
+			addBook(book);
+		}
+	}
+	
 	/**
 	 * @return Amount of books
 	 */
 	public int getAmt() {
 		return this.amt;
 	}
-	
-	// Set methods for editing book
-	
-	public void setBookIsbn(Book book) {
-		
-	}
-	
-	
 }

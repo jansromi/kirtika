@@ -254,6 +254,7 @@ public class KirtikaGUIController implements Initializable {
     void deleteBook(ActionEvent event) {
     	if(Dialogs.showQuestionDialog("Poista kirja", "Haluatko varmasti poistaa kirjan?", "Kyllä", "Ei")) {
     		Book book = chooserBooks.getSelectedObject();
+    		kirtika.deleteBookNotes(book);
     		kirtika.deleteBook(book);
     		updateChooserBooks();
     	}
