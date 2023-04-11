@@ -15,13 +15,15 @@ public class Loans {
 	private ArrayList<Loan> items = new ArrayList<>();
 	
 	/**
-	 * Default constructor
+	 * Default constructor.
+	 * Initialized loan data from a file defined in loansFilePath
+	 * If file is not found, generates a new file there
 	 */
 	public Loans() {
 		try {
 			initLoans();
 		} catch (FileNotFoundException e) {
-			System.err.println("Tiedostoa lainat.dat ei löytynyt");
+			System.err.println("File was not found:" + loansFilePath);
 			try {
 	            File newFile = new File(loansFilePath);
 	            newFile.createNewFile();

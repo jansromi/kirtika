@@ -7,19 +7,24 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Genres {
-	private String fileName = "genret.dat";
+	private String genresFilePath = "src/data/genret.dat";
 	private ArrayList<Genre> items = new ArrayList<>();
 	
 	/**
 	 * Initializes objects of the class from a file.
-	 * TODO: better exception handling
 	 */
 	public Genres() {
 	    try {
 	        initGenres();
 	    } catch (FileNotFoundException e) {
-	        System.err.println("Tiedostoa ei löytynyt");
-	        // TODO: create a new file
+	        System.err.println("File not found: " + genresFilePath);
+	        try {
+	            File newFile = new File(genresFilePath);
+	            newFile.createNewFile();
+	            System.out.println("Created new file: " + genresFilePath);
+	        } catch (IOException ex) {
+	            ex.printStackTrace();
+	        }
 	    }
 	}
 
@@ -36,13 +41,11 @@ public class Genres {
 	 * @throws FileNotFoundException if genret.dat file is not found.
 	 */
 	private void initGenres() throws FileNotFoundException {
-		File f = new File("C:/kurssit/ohj2/kirtika/src/data/" + fileName);
+		File f = new File("C:/kurssit/ohj2/kirtika/src/data/" + genresFilePath);
 		Scanner scan = new Scanner(f);
 		
 		while (scan.hasNextLine()) {
 			   String line = scan.nextLine();
-			   if (line.equals("genre_id|genre_info")) continue;
-			   
 			   // Initialize a genre with a parser
 			   items.add(new Genre(line));
 			}
