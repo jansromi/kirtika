@@ -7,10 +7,13 @@ import java.util.ArrayList;
 import webscraping.FinnaHaku;
 
 /**
- * Kirtika-luokka joka sisältää välittäjämetodeja
+ * Main class Kirtika consists mostly of mediator methods.
+ * 
+ * TODO: Delete loan if book not found
+ * TODO: Search
+ * 
  * @author Jansromi
  * @version 1, 10.4.2023
- * 
  * 
  */
 public class Kirtika {
@@ -25,8 +28,8 @@ public class Kirtika {
 		this.books = new Books();
 		this.genres = new Genres();
 		this.loans = new Loans();
-		setLoanedBookNames();
-
+		if (books.getAmt() > 0) setLoanedBookNames(); 
+		
 	}
 	
 	/**
@@ -67,6 +70,13 @@ public class Kirtika {
 	 * s[3] = Integer.toString(bookRelaseYear);
 	 * s[4] = bookClassification;
 	 * s[5] = isbn;
+	 * 
+	 * @example
+	 * <pre name="test">
+	 * Kirtika kirtika = new Kirtika();
+	 * String[] s = kirtika.getBookInfo(1);
+	 * s[1] === "suomi";
+	 * </pre>
 	 */
 	public String[] getBookInfo(int bId) {
 	    String[] s = books.getBookInfo(bId);
@@ -83,6 +93,11 @@ public class Kirtika {
 	    return s;
 	}
 	
+	/**
+	 * Fetches data from Finna API.
+	 * @param isbn
+	 * @return
+	 */
 	public ArrayList<String> fetchFinnaData(String isbn){
 		FinnaHaku fh = new FinnaHaku(isbn);
 		fh.fetchBookData();
@@ -126,9 +141,9 @@ public class Kirtika {
 	}
 	
 	/**
-	 * TODO: COMMENT
+	 * Gets the note text file associated with given book.
 	 * @param book
-	 * @return
+	 * @return Text file as a string
 	 */
 	public String getBookNotes(Book book) {
 		return books.getBookNotes(book);

@@ -372,9 +372,9 @@ public class KirtikaGUIController implements Initializable {
 	 * Selects the first book to be active
 	 */
 	public void selectFirst() {
-		if (chooserBooks.getItems() == null) return;
 		chooserBooks.setSelectedIndex(0);
 		Book book = chooserBooks.getSelectedObject();
+		if (book == null) return;
 		displayBookInfo(book);
 	}
 	

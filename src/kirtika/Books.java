@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class Books {
 	private static int       maxItems		= 10;
 	private int 				amt			= 0;
-	private String        fileName     = "kirjat.dat";
+	private String        booksFilePath     = "src/data/kirjat.dat";
 	private Book             items[]      = new Book[maxItems];
 	
 	public Books() {
@@ -25,7 +25,13 @@ public class Books {
 			initBooks();
 		} catch (FileNotFoundException e) {
 			System.err.println("Tiedostoa kirjat.dat ei löytynyt");
-			// TODO: uusi tiedosto
+			try {
+	            File newFile = new File(booksFilePath);
+	            newFile.createNewFile();
+	            System.out.println("Created new file: " + booksFilePath);
+	        } catch (IOException ex) {
+	            ex.printStackTrace();
+	        }
 		}
 	}
 	
@@ -35,11 +41,10 @@ public class Books {
 	 * @throws FileNotFoundException if the file cannot be found.
 	 * */
 	private void initBooks() throws FileNotFoundException {
-		File f = new File("C:/kurssit/ohj2/kirtika/src/data/" + fileName);
+		File f = new File(booksFilePath);
 		Scanner scan = new Scanner(f);
 		
 		int i = 0;
-		
 		while (scan.hasNextLine()) {
 			   String line = scan.nextLine();
 			   // If the array is full, create a new array.
@@ -106,7 +111,7 @@ public class Books {
 	 * @throws SailoException  if saving fails
 	 */
 	public void save() throws SailoException {
-		File ftied = new File("C:/kurssit/ohj2/kirtika/src/data/" + fileName);
+		File ftied = new File("C:/kurssit/ohj2/kirtika/src/data/" + booksFilePath);
 		try (PrintStream fo = new PrintStream(new FileOutputStream(ftied, false))) {
 			for (int i = 0; i < this.getAmt(); i++) {
 				Book book = this.get(i);
@@ -143,24 +148,25 @@ public class Books {
 		amt++;
 		
 	}
-
-	//
-	// =========== Getters / Setters ==========
-	//
 	
+	/**
+	 * 
+	 * @param book
+	 * @return
+	 */
 	public String getBookNotes(Book book) {
-		String filePath = book.getFilePath();
+		String noteFilePath = book.getFilePath();
 	    StringBuilder sb = new StringBuilder();
 
-	    try (Scanner scanner = new Scanner(new File(filePath))) {
+	    try (Scanner scanner = new Scanner(new File(noteFilePath))) {
 	        while (scanner.hasNextLine()) {
 	            sb.append(scanner.nextLine());
 	        }
 	    } catch (FileNotFoundException e) {
 	        try {
-	            File newFile = new File(filePath);
+	            File newFile = new File(noteFilePath);
 	            newFile.createNewFile();
-	            System.out.println("Created new file: " + filePath);
+	            System.out.println("Created new file: " + noteFilePath);
 	        } catch (IOException ex) {
 	            ex.printStackTrace();
 	        }
@@ -208,7 +214,7 @@ public class Books {
 	 * @return file name
 	 */
 	public String getFileName() {
-		return this.fileName;
+		return this.booksFilePath;
 	}
 	
 	/**
