@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class Loans {
 	
-	private String fileName = "lainat.dat";
+	private String loansFilePath = "src/data/lainat.dat";
 	private ArrayList<Loan> items = new ArrayList<>();
 	
 	/**
@@ -33,7 +33,7 @@ public class Loans {
 	 * @throws FileNotFoundException if file cannot be opened
 	 */
 	private void initLoans() throws FileNotFoundException {
-		File f = new File("C:/kurssit/ohj2/kirtika/src/data/" + fileName);
+		File f = new File(loansFilePath);
 		Scanner scan = new Scanner(f);
 		
 		while (scan.hasNextLine()) {
@@ -49,7 +49,7 @@ public class Loans {
 	 * @throws SailoException if file is not found
 	 */
 	public void saveBookLoans() throws SailoException {
-		File file = new File("C:/kurssit/ohj2/kirtika/src/data/" + fileName);
+		File file = new File(loansFilePath);
 		try (PrintStream fo = new PrintStream(new FileOutputStream(file, false))) {
 			for (Loan loan : items) {
 				fo.println(loan.toString());
