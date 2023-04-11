@@ -208,7 +208,7 @@ public class Books {
 	 * @throws SailoException  if saving fails
 	 */
 	public void save() throws SailoException {
-		File ftied = new File("C:/kurssit/ohj2/kirtika/src/data/" + booksFilePath);
+		File ftied = new File(booksFilePath);
 		try (PrintStream fo = new PrintStream(new FileOutputStream(ftied, false))) {
 			for (int i = 0; i < this.getAmt(); i++) {
 				Book book = this.get(i);

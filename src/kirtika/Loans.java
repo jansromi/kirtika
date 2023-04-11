@@ -3,6 +3,7 @@ package kirtika;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -21,10 +22,13 @@ public class Loans {
 			initLoans();
 		} catch (FileNotFoundException e) {
 			System.err.println("Tiedostoa lainat.dat ei löytynyt");
-			/*
-			 * TODO:
-			 * Luodaan uusi tiedosto?
-			 */
+			try {
+	            File newFile = new File(loansFilePath);
+	            newFile.createNewFile();
+	            System.out.println("Created new file: " + loansFilePath);
+	        } catch (IOException ex) {
+	            ex.printStackTrace();
+	        }
 		}
 	}
 	

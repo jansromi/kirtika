@@ -43,6 +43,16 @@ public class Kirtika {
 	}
 	
 	/**
+	 * Adds a new loan.
+	 *
+	 * @param book the loaned book
+	 * @param loaner the name of the person who borrowed the book
+	 */
+	public void addBookLoan(Book book, String loaner) {
+	    loans.addBookLoan(book, loaner);
+	}
+	
+	/**
 	 * A mediator method for deleting a book.
 	 *
 	 * @param book the book to be deleted
@@ -59,15 +69,7 @@ public class Kirtika {
 	public void deleteBookNotes(Book book) {
 		books.deleteBookNotes(book);
 	}
-	/**
-	 * Adds a new loan.
-	 *
-	 * @param book the loaned book
-	 * @param loaner the name of the person who borrowed the book
-	 */
-	public void addBookLoan(Book book, String loaner) {
-	    loans.addBookLoan(book, loaner);
-	}
+
 
 	/**
 	 * Returns an array of relevant book information
