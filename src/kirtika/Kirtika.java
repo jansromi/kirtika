@@ -173,10 +173,12 @@ public class Kirtika {
 	
 	/**
 	 * Gets the note text file associated with given book.
+	 * If the text file is not found, it creates a new file
 	 * @param book
 	 * @return Text file as a string
+	 * @throws IOException if note-file couldn't be created
 	 */
-	public String getBookNotes(Book book) {
+	public String getBookNotes(Book book) throws IOException {
 		return books.getBookNotes(book);
 	}
 	
@@ -215,17 +217,16 @@ public class Kirtika {
 	    	Loan loan = loans.getLoan(i);
 	        int loanedBookId = loan.getLoanedBookId();
 	        String bookName = books.getBookName(loanedBookId);
+	        
+	        // if book has been deleted, but its still on loan record,
+	        // delete the loan.
+	        if (bookName == null) {
+	        	loans.deleteLoan(loan.getLoanId());
+	        	continue;
+	        }
+	        
 	        loans.setLoanedBookName(loanedBookId, bookName);
 	    }
-	}
-	
-	/**
-	 * A mediator method for saving.
-	 *
-	 * @throws SailoException if saving fails
-	 */
-	public void save() throws SailoException {
-	    books.save();
 	}
 
 	/**
@@ -236,6 +237,15 @@ public class Kirtika {
 	public void saveAll() throws SailoException {
 	    books.save();
 	    loans.saveBookLoans();
+	}
+	
+	/**
+	 * A mediator method for saving.
+	 *
+	 * @throws SailoException if saving fails
+	 */
+	public void save() throws SailoException {
+	    books.save();
 	}
 
 	/**
@@ -250,8 +260,6 @@ public class Kirtika {
 	public void saveBookNotes(Book book, String notes) throws IOException {
 		books.saveBookNotes(book, notes);
 	}
-	
-
 	
 	/**
 	 * A mediator method that returns a book with this index.
@@ -271,17 +279,6 @@ public class Kirtika {
 	public int getBooks() {
 	    return books.getAmt();
 	}
-	
-	/**
-	 * Returns the file name where books are saved.
-	 *
-	 * TODO: Is this needed?
-	 * @return file name
-	 */
-	public String getBooksFileName() {
-		return books.getFileName();
-	}
-
 	
 	/**
 	 * Returns a reference to a loan by index

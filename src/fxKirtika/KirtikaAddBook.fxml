@@ -25,12 +25,12 @@
          <children>
             <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="addBookSave" mnemonicParsing="false" onAction="#addBook" text="Tallenna" />
+                  <Button mnemonicParsing="false" onAction="#addBook" text="Tallenna" />
                </children>
             </HBox>
             <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" text="Peruuta" />
+                  <Button mnemonicParsing="false" onAction="#handleCancel" text="Peruuta" />
                </children>
             </HBox>
          </children>
@@ -62,9 +62,9 @@
             <Label text="ISBN" GridPane.rowIndex="5" />
             <Label text="Luokitus (Mukautettu)" GridPane.rowIndex="6" />
             <Label text="Luokitus (Finna)" GridPane.rowIndex="7" />
-            <TextField fx:id="fieldBookName" GridPane.columnIndex="1" />
-            <TextField fx:id="fieldWriters" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="fieldLanguage" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="fieldBookName" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
+            <TextField fx:id="fieldWriters" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
+            <TextField fx:id="fieldLanguage" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" />
             <TextField fx:id="fieldPublisher" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="fieldReleaseYear" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="fieldIsbn" GridPane.columnIndex="1" GridPane.rowIndex="5" />

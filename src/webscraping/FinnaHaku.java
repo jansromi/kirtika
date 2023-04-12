@@ -44,7 +44,7 @@ public class FinnaHaku {
 	private String isbn;
 	private String finnaId;
 	private String bookTitle;
-	private String bookPublisher;
+	// private String bookPublisher;
 	
 	private List<String> bookWriter = new ArrayList<String>();
 	private List<String> bookSubjects = new ArrayList<String>();

@@ -444,7 +444,11 @@ public class KirtikaGUIController implements Initializable {
 	}
 	
 	private void displayBookNotes(Book book) {
-		areaBookNotes.setText(kirtika.getBookNotes(book));
+		try {
+			areaBookNotes.setText(kirtika.getBookNotes(book));
+		} catch (IOException e) {
+			showWarningDialog("Huomio!", "Tekstitiedostoa ei löytynyt", e.getMessage());
+		}
 	}
 	
 	/**
@@ -494,7 +498,7 @@ public class KirtikaGUIController implements Initializable {
 			kirtika.saveAll();
 			Dialogs.showMessageDialog("Lainan lisääminen onnistui!");
 		} catch (SailoException e) {
-			showWarningDialog("VAROITUS", "Tiedostojen tallentaminen ei onnistunut", e.getMessage());
+			showWarningDialog("Huomio!", "Tiedostojen tallentaminen ei onnistunut", e.getMessage());
 		}
 	}
 
@@ -514,7 +518,7 @@ public class KirtikaGUIController implements Initializable {
 			Dialogs.showMessageDialog(book.getBookName() + " palautettiin onnistuneesti" + System.lineSeparator() + "päivämäärällä " + returnDate.toString());
 			kirtika.saveAll();
 		} catch (SailoException e) {
-			showWarningDialog("VAROITUS", "Kirjan palauttaminen ei onnistunut", e.getMessage());
+			showWarningDialog("Huomio!", "Kirjan palauttaminen ei onnistunut", e.getMessage());
 		}
 	}
 }

@@ -89,8 +89,8 @@ public class Loans {
 	}
 	
 	/**
-	 * Deletes the given loan from arraylist.
-	 * @param laina
+	 * Deletes the given loan from the ArrayList.
+	 * @param lId loan ID
 	 */
 	public void deleteLoan(int lId) {
 	    Iterator<Loan> iterator = items.iterator();
@@ -98,15 +98,16 @@ public class Loans {
 	        Loan loan = iterator.next();
 	        if (loan.getLoanId() == lId) {
 	            iterator.remove();
+	            break;
 	        }
 	    }
 	}
 	
 	
 	/**
-	 * Returns a reference to the LainattuKirja object
-	 * @param i the index of the book in the list
-	 * @return
+	 * Returns a reference to the Loan object
+	 * @param i the index of the Loan in items arraylist
+	 * @return reference i in arraylist items
 	 */
 	public Loan getLoan(int i) {
 		return items.get(i);

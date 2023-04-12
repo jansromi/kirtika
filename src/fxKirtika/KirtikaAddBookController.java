@@ -9,7 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import kirtika.Book;
@@ -28,7 +27,7 @@ public class KirtikaAddBookController implements Initializable{
 
     @FXML
     private ChoiceBox<Genre> choiceYklClassification;
-
+    
     @FXML
     private TextField fieldBookName, fieldCustomClassification, fieldIsbn,
     fieldLanguage, fieldPublisher, fieldReleaseYear, fieldWriters;
@@ -43,6 +42,11 @@ public class KirtikaAddBookController implements Initializable{
     @FXML
     void addBook(ActionEvent event) {
     	addBook();
+    	((Node)(event.getSource())).getScene().getWindow().hide();
+    }
+    
+    @FXML
+    void handleCancel(ActionEvent event) {
     	((Node)(event.getSource())).getScene().getWindow().hide();
     }
     
@@ -148,6 +152,8 @@ public class KirtikaAddBookController implements Initializable{
 		infoFields.add(fieldPublisher);
 		infoFields.add(fieldReleaseYear);
 		infoFields.add(fieldIsbn);
+		
+		
 	}
 
 }

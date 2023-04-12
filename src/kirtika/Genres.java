@@ -41,7 +41,7 @@ public class Genres {
 	 * @throws FileNotFoundException if genret.dat file is not found.
 	 */
 	private void initGenres() throws FileNotFoundException {
-		File f = new File("C:/kurssit/ohj2/kirtika/src/data/" + genresFilePath);
+		File f = new File(genresFilePath);
 		Scanner scan = new Scanner(f);
 		
 		while (scan.hasNextLine()) {
@@ -66,6 +66,8 @@ public class Genres {
 	 * @param s YKL classification, for example "84.2"
 	 * @return YKL description, for example "Suomalainen kaunokirjallisuus"
 	 * 
+	 * TODO: return exception if genredesc not found
+	 * 
 	 * @example
 	 * <pre name="test">
 	 * Genres genret = new Genres("84.2|Suomalainen kertomakirjallisuus");
@@ -83,15 +85,6 @@ public class Genres {
 	public void setUnknownClassDesc(String s) throws IOException, InterruptedException {
 		//this.genreDesc = webscraping.Queries.yklQuery(s);
 		// TODO: Tallenna genrekuvaus tiedostoon
-	}
-	
-	@Override
-	public ArrayList<Genre> clone(){
-		ArrayList<Genre> list = new ArrayList<Genre>();
-		for (Genre genre : items) {
-			list.add(genre);
-		}
-		return list;
 	}
 	
 	/**

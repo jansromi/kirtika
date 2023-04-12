@@ -24,11 +24,11 @@ public class Books {
 		try {
 			initBooks();
 		} catch (FileNotFoundException e) {
-			System.err.println("Tiedostoa kirjat.dat ei löytynyt");
+			System.err.println("Tiedostoa ei löytynyt: " + booksFilePath);
 			try {
 	            File newFile = new File(booksFilePath);
 	            newFile.createNewFile();
-	            System.out.println("Created new file: " + booksFilePath);
+	            System.out.println("Luotiin uusi tiedosto kirjoille: " + booksFilePath);
 	        } catch (IOException ex) {
 	            ex.printStackTrace();
 	        }
@@ -112,7 +112,6 @@ public class Books {
 	 * </pre>
 	 */
 	public void deleteBook(Book book) {
-		deleteBookNotes(book);
 		for (int i = 0; i < this.getAmt(); i++) {
 			if (this.get(i).matchesId(book.getBookId())) {
 				int j = i;
@@ -147,7 +146,7 @@ public class Books {
 	 * books.deleteBookNotes(book);
 	 * </pre>
 	 */
-	public String getBookNotes(Book book) {
+	public String getBookNotes(Book book) throws IOException {
 		String noteFilePath = book.getFilePath();
 	    StringBuilder sb = new StringBuilder();
 
@@ -159,9 +158,9 @@ public class Books {
 	        try {
 	            File newFile = new File(noteFilePath);
 	            newFile.createNewFile();
-	            System.out.println("Created new file: " + noteFilePath);
+	            System.out.println("Luotiin uusi tekstitiedosto: " + noteFilePath);
 	        } catch (IOException ex) {
-	            ex.printStackTrace();
+	            throw new IOException("Tiedoston avaus ei onnistunut");
 	        }
 	    }
 	    
@@ -179,11 +178,10 @@ public class Books {
 	 */
 	public void deleteBookNotes(Book book) {
 		 File file = new File(book.getFilePath());
-		 boolean b = file.delete();
-	        if (b) {
-	            System.out.println("File deleted successfully.");
+	        if (file.delete()) {
+	            System.out.println("Book notes deleted successfully.");
 	        } else {
-	            System.out.println("Failed to delete file.");
+	            System.out.println("Failed to delete book notes.");
 	        }
 		
 	}
@@ -267,14 +265,6 @@ public class Books {
 	}
 	
 	/**
-	 * Returns the file name
-	 * @return file name
-	 */
-	public String getFileName() {
-		return this.booksFilePath;
-	}
-	
-	/**
 	 * Returns a reference to a book object
 	 * @param i
 	 * @return reference to the book object with index i
@@ -292,6 +282,7 @@ public class Books {
 	 */
 	public String getBookName(int bId) {
 		for (Book book : items) {
+			if (book == null) continue;
 			if (book.matchesId(bId)) return book.getBookName();
 		}
 		return null;

@@ -1,18 +1,9 @@
 package kirtika;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 import fi.jyu.mit.ohj2.Mjonot;
 import utils.StringSanitizer;
 
@@ -269,12 +260,6 @@ public class Book {
 	private int getRnd() {
 		Random rnd = new Random();
 		return rnd.nextInt(99);
-	}
-	
-	// Setters for gui-editing
-	
-	private void setBookWriter(String s) {
-		writers = s;
 	}
 	
 	public boolean set(int k, String s) {
