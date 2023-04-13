@@ -5,8 +5,14 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 public class YKLQuery {
 	
@@ -16,16 +22,6 @@ public class YKLQuery {
 	 *
 	 */
 	public static class YKLParser {
-	private static final String regex = "<span class=\"prefLabel conceptlabel\" id=\"pref-label\">([^<]+)</span>";
-	private static final Pattern pattern = Pattern.compile(regex);
-		
-	public static String parseGenre(String content) {
-		String result = "";
-		Matcher matcher = pattern.matcher(content);
-		if (matcher.find()) result = matcher.group(1);
-		return result;
-		}
-	}
 
 	/**
 	 * 
@@ -36,22 +32,45 @@ public class YKLQuery {
 	 * @throws IOException
 	 * @throws InterruptedException 
 	 */
-	 public static String yklQuery(String yklId) throws IOException, InterruptedException {
-		    // Rakennetaan url yklNumin avulla
+	 public static Document yklQuery(String yklId) throws IOException, InterruptedException {
+		    // Build the urd with yklId
 		    String url = "https://finto.fi/ykl/fi/page/" + yklId;
 
-		    // Uusi HTTP asiakas and pyyntö
+		    // New http-client and request
 		    HttpClient client = HttpClient.newHttpClient();
 		    HttpRequest request = HttpRequest.newBuilder()
 		            .uri(URI.create(url))
 		            .build();
 
-		    // sijoitetaan responsen body result-muuttujaan
+		    // assign the response body
 		    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 		    String result = response.body();
-
-		    // Parsetaan ja palautetaan oikea genre
-		    return YKLParser.parseGenre(result);
+		    return Jsoup.parse(result);
 	    }
+	 
+	 /**
+	  * Parses subgenres from the HTML-document
+	  * @param doc HTML-document from finto
+	  * @return Subgenres in a list
+	  */
+	 public static ArrayList<String> parseSubGenres(Document doc) {
+		 ArrayList<String> list = new ArrayList<>();
+		 Elements liElements = doc.select("div.row.property.prop-skos_narrower li");
+         for (Element li : liElements) {
+        	 list.add(li.text());
+         }
+         return list;
+	 }
+	 
+	 public static void main(String[] args) throws IOException, InterruptedException {
+		Document doc = yklQuery("80");
+		ArrayList<String> list = parseSubGenres(doc);
+		for (String string : list) {
+			System.out.println(string);
+		}
+		
+	}
+	
+	}
 
 }

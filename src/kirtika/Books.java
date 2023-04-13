@@ -17,8 +17,8 @@ import java.util.Scanner;
 public class Books {
 	private static int       maxItems		= 10;
 	private int 				amt			= 0;
-	private String        booksFilePath     = "src/data/kirjat.dat";
-	private Book             items[]      = new Book[maxItems];
+	private final String  booksFilePath     = "src/data/kirjat.dat";
+	private Book               items[]      = new Book[maxItems];
 	
 	public Books() {
 		try {

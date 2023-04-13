@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Genres {
-	private String genresFilePath = "src/data/genret.dat";
+	private final String genresFilePath = "src/data/genret.dat";
 	private ArrayList<Genre> items = new ArrayList<>();
 	
 	/**
@@ -82,7 +82,13 @@ public class Genres {
 		return "Unknown";
 	}
 	
-	public void setUnknownClassDesc(String s) throws IOException, InterruptedException {
+	/**
+	 * Scrapes the genre description from internet
+	 * @param Genres YKL id
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
+	public void setUnknownClassDesc(String genreId) throws IOException, InterruptedException {
 		//this.genreDesc = webscraping.Queries.yklQuery(s);
 		// TODO: Tallenna genrekuvaus tiedostoon
 	}
