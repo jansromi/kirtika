@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -32,6 +33,14 @@ public class Loans {
 	            ex.printStackTrace();
 	        }
 		}
+	}
+	
+	/**
+	 * Test constructor
+	 * @param test
+	 */
+	public Loans(boolean test) {
+		
 	}
 	
 	/**
@@ -79,10 +88,32 @@ public class Loans {
 	}
 	
 	/**
+	 * Sets the date when book was loaned
+	 * @param bId Id of the lent book
+	 * @param d Date, when loan was given
+	 */
+	public void setLoanDate(int bId, LocalDate d) {
+		Loan loan = getActiveLoan(bId);
+		if (loan == null) return;
+		loan.setLoanStartDate(d);;
+	}
+	
+	/**
+	 * Sets the return date of a loan
+	 * @param bId Id of the lent book
+	 * @param d Date, when loan is returned
+	 */
+	public void setReturnDate(int bId, LocalDate d) {
+		Loan loan = getActiveLoan(bId);
+		if (loan == null) return;
+		loan.setLoanReturnDate(d);
+	}
+	
+	/**
 	 * Adds a new loan to arraylist.
-	 * Saves the loans to file after addition.
-	 * @param book
-	 * @param loaner
+	 * 
+	 * @param book Book to be adder
+	 * @param loaner Name of the books lender
 	 */
 	public void addBookLoan(Book book, String loaner) {
 		items.add(new Loan(book, loaner));
@@ -91,6 +122,23 @@ public class Loans {
 	/**
 	 * Deletes the given loan from the ArrayList.
 	 * @param lId loan ID
+	 * 
+	 * @example
+	 * <pre name="test">
+	 * Loans loans = new Loans(true);
+	 * Book book1 = new Book();
+	 * book1.setOdysseia();
+	 * Book book2 = new Book();
+	 * book2.setOdysseia();
+	 * 
+	 * loans.addBookLoan(book1, "Matti");
+	 * loans.addBookLoan(book2, "Maija");
+	 * loans.getLoansAmt() === 2;
+	 * loans.deleteLoan(2);
+	 * loans.getLoansAmt() === 1;
+	 * loans.deleteLoan(1);
+	 * loans.getLoansAmt() === 0;
+	 * </pre>
 	 */
 	public void deleteLoan(int lId) {
 	    Iterator<Loan> iterator = items.iterator();

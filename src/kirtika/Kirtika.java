@@ -65,9 +65,10 @@ public class Kirtika {
 	 * A mediator method for deleting a books 
 	 * associated note text file.
 	 * @param book the books which notes are deleted
+	 * @return true if deletion was successful, false otherwise
 	 */
-	public void deleteBookNotes(Book book) {
-		books.deleteBookNotes(book);
+	public boolean deleteBookNotes(Book book) {
+		return books.deleteBookNotes(book);
 	}
 
 
@@ -308,9 +309,7 @@ public class Kirtika {
 	 * @param bId
 	 */
 	public void setLoanDate(int bId, LocalDate d) {
-		Loan loan = loans.getActiveLoan(bId);
-		if (loan == null) return;
-		loan.setLoanStartDate(d);;
+		loans.setLoanDate(bId, d);
 	}
 	
 	/**
@@ -318,9 +317,7 @@ public class Kirtika {
 	 * @param bId
 	 */
 	public void setReturnDate(int bId, LocalDate d) {
-		Loan loan = loans.getActiveLoan(bId);
-		if (loan == null) return;
-		loan.setLoanReturnDate(d);
+		loans.setReturnDate(bId, d);
 	}
 
 	/**

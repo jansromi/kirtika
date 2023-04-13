@@ -170,18 +170,27 @@ public class Books {
 	/**
 	 * Removes the associated Book note txt-file
 	 * from file path
+	 * @return true if deletion was successful, false otherwise
 	 * 
 	 * @example
 	 * <pre name="test">
+	 * #THROWS IOException
 	 * Books books = new Books();
+	 * Book book = new Book();
+	 * book.setOdysseia();
+	 * books.deleteBookNotes(book) === false;
+	 * String s = books.getBookNotes(book);
+	 * books.deleteBookNotes(book) === true;
 	 * </pre>
 	 */
-	public void deleteBookNotes(Book book) {
+	public boolean deleteBookNotes(Book book) {
 		 File file = new File(book.getFilePath());
 	        if (file.delete()) {
-	            System.out.println("Book notes deleted successfully.");
+	            System.out.println("Kirjan tekstitiedotsto: " + book.getFilePath() + " poistettiin onnistuneesti");
+	            return true;
 	        } else {
-	            System.out.println("Failed to delete book notes.");
+	            System.out.println("Kirjan tekstitiedoston poisto epäonnistui");
+	            return false;
 	        }
 		
 	}
@@ -197,7 +206,7 @@ public class Books {
 
 	    try (FileWriter writer = new FileWriter(filePath)) {
 	        writer.write(notes);
-	        System.out.println("Successfully saved notes to file: " + filePath);
+	        System.out.println("Tallennettiin onnistuneesti tiedostoon: " + filePath);
 	    }
 	}
 
