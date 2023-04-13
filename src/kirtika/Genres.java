@@ -1,9 +1,18 @@
 package kirtika;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
 
 public class Genres {
@@ -42,6 +51,50 @@ public class Genres {
 	 */
 	public Genres(boolean b) {
 		
+	}
+	
+	public void sortGenres() throws IOException {
+		ArrayList<String> lines = new ArrayList<>();
+		BufferedReader reader = new BufferedReader(new FileReader(genresFilePath));
+	       String line;
+	       while ((line = reader.readLine()) != null) {
+	           lines.add(line);
+	       }
+	       reader.close();
+	       
+	    // Sort the List based on the numerical value
+	        Collections.sort(lines, new Comparator<String>() {
+	            @Override
+	            public int compare(String s1, String s2) {
+	                double num1 = Double.parseDouble(s1.split("\\|")[0]);
+	                double num2 = Double.parseDouble(s2.split("\\|")[0]);
+	                return Double.compare(num1, num2);
+	            }
+	        });
+	        
+	        // Write the sorted List to the output file
+	        BufferedWriter writer = new BufferedWriter(new FileWriter(genresFilePath));
+	        for (String sortedLine : lines) {
+	            writer.write(sortedLine);
+	            writer.newLine();
+	        }
+	        writer.close();
+	}
+	
+	/**
+	 * Saves genres
+	 * @throws SailoException 
+	 */
+	public void saveGenres() throws SailoException {
+		File ftied = new File(genresFilePath);
+		try (PrintStream fo = new PrintStream(new FileOutputStream(ftied, false))) {
+			for (int i = 0; i < items.size(); i++) {
+				Genre genre = items.get(i);
+				fo.println(Genre.formatGenre(genre.toString()));
+			}
+		} catch (FileNotFoundException e) {
+			throw new SailoException("tiedosto: " + ftied.getAbsolutePath() + " ei aukea");
+		}
 	}
 	
 	/**
@@ -114,6 +167,16 @@ public class Genres {
 	 */
 	public ArrayList<Genre> getGenres(){
 		return items;
+	}
+	
+	public static void main(String[] args) {
+		Genres genre = new Genres();
+		try {
+			genre.sortGenres();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }

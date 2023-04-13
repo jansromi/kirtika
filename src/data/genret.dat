@@ -1,3 +1,533 @@
-84.2|Suomalainen kertomakirjallisuus
-86.53|Amerikan englanninkielisen kirjallisuuden historia ja tutkimus
+00|KIRJA-ALA
+01|BIBLIOGRAFIA
+02|KIRJASTOTOIMI. KIRJASTOTIEDE. INFORMATIIKKA
+03|TIEDONHAKU. YLEISET TIETOTEOKSET
+04|YLEISET KOKOOMATEOKSET
+05|YLEISET KAUSIJULKAISUT
+06|YLEINEN KULTTUURIPOLITIIKKA
+07|VIESTINTÄ. JOUKKOVIESTINTÄ
+10|YLEISTEOKSET
+10.8|Mietelausekokoelmat. Sitaattikokoelmat
+11|FILOSOFIA
+11.1|Vanhan ajan filosofia
+11.2|Keskiajan filosofia
+11.3|Renessanssin ja uuden ajan filosofia
+11.4|Uusimman ajan filosofia
+11.5|Nykyajan filosofia
+11.9|Itämainen filosofia
+12|LOGIIKKA
+14|PSYKOLOGIA
+14.01|Psykologian teoria, filosofia ja tutkimusmenetelmät
+14.1|Psyyken rakenne ja toiminnot
+14.4|Persoonallisuuden psykologia
+14.6|Kehityspsykologia
+14.8|Ihmissuhteiden psykologia
+15|RAJATIETO
+15.1|Parapsykologia
+15.7|Ufot
+15.9|Okkultismi. Spiritismi. Spritualismi. Henkimaailma
+16|TIETOTEORIA. TIEDEOPPI
+16.1|Tietoteoria
+16.7|Tiedeoppi. Tieteenfilosofia
+16.8|Tiedepolitiikka
+17|ETIIKKA. ELÄMÄNFILOSOFIA. ESTETIIKKA
+17.1|Etiikka. Moraalifilosofia
+17.3|Elämänfilosofia. Elämäntaito
+17.5|Yleinen estetiikka
+20|YLEINEN USKONTOTIEDE
+20.2|Kristinusko. Teologia
+21|USKONNONFILOSOFIA
+21.5|Teosofia
+22|RAAMATTU. RAAMATUNTUTKIMUS
+22.1|Vanha testamentti
+22.2|Uusi testamentti
+22.3|Raamatun henkilöt
+23|DOGMATIIKKA. KRISTILLINEN ETIIKKA
+23.1|Jumala-käsite. Jumalan toiminta
+23.2|Kristologia. Jeesuksen elämä
+23.3|Pelastusoppi
+23.6|Eskatologia
+23.7|Uskontunnustukset. Katekismukset
+23.8|Kristillinen etiikka
+24|KRISTILLINEN HARTAUSKIRJALLISUUS
+24.1|Hartaus
+24.2|Saarnat. Postillat
+24.3|Virret. Hengelliset laulut
+25|KÄYTÄNNÖLLINEN TEOLOGIA. KRISTINUSKO
+25.2|Sakraaliteologia
+25.3|Kristillinen opetus ja kasvatus
+25.4|Sielunhoito
+25.5|Diakonia. Sisälähetys. Evankelioiminen
+26|KRISTILLINEN LÄHETYSTYÖ
+26.1|Kristillinen lähetystyö, Aasia
+26.2|Kristillinen lähetystyö, Afrikka
+26.3|Kristillinen lähetystyö, Amerikka
+26.5|Kristillinen lähetystyö, Australia ja Oseania
+28|KRISTILLISET KIRKOT JA YHTEISÖT. KIRKKOHISTORIA
+28.1|Roomalaiskatolinen kirkko
+28.2|Ortodoksinen kirkko
+28.4|Itämaiset kirkot
+28.7|Protestanttiset kirkot ja yhteisöt
+28.8|Muut kristillisperäiset yhteisöt
+29|MUUT USKONNOT JA MYTOLOGIAT
+29.2|Suomalais-ugrilaisten kansojen muinaisuskonnot ja mytologiat
+29.3|Antiikin uskonnot ja mytologiat
+29.4|Muinaisgermaaniset, muinaisbalttilaiset, muinais- pohjoismaiset, muinaisslaavilaiset ja muinaiskelttiläiset uskonnot ja mytologiat
+29.5|Itämaiset uskonnot ja mytologiat
+29.6|Juutalaisten uskonto ja sen mytologia
+29.7|Islam ja sen mytologia
+29.9|Alkuperäiskansojen uskonnot ja mytologiat
+30|YLEINEN YHTEISKUNTATIEDE
+30.1|Sosiologia
+30.7|Kansalaistoiminta ja –aktivismi. Järjestötoiminta. Kokoustekniikka.
+30.8|Käytös- ja tapatieto
+31|TILASTOTIEDE
+31.3|Yleiset tilastot
+31.5|Väestötiede. Väestöpolitiikka
+32|VALTIO-OPPI. POLITIIKKA
+32.01|Valtiofilosofia. Poliittiset ideologiat
+32.1|Poliittiset järjestelmät
+32.2|Ihmisoikeudet. Kansalaisen asema yhteiskunnassa
+32.3|Sukupuolten ja seksuaalisten ryhmien asema yhteiskunnassa
+32.4|Ikäryhmien asema yhteiskunnassa
+32.5|Kansainvälinen politiikka
+32.6|Kansainvälinen yhteistyö
+32.7|Rauhankysymys. Rauhantutkimus
+33|OIKEUSTIEDE
+33.03|Oikeusoppaat
+33.04|Laki- ja säädöskokoelmat. Oikeustapauskokoelmat
+33.1|Kansainvälinen oikeus
+33.2|Julkis- ja hallinto-oikeus
+33.3|Siviili- ja kauppaoikeus
+33.4|Talousoikeus
+33.5|Rikosoikeus
+33.6|Prosessioikeus. Oikeushallinto
+34|ALUESUUNNITTELU. ALUEPOLITIIKKA
+34.1|Valtakunnallinen suunnittelu
+34.2|Seutusuunnittelu
+34.5|Yhdyskuntasuunnittelu. Kaupunkisuunnittelu Ympäristönsuunnittelu
+35|HALLINTO
+35.1|Valtionhallinto
+35.4|Kunnallishallinto. Paikallishallinto
+35.6|Palo- ja pelastustoimi
+35.7|Poliisitoimi. Yleinen turvallisuus
+36|TALOUSTIEDE. KANSANTALOUSTIEDE
+36.09|Taloushistoria
+36.1|Talouspolitiikka. Taloudelliset rakenteet
+36.2|Raha. Valuutta
+36.3|Vakuutustoimi
+36.4|Osuustoiminta
+36.5|Julkinen talous. Finanssioppi
+36.6|Kansainvälinen talous. Maailmankauppa
+37|SOSIAALIPOLITIIKKA
+37.1|Työsuojelu. Ergonomia
+37.2|Sosiaaliturvapolitiikka
+37.4|Perhepolitiikka
+37.5|Asuntopolitiikka
+37.6|Päihdepolitiikka. Päihdehuolto
+37.7|Yksityinen avustus- ja huoltotyö
+37.8|Kuluttajapolitiikka
+38|KASVATUS. OPETUS. KASVATUSTIEDE
+38.1|Perhe- ja kotikasvatus
+38.2|Opetusoppi
+38.3|Opiskelutekniikka
+38.4|Yliopistot. Korkeakoulut
+38.5|Koululaitos
+38.6|Aikuiskoulutus. Vapaa sivistystyö
+38.7|Nuorisotyö. Lapsityö
+38.8|Ammatinvalinta
+39|MAANPUOLUSTUS
+39.1|Aseistus. Asevarustelu. Asekauppa
+39.2|Huolto
+39.4|Maavoimat. Maasodankäynti
+39.5|Merivoimat. Merisodankäynti
+39.6|Ilmavoimat. Ilmasodankäynti
+39.7|Sotilaskoulutus
+40|MAANTIEDE
+40.02|Maailmankartat ja -kartastot
+40.1|Yleinen kulttuurimaantiede
+40.7|Matkailu. Turismi
+40.8|Matkakuvaukset
+41|EUROOPPA
+42|SUOMI
+42.1|Varsinais-Suomi
+42.2|Ahvenanmaa
+42.3|Uusimaa
+42.4|Häme. Pirkanmaa. Keski-Suomi
+42.5|Satakunta
+42.6|Savo
+42.7|Karjala
+42.8|Pohjanmaa. Kainuu
+42.9|Lappi
+43|POHJOISMAAT
+43.1|Ruotsi
+43.2|Norja
+43.3|Tanska
+43.4|Islanti
+43.5|Pohjoiskalotti
+44|KESKI-EUROOPPA
+44.1|Saksa
+44.3|Tšekki. Slovakia
+44.4|Itävalta
+44.5|Unkari
+44.6|Sveitsi
+44.7|Liechtenstein
+44.8|Benelux-maat
+45|BRITTEIN SAARET
+45.1|Iso-Britannia
+45.7|Irlanti
+46|ETELÄ-EUROOPPA
+46.1|Ranska
+46.2|Italia
+46.3|Espanja
+46.4|Portugali
+46.5|Malta
+46.8|Balkanin maat
+47|ITÄ-EUROOPPA
+47.1|Venäjä
+47.2|Baltian maat
+47.3|Puola
+47.4|Ukraina
+47.5|Valko-Venäjä
+47.6|Moldova
+48|MUUT MAANOSAT
+48.1|Aasia
+48.2|Afrikka
+48.3|Amerikka
+48.5|Australia ja Oseania
+48.6|Napamaat
+49|KANSATIEDE. KULTTUURIANTROPOLOGIA
+49.1|Euroopan kansojen kansatiede
+49.2|Suomen ja suomalais-ugrilaisten kansojen kansatiede
+49.5|Muiden kansojen kansatiede
+50|LUONNONTIETEET
+50.1|Ympäristönsuojelu. Luonnonsuojelu
+51|MATEMATIIKKA
+51.1|Lukuteoria. Aritmetiikka. Algebra
+51.2|Geometria
+51.3|Analyysi
+51.4|Todennäköisyyslaskenta
+51.5|Erityiset laskentamenetelmät
+51.8|Matematiikka harrasteena ja ajanvietteenä
+52|TÄHTITIEDE. GEODESIA
+52.1|Teoreettinen tähtitiede. Taivaanmekaniikka
+52.2|Maailmankaikkeus. Tähdet. Tähtijärjestelmät
+52.3|Tähtitieteelliset kojeet
+52.4|Avaruustutkimus. Avaruustoiminta
+52.6|Geodesia. Maanmittaus. Kartoitus
+52.8|Ajanlasku
+53|FYSIIKKA
+53.1|Yleinen ja teoreettinen fysiikka
+53.3|Mekaniikka
+53.4|Äänioppi. Mekaaniset värähtelyt
+53.5|Lämpöoppi
+53.6|Valo-oppi. Säteilyoppi
+53.7|Sähköoppi. Magnetismi
+53.8|Fysiikka harrasteena ja ajanvietteenä
+54|KEMIA
+54.1|Teoreettinen ja fysikaalinen kemia
+54.2|Epäorgaaninen kemia
+54.3|Orgaaninen kemia. Muovien kemia
+54.4|Analyyttinen kemia
+54.8|Kemia harrasteena ja ajanvietteenä
+55|FYYSINEN MAANTIEDE. GEOLOGIA
+55.2|Geologia. Geomorfologia
+55.3|Mineralogia. Petrologia. Kristallografia
+55.4|Paleontologia
+55.5|Meteorologia. Klimatologia
+55.6|Hydrologia
+56|BIOLOGIA
+56.1|Sytologia. Solubiologia
+56.2|Biokemia. Biofysiikka. Molekyylibiologia
+56.3|Yleinen mikrobiologia
+56.4|Perinnöllisyystiede
+56.8|Luonto-oppaat
+56.9|Ekologia. Eliömaantiede
+57|KASVITIEDE
+57.1|Putkilokasvit
+57.3|Levät. Jäkälät. Sienet. Sammalet
+57.8|Kasvianatomia. Kasvifysiologia. Kasvimorfologia
+57.9|Kasviekologia. Kasvimaantiede
+58|ELÄINTIEDE
+58.1|Selkärankaiset
+58.2|Selkärangattomat
+58.8|Eläinanatomia. Eläinfysiologia. Eläinmorfologia
+58.9|Eläinten elintavat
+59|LÄÄKETIEDE. TERVEYDENHOITO
+59.1|Lääketieteellinen biologia
+59.2|Yleinen terveydenhoito
+59.3|Henkilökohtainen terveydenhoito
+59.4|Hoitomenetelmät
+59.5|Elimet. Taudit
+59.6|Lasten terveydenhoito. Lastentaudit
+59.8|Vanhusten terveydenhoito. Vanhusten taudit
+59.9|Hammaslääketiede
+60|SOVELLETUT TIETEET
+60.1|Tekninen piirustus
+60.2|Aineoppi. Aineenkoetus. Tekninen mekaniikka
+60.3|Standardit. Normit. Mittayksiköt
+60.4|Innovaatiot. Keksinnöt. Patentit
+60.7|Tekniikka ja sovelletut tieteet harrasteena
+60.8|Energia
+61|ATK. TIETOTEKNIIKKA. TIETOLIIKENNE. VIESTINTÄTEKNIIKKA
+61.2|Systeemityö. Tiedonhallinta
+61.3|Ohjelmointi. Ohjelmointikielet
+61.4|Tietokoneet
+61.6|Säätö- ja systeemitekniikka. Teollinen automaatio
+61.7|Tietoliikenne. Viestintätekniikka. Multimedia
+62|METALLITEOLLISUUS. KONETEKNIIKKA. LIIKENNEVÄLINEET SÄHKÖTEKNIIKKA
+62.1|Mekaaninen teknologia. Metallin työstö
+62.2|Konetekniikka. Voitelutekniikka
+62.3|Voimakoneet. Moottorit
+62.4|Nosto- ja kuljetuslaitteet. Hydrauliikka
+62.5|Liikennevälineet
+62.6|Sähkötekniikka
+63|KAIVANNAISTEOLLISUUS. KEMIANTEOLLISUUS
+63.1|Kaivannaisteollisuus
+63.3|Keraaminen teollisuus. Lasiteollisuus. Sementtiteollisuus
+63.5|Kemianteollisuus
+63.7|Muovi- ja kumiteollisuus
+64|PUUNJALOSTUSTEOLLISUUS. TEKSTIILITEOLLISUUS NAHKATEOLLISUUS. HIENOMEKAANINEN TEOLLISUUS
+64.1|Puunjalostusteollisuus
+64.3|Tekstiili- ja vaatetusteollisuus
+64.4|Nahka- ja jalkineteollisuus
+64.5|Hienomekaaninen teollisuus
+65|KÄSITYÖ. KOTITEOLLISUUS
+65.1|Puutyö
+65.2|Metallityö
+65.3|Nahkatyö
+65.4|Tekstiilityö
+65.5|Paperi- ja pahvityöt
+65.6|Muovailu. Keramiikkatyöt
+65.7|Lasimaalaus. Posliinimaalaus
+65.8|Leikkikalut
+65.9|Muut käsityöt
+66|RAKENNUSTEKNIIKKA
+66.1|Rakennusstatiikka. Rakennussuunnittelu
+66.2|Geotekniikka. Maatyöt
+66.3|Talonrakennus
+66.4|Rakennuksen kunnossapito
+66.6|Tienrakennus
+66.7|Vesirakennus
+66.9|Kunnallistekninen ympäristönhuolto
+67|MAA- JA METSÄTALOUS. ELINTARVIKETEOLLISUUS. BIOTEKNIIKKA
+67.1|Maatalouspolitiikka
+67.3|Maanviljely. Puutarhanhoito. Hyötykasvit
+67.4|Kotieläintalous. Kotieläinten hoito
+67.5|Metsätalous
+67.6|Metsästys. Kalastus
+67.7|Elintarviketeollisuus
+67.8|Biotekniikka
+68|KOTITALOUS. LAITOSTALOUS
+68.2|Ruoanvalmistus. Ruokakulttuuri
+68.3|Huonetilojen ja irtaimiston hoito
+68.4|Sisustusoppaat
+68.8|Hotelli- ja ravintolatalous. Suurkeittiöt. Ateriapalvelut
+69|LIIKETALOUS. MARKKINOINTI. KAUPPA. LIIKENNE
+69.1|Liiketalouden hallinto
+69.2|Liiketaloudellinen laskentatoimi
+69.3|Markkinointi. Kauppa
+69.6|Liikenne
+69.7|Posti
+70|TAIDE. TAIDEHISTORIA
+70.01|Taiteen estetiikka
+70.03|Taiteen hakuteokset. Taiteilijamatrikkelit
+70.062|Taidemuseot. Taidekokoelmat
+70.063|Taidenäyttelyt
+70.1|Taidepsykologia. Taidesosiologia. Taidepolitiikka
+70.2|Taidekauppa
+70.3|Kansantaide. Alkuperäiskansojen taide
+70.9|Yleinen taidehistoria
+71|UUDET TAIDEMUODOT
+71.3|Tilataide. Ympäristötaide
+71.5|Tatuointi. Kehotaide
+71.7|Performanssitaide. Esitystaide
+71.8|Katutaide. Graffititaide
+72|ARKKITEHTUURI
+72.2|Rakennukset. Rakennustyypit
+72.9|Arkkitehtuurin historia
+73|KUVANVEISTOTAIDE
+73.1|Kuvanveiston materiaalit ja tekniikka
+73.9|Kuvanveistotaiteen historia
+74|MAALAUSTAIDE. PIIRUSTUSTAIDE
+74.1|Piirustustaide
+74.2|Maalaustaide
+74.3|Aiheet piirustus- ja maalaustaiteessa
+74.9|Piirustus- ja maalaustaiteen historia
+75|GRAFIIKKA. VALOKUVAUS
+75.1|Grafiikka
+75.7|Valokuvaus. Valokuvataide
+76|MUOTOILU. TAIDETEOLLISUUS. TAIDEKÄSITYÖ
+76.1|Sisustusarkkitehtuuri. Huonekalutaide
+76.2|Tekstiilitaide
+76.3|Lasitaide. Keramiikkataide
+76.4|Taidetaonta. Korutaide
+76.5|Koristetaide. Ornamentiikka
+76.7|Paperitaide
+76.8|Antiikkiesineiden keräily
+76.9|Taideteollisuuden ja taidekäsityön historia
+77|NÄYTTÄMÖTAIDE. ELOKUVATAIDE
+77.1|Teatteritaide
+77.2|Ilmaisutaito. Puhetaito. Lausuntataide
+77.3|Tanssi
+77.4|Elokuva. Elokuvataide
+78|MUSIIKKI
+78.1|Musiikin tutkimus
+78.2|Musiikin teoria
+78.3|Laulumusiikki. Näyttämömusiikki. Liturginen musiikki
+78.4|Etnomusiikki. Kansanmusiikki
+78.5|Yhtye- ja orkesterimusiikki
+78.6|Kosketinsoitinmusiikki. Näppäilysoitinmusiikki
+78.7|Jousisoitinmusiikki
+78.8|Puhallinsoitinmusiikki. Lyömäsoitinmusiikki. Muilla soittimilla esitetty musiikki. Elektroakustinen musiikki. Musiikkikulttuurien sulautumat. Populaarimusiikki
+78.9|Musiikin historia
+79|LIIKUNTA. URHEILU. LEIKIT. HUVIT
+79.1|Liikunta. Urheilu
+79.2|Voimistelu
+79.3|Palloilu
+79.4|Retkeily. Ulkoilu
+79.5|Lentourheilu. Moottoriurheilu
+79.6|Kuntoliikunta. Kuntourheilu
+79.7|Muut urheilu- ja liikuntamuodot
+79.8|Pelit. Leikit. Keräily
+79.9|Julkiset huvit
+80|KAUNOKIRJALLISET SEKASISÄLTÖISET TEOKSET
+80.2|Suomenkieliset kaunokirjalliset sekasisältöiset teokset
+80.3|Pohjoismaisilla kielillä julkaistut kaunokirjalliset sekasisältöiset teokset
+80.4|Saksankieliset kaunokirjalliset sekasisältöiset teokset
+80.5|Englanninkieliset kaunokirjalliset sekasisältöiset teokset
+80.6|Romaanisilla kielillä julkaistut kaunokirjalliset sekasisältöiset teokse
+80.7|Slaavilaisilla ja balttilaisilla kielillä julkaistut kaunokirjalliset sekasisältöiset teokset
+80.8|Muilla indoeurooppalaisilla kielillä julkaistut kaunokirjalliset sekasisältöiset teokset
+80.9|Muilla kielillä julkaistut kaunokirjalliset sekasisältöiset teokset
+81|KANSANRUNOUS
+81.2|Kansansadut. Kansantarinat
+81.3|Sananlaskut. Arvoitukset. Vertaukset. Kaskut
 81.4|Kansaneepokset
+82|RUNOT
+82.2|Suomenkieliset runot
+82.3|Pohjoismaisilla kielillä julkaistut runot
+82.4|Saksankieliset runot
+82.5|Englanninkieliset runot
+82.6|Romaanisilla kielillä julkaistut runot
+82.7|Slaavilaisilla ja balttilaisilla kielillä julkaistut runot
+82.8|Muilla indoeurooppalaisilla kielillä julkaistut runot
+82.9|Muilla kielillä julkaistut runot
+83|NÄYTELMÄT
+83.2|Suomenkieliset näytelmät
+83.3|Pohjoismaisilla kielillä julkaistut näytelmät
+83.4|Saksankieliset näytelmät
+83.5|Englanninkieliset näytelmät
+83.6|Romaanisilla kielillä julkaistut näytelmät
+83.7|Slaavilaisilla ja balttilaisilla kielillä julkaistut näytelmät
+83.8|Muilla indoeurooppalaisilla kielillä julkaistut näytelmät
+83.9|Muilla kielillä julkaistut näytelmät
+84|KERTOMAKIRJALLISUUS
+84.2|Suomenkielinen kertomakirjallisuus
+84.3|Pohjoismaisilla kielillä julkaistu kertomakirjallisuus
+84.4|Saksankielinen kertomakirjallisuus
+84.5|Englanninkielinen kertomakirjallisuus
+84.6|Romaanisilla kielillä julkaistu kertomakirjallisuus
+84.7|Slaavilaisilla ja balttilaisilla kielillä julkaistu kertomakirjallisuus
+84.8|Muilla indoeurooppalaisilla kielillä julkaistu kertomakirjallisuus
+84.9|Muilla kielillä julkaistu kertomakirjallisuus
+85|SADUT. KUVAKIRJAT. SARJAKUVAT
+85.1|SADUT
+85.2|KUVAKIRJAT
+85.3|SARJAKUVAT
+86|KIRJALLISUUSTIEDE
+86.01|Kirjallisuuden estetiikka. Runousoppi
+86.03|Kirjallisuustieteen hakuteokset. Kirjailijamatrikkelit
+86.07|Kaunokirjallisuuden kirjoittaminen ja kääntäminen
+86.1|Yleinen kirjallisuudenhistoria
+86.2|Suomen ja suomalais-ugrilaisten kielten kirjallisuuden historia ja tutkimus
+86.3|Pohjoismaisten kielten kirjallisuuden historia ja tutkimus
+86.4|Saksankielisen kirjallisuuden historia ja tutkimus
+86.5|Englanninkielisen kirjallisuuden historia ja tutkimus
+86.6|Romaanisten kielten kirjallisuuden historia ja tutkimus
+86.7|Slaavilaisten ja balttilaisten kielten kirjallisuuden historia ja tutkimus
+86.8|Muiden indoeurooppalaisten kielten kirjallisuuden historia ja tutkimus
+86.9|Muiden kielten kirjallisuuden historia ja tutkimus
+87|KIELITIEDE
+87.01|Kielifilosofia
+87.038|Sanakirjat
+87.3|Kielioppi. Muoto-oppi. Sanaoppi
+87.4|Äänneoppi
+87.5|Kääntäminen. Tulkkaus
+87.9|Etymologia. Onomastiikka
+88|SUOMALAIS-UGRILAISET KIELET
+88.2|Suomen kieli
+88.3|Viron kieli
+88.4|Muut itämerensuomalaiset kielet
+88.5|Muut suomalais-ugrilaiset kielet
+89|INDOEUROOPPALAISET KIELET. MUUT KIELET
+89.3|Pohjoismaiset kielet
+89.4|Germaaniset kielet
+89.5|Englannin kieli
+89.6|Romaaniset kielet
+89.7|Slaavilaiset ja balttilaiset kielet
+89.8|Muut indoeurooppalaiset kielet
+89.9|Muut kielet
+90|HISTORIANTUTKIMUS. YLEINEN KULTTUURIHISTORIA YLEINEN SOTAHISTORIA. YLEINEN ARKEOLOGIA
+90.02|Historialliset maailmankartat ja -kartastot
+90.1|Historianfilosofia. Kulttuurifilosofia
+90.2|Yleinen kulttuurihistoria
+90.3|Yleinen sotahistoria
+90.4|Yleinen arkeologia
+90.5|Historian aputieteet
+91|MAAILMANHISTORIA. EUROOPAN HISTORIA
+91.1|Vanha aika
+91.6|Keskiaika
+91.7|Uusi aika
+91.8|Uusin aika
+92|SUOMEN HISTORIA
+92.1|Suomen historia, esi- ja varhaishistoria
+92.2|Suomen historia, keskiaika
+92.3|Suomen historia, reformaation aika
+92.4|Suomen historia, Ruotsin suurvalta-aika
+92.5|Suomen historia, vapauden aika ja kustavilainen aika
+92.6|Suomen historia, autonomian aika
+92.7|Suomen historia, itsenäisyyden aika
+92.8|Suomen historia, paikallishistoria
+92.9|Suomenruotsalaisten historia
+93|POHJOISMAIDEN HISTORIA
+93.1|Ruotsin historia
+93.2|Norjan historia
+93.3|Tanskan historia
+93.4|Islannin historia
+93.5|Pohjoiskalotin historia
+94|KESKI-EUROOPAN HISTORIA
+94.1|Saksan historia
+94.3|Tšekin ja Slovakian historia
+94.4|Itävallan historia
+94.5|Unkarin historia
+94.6|Sveitsin historia
+94.7|Liechtensteinin historia
+94.8|Benelux-maiden historia
+95|BRITTEIN SAARTEN HISTORIA
+95.1|Ison-Britannian historia
+95.7|Irlannin historia
+96|ETELÄ-EUROOPAN HISTORIA
+96.1|Ranskan historia
+96.2|Italian historia
+96.3|Espanjan historia
+96.4|Portugalin historia
+96.5|Maltan historia
+96.8|Balkanin maiden historia
+97|ITÄ-EUROOPAN HISTORIA
+97.1|Venäjän ja Neuvostoliiton historia
+97.2|Baltian maiden historia
+97.3|Puolan historia
+97.4|Ukrainan historia
+97.5|Valko-Venäjän historia
+97.6|Moldovan historia
+98|MUIDEN MAANOSIEN HISTORIA
+98.1|Aasian historia
+98.2|Afrikan historia
+98.3|Amerikan historia
+98.5|Australian ja Oseanian historia
+98.6|Napamaiden historia
+99|HENKILÖ- JA SUKUHISTORIA
+99.1|Elämäkerrat. Muistelmat
+99.2|Elämäkerralliset hakuteokset
+99.3|Sukuhistoria. Sukututkimus

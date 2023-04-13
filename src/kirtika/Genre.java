@@ -28,6 +28,11 @@ public class Genre {
      * Formats genre to be bar delimited
      * @param line
      * @return
+     * 
+     * @example
+     * <pre name="test">
+     * 
+     * </pre>
      */
     public static String formatGenre(String line) {
     	StringBuilder sb = new StringBuilder(line);

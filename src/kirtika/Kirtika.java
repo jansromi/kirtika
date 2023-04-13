@@ -33,7 +33,13 @@ public class Kirtika {
 		this.genres = new Genres();
 		this.loans = new Loans();
 		if (books.getAmt() > 0) setLoanedBookNames(); 
-		fetchFintoGenres();
+		//fetchFintoGenres();
+		//try {
+		//	genres.saveGenres();
+		//} catch (SailoException e) {
+		//	// TODO Auto-generated catch block
+		//	e.printStackTrace();
+		//}
 	}
 	
 	/**
