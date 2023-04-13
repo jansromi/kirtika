@@ -14,15 +14,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class YKLQuery {
-	
-	/**
-	 * Scrapes result from HTML
-	 * @author Jansromi
-	 *
-	 */
-	public static class YKLParser {
-
+public final class YKLQuery {
 	/**
 	 * 
 	 * Scrapes finto.fi with given YKL ID
@@ -61,16 +53,23 @@ public class YKLQuery {
          }
          return list;
 	 }
-	 
-	 public static void main(String[] args) throws IOException, InterruptedException {
-		Document doc = yklQuery("80");
-		ArrayList<String> list = parseSubGenres(doc);
-		for (String string : list) {
-			System.out.println(string);
-		}
-		
-	}
-	
-	}
 
+	 
+	 public static void main(String[] args){
+		Document doc;
+		try {
+			doc = yklQuery("80");
+			ArrayList<String> list = parseSubGenres(doc);
+			for (String string : list) {
+				System.out.println(string);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	 }
 }
+	 

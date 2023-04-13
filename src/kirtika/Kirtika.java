@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import org.jsoup.nodes.Document;
+
 import webscraping.FinnaHaku;
 import webscraping.FinnaHaku.BookNotFoundException;
+import webscraping.YKLQuery;
 
 /**
  * Main class Kirtika consists mostly of mediator methods.
@@ -30,7 +33,7 @@ public class Kirtika {
 		this.genres = new Genres();
 		this.loans = new Loans();
 		if (books.getAmt() > 0) setLoanedBookNames(); 
-		
+		fetchFintoGenres();
 	}
 	
 	/**
@@ -142,6 +145,26 @@ public class Kirtika {
 		data.add(isbn);
 		data.add(fh.getBookYKLClasses());
 		return data;
+	}
+	
+	public void fetchFintoGenres() {
+		Document doc;
+		try {
+			for (int i = 0; i < 100; i++) {
+				doc = YKLQuery.yklQuery(String.valueOf(i));
+				ArrayList<String> subGenres = YKLQuery.parseSubGenres(doc);
+				for (String subgenre : subGenres) {
+					genres.addGenre(subgenre);
+				}
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**

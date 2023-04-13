@@ -10,7 +10,7 @@ public class Genre {
     
     /**
      * Initialized from a file, etc.
-     * @param s A string delimited by pipes ('|')
+     * @param line A string delimited by pipes ('|')
      * 
      * @example
      * <pre name="test">
@@ -18,10 +18,21 @@ public class Genre {
      * genre.getGenreId() === "84.2";
      * </pre>
      */
-    public Genre(String s) {
-        StringBuilder sb = new StringBuilder(s);
+    public Genre(String line) {
+        StringBuilder sb = new StringBuilder(line);
         genreId = Mjonot.erota(sb, '|');
         genreDesc = sb.toString();
+    }
+    
+    /**
+     * Formats genre to be bar delimited
+     * @param line
+     * @return
+     */
+    public static String formatGenre(String line) {
+    	StringBuilder sb = new StringBuilder(line);
+    	String id = Mjonot.erota(sb, ' ');
+    	return id + "|" + sb.toString();
     }
     
     /**

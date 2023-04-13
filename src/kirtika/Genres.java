@@ -37,6 +37,22 @@ public class Genres {
 	}
 	
 	/**
+	 * Test constructor
+	 * @param b
+	 */
+	public Genres(boolean b) {
+		
+	}
+	
+	/**
+	 * Adds a new genre to items.
+	 * @param line where genre formatted as "84.2 Suomenkielinen kaunokirjallisuus"
+	 */
+	public void addGenre(String line) {
+		items.add(new Genre(Genre.formatGenre(line)));
+	}
+	
+	/**
 	 * Initialize genres from a file.
 	 * @throws FileNotFoundException if genret.dat file is not found.
 	 */
@@ -99,4 +115,5 @@ public class Genres {
 	public ArrayList<Genre> getGenres(){
 		return items;
 	}
+	
 }
