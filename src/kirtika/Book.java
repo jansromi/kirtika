@@ -5,7 +5,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Random;
 import fi.jyu.mit.ohj2.Mjonot;
-import utils.StringSanitizer;
+import utils.StringUtils;
 
 /**
  * 
@@ -125,8 +125,8 @@ public class Book {
 	 * Sets a safe filepath for the book
 	 */
 	public void setFilePath() {
-		String fName = StringSanitizer.replaceNordicChars(bookName).toLowerCase();
-		fName = StringSanitizer.replaceSpecialChars(fName);
+		String fName = StringUtils.replaceNordicChars(bookName).toLowerCase();
+		fName = StringUtils.replaceSpecialChars(fName);
 		bookFilePath = path + bookId + fName + ".txt";
 	}
 	

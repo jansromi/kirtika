@@ -32,6 +32,7 @@
                      </accelerator>
                   </MenuItem>
                   <MenuItem fx:id="showLoanHistory" mnemonicParsing="false" onAction="#handleShowLoanHistory" text="Näytä lainahistoria" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowGenres" text="Näytä kaikki genret" />
               <MenuItem mnemonicParsing="false" text="Sulje ohjelma" />
             </items>
           </Menu>
@@ -39,6 +40,7 @@
             <items>
               <MenuItem mnemonicParsing="false" onAction="#handleShowAddBookForm" text="Lisää kirja" />
                   <MenuItem mnemonicParsing="false" onAction="#handleShowAddBookFormISBN" text="Lisää kirja ISBN-numerolla" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleFetchYklGenres" text="Hae kaikki YKL-genret" />
                   <MenuItem fx:id="handleDeleteBook" mnemonicParsing="false" onAction="#deleteBook" text="Poista kirja">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="DELETE" control="DOWN" meta="UP" shift="UP" shortcut="UP" />

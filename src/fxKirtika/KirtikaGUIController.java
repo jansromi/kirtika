@@ -1,5 +1,6 @@
 package fxKirtika;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -90,8 +91,29 @@ public class KirtikaGUIController implements Initializable {
     void save(ActionEvent event) {
     	try {
 			kirtika.save();
-		} catch (SailoException e) {
+		} catch (FileNotFoundException e) {
 			
+		}
+    }
+    
+    /**
+     * Fetches all YKL-classifications from the internet.
+     * Saves the fetched classifications to the file. Finally
+     * it sorts all the genres in ascending order based on ykl-id.
+     */
+    @FXML
+    void handleFetchYklGenres() {
+    	kirtika.fetchFintoGenres();
+    	Dialogs.showMessageDialog("Genret haettu onnistuneesti!");
+    	try {
+			kirtika.saveGenres();
+		} catch (FileNotFoundException e1) {
+			showWarningDialog("Varoitus", "Genretiedostoa ei löytynyt", e1.getMessage());
+		}
+    	try {
+			kirtika.sortGenres();
+		} catch (IOException e) {
+			showWarningDialog("Varoitus", "Tiedoston käsittely epäonnistui genrejä lajitellessa", e.getMessage());
 		}
     }
     
@@ -277,6 +299,22 @@ public class KirtikaGUIController implements Initializable {
         window.setScene(loanViewScene);
         window.show();
     }
+    
+    /**
+     * When this method is called, the scene is changed to the loan view.
+     * @throws IOException if there is an error with the file.
+     */
+    @FXML public void handleShowGenres(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("KirtikaGenreView.fxml"));
+        Parent root = loader.load();
+        KirtikaGenreViewController ctrl = loader.getController();
+        ctrl.initialize(kirtika);
+        Scene loanViewScene = new Scene(root);
+        Stage window = (Stage) myMenuBar.getScene().getWindow();
+        window.setScene(loanViewScene);
+        window.show();
+    }
 	
     /**
      * Shows the form for adding books
@@ -348,7 +386,7 @@ public class KirtikaGUIController implements Initializable {
 	 * @param headerText The header text of the dialog
 	 * @param contentText The content text of the dialog
 	 */
-	private void showWarningDialog(String title, String headerText, String contentText) {
+	public void showWarningDialog(String title, String headerText, String contentText) {
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle(title);
 		alert.setHeaderText(headerText);
@@ -497,7 +535,7 @@ public class KirtikaGUIController implements Initializable {
 		try {
 			kirtika.saveAll();
 			Dialogs.showMessageDialog("Lainan lisääminen onnistui!");
-		} catch (SailoException e) {
+		} catch (FileNotFoundException e) {
 			showWarningDialog("Huomio!", "Tiedostojen tallentaminen ei onnistunut", e.getMessage());
 		}
 	}
@@ -517,8 +555,10 @@ public class KirtikaGUIController implements Initializable {
 			kirtika.closeLoan(book.getBookId(), returnDate);
 			Dialogs.showMessageDialog(book.getBookName() + " palautettiin onnistuneesti" + System.lineSeparator() + "päivämäärällä " + returnDate.toString());
 			kirtika.saveAll();
-		} catch (SailoException e) {
+		} catch (FileNotFoundException e) {
 			showWarningDialog("Huomio!", "Kirjan palauttaminen ei onnistunut", e.getMessage());
+		} catch (SailoException e) {
+			Dialogs.showMessageDialog("Kirjalla ei ollut aktiivista lainaa!");
 		}
 	}
 }

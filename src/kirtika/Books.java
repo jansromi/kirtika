@@ -213,8 +213,9 @@ public class Books {
 	/**
 	 * Saves the books to a file
 	 * @throws SailoException  if saving fails
+	 * @throws FileNotFoundException 
 	 */
-	public void save() throws SailoException {
+	public void save() throws FileNotFoundException {
 		File ftied = new File(booksFilePath);
 		try (PrintStream fo = new PrintStream(new FileOutputStream(ftied, false))) {
 			for (int i = 0; i < this.getAmt(); i++) {
@@ -222,7 +223,7 @@ public class Books {
 				fo.println(book.toString());
 			}
 		} catch (FileNotFoundException e) {
-			throw new SailoException("tiedosto: " + ftied.getAbsolutePath() + " ei aukea");
+			throw new FileNotFoundException("Tiedosto: " + ftied.getAbsolutePath() + " ei aukea");
 		}
 	}
 	

@@ -1,5 +1,6 @@
 package fxKirtika;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -82,10 +83,10 @@ public class KirtikaLoanViewController {
 			try {
 				kirtika.setBookAsLoaned(loan.getLoanedBookId(), false);
 				kirtika.saveAll();
-			} catch (SailoException e) {
+			} catch (FileNotFoundException e) {
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("VAROITUS");
-				alert.setHeaderText("Loans kirjat");
+				alert.setHeaderText("Lainat");
 				alert.setContentText("Lainan käsittely ei onnistunut, sillä tiedostoa ei löytynyt");
 				alert.showAndWait();
 			}
@@ -134,10 +135,10 @@ public class KirtikaLoanViewController {
 	 */
 	public ObservableList<Loan> getLainat(){
 		ObservableList<Loan> lainat = FXCollections.observableArrayList();
-			for (int i = 0; i < kirtika.getLoansAmt(); i++) {
-				Loan lainattu = kirtika.getLoanedBook(i);
-				lainat.add(lainattu);
-			}
+		for (int i = 0; i < kirtika.getLoansAmt(); i++) {
+			Loan lainattu = kirtika.getLoanedBook(i);
+			lainat.add(lainattu);
+		}
 		return lainat;
 	}
 	

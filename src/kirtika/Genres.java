@@ -12,6 +12,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -83,9 +84,9 @@ public class Genres {
 	
 	/**
 	 * Saves genres
-	 * @throws SailoException 
+	 * @throws FileNotFoundException 
 	 */
-	public void saveGenres() throws SailoException {
+	public void saveGenres() throws FileNotFoundException{
 		File ftied = new File(genresFilePath);
 		try (PrintStream fo = new PrintStream(new FileOutputStream(ftied, false))) {
 			for (int i = 0; i < items.size(); i++) {
@@ -93,7 +94,7 @@ public class Genres {
 				fo.println(Genre.formatGenre(genre.toString()));
 			}
 		} catch (FileNotFoundException e) {
-			throw new SailoException("tiedosto: " + ftied.getAbsolutePath() + " ei aukea");
+			throw new FileNotFoundException("Tiedosto: " + ftied.getAbsolutePath() + " ei aukea");
 		}
 	}
 	
@@ -103,6 +104,22 @@ public class Genres {
 	 */
 	public void addGenre(String line) {
 		items.add(new Genre(Genre.formatGenre(line)));
+	}
+	
+	/**
+	 * Deletes a genre from items
+	 * @param genre
+	 */
+	public void deleteGenre(Genre genre) {
+		String genreId = genre.getGenreId();
+		Iterator<Genre> iterator = items.iterator();
+	    while (iterator.hasNext()) {
+	        Genre g = iterator.next();
+	        if (g.getGenreId().equals(genreId)) {
+	            iterator.remove();
+	            break;
+	        }
+	    }
 	}
 	
 	/**
@@ -119,6 +136,18 @@ public class Genres {
 			   items.add(new Genre(line));
 			}
 		scan.close();
+	}
+	
+	/**
+	 * Checks if items already contains this ykl id
+	 * @param yklId
+	 * @return
+	 */
+	public boolean genresContain(String yklId) {
+		for (Genre genre : items) {
+			if (genre.matchesId(yklId)) return true;
+		}
+		return false;
 	}
 
 	/**

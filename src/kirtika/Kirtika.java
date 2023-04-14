@@ -1,5 +1,6 @@
 package kirtika;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,9 +14,8 @@ import webscraping.YKLQuery;
 /**
  * Main class Kirtika consists mostly of mediator methods.
  * 
- * TODO: Delete loan if book not found
  * TODO: Search
- * 
+ * TODO: Finish finnahaku
  * @author Jansromi
  * @version 1, 10.4.2023
  * 
@@ -32,15 +32,10 @@ public class Kirtika {
 		this.books = new Books();
 		this.genres = new Genres();
 		this.loans = new Loans();
-		if (books.getAmt() > 0) setLoanedBookNames(); 
-		//fetchFintoGenres();
-		//try {
-		//	genres.saveGenres();
-		//} catch (SailoException e) {
-		//	// TODO Auto-generated catch block
-		//	e.printStackTrace();
-		//}
+		if (books.getAmt() > 0) setLoanedBookNames();
+		
 	}
+	
 	
 	/**
 	 * Adds a book to the registry
@@ -59,6 +54,17 @@ public class Kirtika {
 	 */
 	public void addBookLoan(Book book, String loaner) {
 	    loans.addBookLoan(book, loaner);
+	}
+	
+	/**
+	 * Adds a user defined genre
+	 * @param input where genre formatted as "id + desc", like
+	 * "84.2 Suomenkielinen kaunokirjallisuus" or
+	 * "9999 random"
+	 * 
+	 */
+	public void addGenre(String input) {
+		genres.addGenre(input);
 	}
 	
 	/**
@@ -165,10 +171,8 @@ public class Kirtika {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -262,19 +266,26 @@ public class Kirtika {
 	/**
 	 * Saves all data.
 	 *
-	 * @throws SailoException if saving fails
+	 * @throws FileNotFoundException 
 	 */
-	public void saveAll() throws SailoException {
+	public void saveAll() throws FileNotFoundException {
 	    books.save();
 	    loans.saveBookLoans();
+	    genres.saveGenres();
+	    
+	}
+	
+	public void sortGenres() throws IOException {
+		genres.sortGenres();
 	}
 	
 	/**
 	 * A mediator method for saving.
 	 *
 	 * @throws SailoException if saving fails
+	 * @throws FileNotFoundException 
 	 */
-	public void save() throws SailoException {
+	public void save() throws FileNotFoundException {
 	    books.save();
 	}
 
@@ -282,13 +293,31 @@ public class Kirtika {
 	 * Saves loan data.
 	 *
 	 * @throws SailoException if saving fails
+	 * @throws FileNotFoundException 
 	 */
-	public void saveBookLoans() throws SailoException {
+	public void saveBookLoans() throws FileNotFoundException {
 	    loans.saveBookLoans();
 	}
 	
 	public void saveBookNotes(Book book, String notes) throws IOException {
 		books.saveBookNotes(book, notes);
+	}
+	
+	public void saveGenres() throws FileNotFoundException {
+		genres.saveGenres();
+	}
+	
+	/**
+	 * 
+	 * @param yklId
+	 * @return
+	 */
+	public boolean genresContain(String yklId) {
+		return genres.genresContain(yklId);
+	}
+	
+	public void deleteGenre(Genre genre) {
+		genres.deleteGenre(genre);
 	}
 	
 	/**

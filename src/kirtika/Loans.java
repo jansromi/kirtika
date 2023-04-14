@@ -62,15 +62,16 @@ public class Loans {
 	 * Saves the contents of ArrayList items to a file.
 	 * 
 	 * @throws SailoException if file is not found
+	 * @throws FileNotFoundException 
 	 */
-	public void saveBookLoans() throws SailoException {
+	public void saveBookLoans() throws FileNotFoundException {
 		File file = new File(loansFilePath);
 		try (PrintStream fo = new PrintStream(new FileOutputStream(file, false))) {
 			for (Loan loan : items) {
 				fo.println(loan.toString());
 			}
 		} catch (FileNotFoundException e) {
-			throw new SailoException("Tiedosto: " + file.getAbsolutePath() + " ei aukea");
+			throw new FileNotFoundException("Tiedosto: " + file.getAbsolutePath() + " ei aukea");
 		}
 	}
 	

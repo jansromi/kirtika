@@ -4,7 +4,30 @@ package utils;
  * Class containing String-sanitation functions
  * @author Jansromi
  */
-public final class StringSanitizer {
+public final class StringUtils {
+	
+	/**
+	 * 
+	 * @param input User input
+	 * @return
+	 * 
+	 * @example
+	 * <pre name="test">
+	 * matchesGenreFormat("84.2 Suomalainen kaunokirjallisuus") === true;
+	 * matchesGenreFormat("Suomalainen kaunokirjallisuus") === false;
+	 * matchesGenreFormat("0") === false;
+	 * matchesGenreFormat("84.2Suomalainen kaunokirjallisuus") === false;
+	 * matchesGenreFormat("84.2.3 Suomalainen kaunokirjallisuus") === true;
+	 * matchesGenreFormat("84,2 Suomalainen kaunokirjallisuus") === false;
+	 * matchesGenreFormat("84.2.2 Suomalainen kaunokirjallisuus, Waltarin kirjat") === true;
+	 * matchesGenreFormat("0000") === false;
+	 * </pre>
+	 */
+	public static boolean matchesGenreFormat(String input) {
+		if (input == null) return false;
+		String regex = "^\\d+(\\.\\d+)* [A-Za-z]+( [A-Za-z]+)*.*$";
+	    return input.matches(regex);
+	}
 	
 	/**
 	 * Replaces scandi/nordic characters with "regular" ones

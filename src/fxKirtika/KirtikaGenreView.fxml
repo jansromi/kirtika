@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane prefHeight="710.0" prefWidth="1220.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxKirtika.KirtikaGenreViewController">
+   <center>
+      <TableView fx:id="tableView" prefHeight="517.0" prefWidth="939.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="genreIdColumn" prefWidth="124.0" text="Genren YKL-tunnus" />
+          <TableColumn fx:id="genreDescColumn" minWidth="0.0" prefWidth="1095.0" text="Genren YKL-kuvaus" />
+        </columns>
+      </TableView>
+   </center>
+   <top>
+      <MenuBar fx:id="myMenuBar" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Tiedosto">
+            <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowMainView" text="Palaa päänäkymään" />
+              	  <MenuItem mnemonicParsing="false" text="Sulje ohjelma" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Muokkaa">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleAddGenre" text="Lisää genre" />
+              <MenuItem mnemonicParsing="false" onAction="#handleDeleteGenre" text="Poista genre" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Tietoja">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>
