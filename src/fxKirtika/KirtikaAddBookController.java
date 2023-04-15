@@ -152,8 +152,6 @@ public class KirtikaAddBookController implements Initializable{
 		infoFields.add(fieldPublisher);
 		infoFields.add(fieldReleaseYear);
 		infoFields.add(fieldIsbn);
-		
-		
 	}
 
 }
