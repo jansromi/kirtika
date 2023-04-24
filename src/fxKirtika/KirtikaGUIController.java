@@ -93,8 +93,10 @@ public class KirtikaGUIController implements Initializable {
     	try {
 			kirtika.save();
 		} catch (FileNotFoundException e) {
-			
+			showWarningDialog("Varoitus", "Tallennus epäonnistui", e.getMessage());
+			return;
 		}
+    	Dialogs.showMessageDialog("Tallennus onnistui!");
     }
     
     /**

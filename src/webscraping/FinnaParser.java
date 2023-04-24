@@ -108,11 +108,11 @@ public final class FinnaParser {
 	}
 	
 	/**
-	 * TODO: org.json.JSONException: if ykl class is not found
 	 * @param content JSON search data from Finna API
+	 * @throws JSONException if ykl classification is not found
 	 * @return
 	 */
-	public static List<String> parseYKL(JSONObject obj) {
+	public static List<String> parseYKL(JSONObject obj) throws JSONException {
 		JSONObject classifications = obj.getJSONObject("classifications");
 		JSONArray yklArray = classifications.getJSONArray("ykl");
 		return getArrKeys(yklArray);

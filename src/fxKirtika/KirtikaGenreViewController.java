@@ -148,7 +148,7 @@ public class KirtikaGenreViewController {
     private void deleteGenre() {
     	Genre genre = tableView.getSelectionModel().getSelectedItem();
 		if (genre == null) return;
-		if (Dialogs.showQuestionDialog("Huomio!", "Haluatko varmasti poistaa valitun lainan?", "Kyllä", "Ei")) {
+		if (Dialogs.showQuestionDialog("Huomio!", "Haluatko varmasti poistaa valitun genren?", "Kyllä", "Ei")) {
 			kirtika.deleteGenre(genre);
 			try {
 				kirtika.deleteGenre(genre);

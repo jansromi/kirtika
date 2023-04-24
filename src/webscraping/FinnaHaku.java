@@ -10,6 +10,7 @@ import java.net.http.HttpResponse.BodyHandlers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -92,7 +93,11 @@ public class FinnaHaku {
 		bookWriter = FinnaParser.parseWriter(bookData);
 		bookSubjects = FinnaParser.parseSubjects(bookData);
 		bookLanguages = FinnaParser.parseLanguage(bookData);
-		bookYKLClasses = FinnaParser.parseYKL(bookData);
+		try {
+			bookYKLClasses = FinnaParser.parseYKL(bookData);
+		} catch (JSONException e) {
+			System.err.println("YKL-class not found: " + e.getMessage());
+		}
 		bookPublisher = FinnaParser.parsePublishers(bookData);
 		bookPublicationDates = FinnaParser.parsePublicationDates(bookData);
 	}
@@ -158,6 +163,7 @@ public class FinnaHaku {
 	 */
 	public String getBookYKLClasses() {
 		StringBuilder classes = new StringBuilder();
+		if (bookYKLClasses == null) return "";
 		for (String s : bookYKLClasses) {
 			classes.append(s + "; ");
 		}
