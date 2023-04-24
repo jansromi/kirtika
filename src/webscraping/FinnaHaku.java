@@ -44,12 +44,16 @@ public class FinnaHaku {
 	private String isbn;
 	private String finnaId;
 	private String bookTitle;
-	// private String bookPublisher;
 	
 	private List<String> bookWriter = new ArrayList<String>();
 	private List<String> bookSubjects = new ArrayList<String>();
 	private List<String> bookYKLClasses = new ArrayList<String>();
 	private List<String> bookLanguages = new ArrayList<String>();
+	
+	// Need to figure what to do, if API gives many values for bookPublisher.
+	// Right now we return the first item.
+	private List<String> bookPublisher = new ArrayList<String>();
+	private List<String> bookPublicationDates = new ArrayList<String>();
 	
 	private String rawResponse;
 	private JSONObject bookData;
@@ -89,7 +93,8 @@ public class FinnaHaku {
 		bookSubjects = FinnaParser.parseSubjects(bookData);
 		bookLanguages = FinnaParser.parseLanguage(bookData);
 		bookYKLClasses = FinnaParser.parseYKL(bookData);
-		//bookPublisher = FinnaParser.parsePublishers(bookData);
+		bookPublisher = FinnaParser.parsePublishers(bookData);
+		bookPublicationDates = FinnaParser.parsePublicationDates(bookData);
 	}
 	
 	/**
@@ -152,7 +157,11 @@ public class FinnaHaku {
 	 * @return the bookYKLClasses
 	 */
 	public String getBookYKLClasses() {
-		return bookYKLClasses.get(0);
+		StringBuilder classes = new StringBuilder();
+		for (String s : bookYKLClasses) {
+			classes.append(s + "; ");
+		}
+		return classes.toString();
 	}
 	
 	/**
@@ -171,6 +180,20 @@ public class FinnaHaku {
 	 */
 	public String getIsbn() {
 		return isbn;
+	}
+	
+	/**
+	 * @return first (and usually only) item of bookPublisher-list.
+	 */
+	public String getPublisher() {
+		return bookPublisher.get(0);
+	}
+	
+	/**
+	 * @return first (and usually only) item of bookPublicationDates-list.
+	 */
+	public String getPublicationDates() {
+		return bookPublicationDates.get(0);
 	}
 
 	/**

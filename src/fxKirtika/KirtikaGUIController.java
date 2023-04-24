@@ -103,7 +103,14 @@ public class KirtikaGUIController implements Initializable {
      */
     @FXML
     void handleFetchYklGenres() {
-    	kirtika.fetchFintoGenres();
+    	try {
+			kirtika.fetchFintoGenres();
+		} catch (IOException ioe) {
+			showWarningDialog("Varoitus", "IO-toiminnan häiriö", ioe.getMessage());
+			ioe.printStackTrace();
+		} catch (InterruptedException ie) {
+			showWarningDialog("Varoitus", "Pyyntö keskeytyi", ie.getMessage());
+		}
     	Dialogs.showMessageDialog("Genret haettu onnistuneesti!");
     	try {
 			kirtika.saveGenres();

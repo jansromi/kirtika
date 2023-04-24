@@ -15,7 +15,7 @@ import webscraping.YKLQuery;
  * Main class Kirtika consists mostly of mediator methods.
  * 
  * TODO: Search
- * TODO: Finish finnahaku
+ * TODO: If custom genre and "real" genre is set, override custom genre
  * @author Jansromi
  * @version 1, 10.4.2023
  * 
@@ -152,16 +152,23 @@ public class Kirtika {
 		data.add(fh.getBookTitle());
 		data.add(fh.getBookWriter());
 		data.add(fh.getBookLanguages());
-		data.add("Otava");
-		data.add("2020");
+		data.add(fh.getPublisher());
+		data.add(fh.getPublicationDates());
 		data.add(isbn);
 		data.add(fh.getBookYKLClasses());
 		return data;
 	}
 	
-	public void fetchFintoGenres() {
+	/**
+	 * Fetches all availible YKL-genres using web scraping.
+	 * Iterates over YKL IDs from 0 to 99 and uses the yklQuery method to retrieve the HTML document for each main categories (0-99).
+	 * Then it derives all subclasses from that main category.
+	 * @throws IOException 
+	 * @throws InterruptedException 
+	 */
+	public void fetchFintoGenres() throws IOException, InterruptedException {
 		Document doc;
-		try {
+			// hardcoded 100, because ykl-genres end in 99
 			for (int i = 0; i < 100; i++) {
 				doc = YKLQuery.yklQuery(String.valueOf(i));
 				ArrayList<String> subGenres = YKLQuery.parseSubGenres(doc);
@@ -169,12 +176,6 @@ public class Kirtika {
 					genres.addGenre(subgenre);
 				}
 			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	/**

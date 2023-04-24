@@ -102,11 +102,15 @@ public class KirtikaAddBookController implements Initializable{
 
         ArrayList<String> fields = getGuiFieldValues();
         Genre genre = getSelectedGenre();
-        String customGenre = getGenreName();
 
-        // If genre is null, add a custom genre. Otherwise add the genre id.
-        fields.add(genre == null ? customGenre : genre.getGenreId());
+        // If genre is not null (a genre is selected on choichebox), replace the custom genre.
+        // Otherwise add the genre custom genre.
+        if (genre != null ) {
+        	fields.remove(6);
+        	fields.add(genre.getGenreId());
+        }
 
+        
         book.setGuiValues(fields);
 
         try {
@@ -118,7 +122,6 @@ public class KirtikaAddBookController implements Initializable{
 
     /**
      * @return An ArrayList of values set in AddBook-view.
-     *         Doesn't contain genre-information.
      */
     private ArrayList<String> getGuiFieldValues() {
         var fields = new ArrayList<String>();
@@ -135,14 +138,6 @@ public class KirtikaAddBookController implements Initializable{
     private Genre getSelectedGenre() {
         return choiceYklClassification.getSelectionModel().getSelectedItem();
     }
-
-    /**
-     * @return Custom genre. If blank string, "null"
-     */
-    private String getGenreName() {
-        var customGenre = fieldCustomClassification.getText();
-        return customGenre.isBlank() ? "null" : customGenre;
-    }
     
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -152,6 +147,10 @@ public class KirtikaAddBookController implements Initializable{
 		infoFields.add(fieldPublisher);
 		infoFields.add(fieldReleaseYear);
 		infoFields.add(fieldIsbn);
+<<<<<<< Updated upstream
+=======
+		infoFields.add(fieldCustomClassification);
+>>>>>>> Stashed changes
 	}
 
 }

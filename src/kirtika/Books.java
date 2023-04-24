@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -63,6 +64,12 @@ public class Books {
 
 			}
 		scan.close();
+	}
+	
+	public List<Book> bookMatches(String searchString){
+		////if (book.)
+		//}
+		return null;
 	}
 	
 	/**
@@ -232,7 +239,6 @@ public class Books {
 	 * Increases amt by one.
 	 * @param book (book) to be added
 	 * 
-	 * TODO: Exception handling
 	 * @example
 	 * <pre name="test">
 	 * Books kirjat = new Books();
@@ -262,6 +268,7 @@ public class Books {
 			}
 		}
 	}
+	
 	/**
 	 * Iterates the items and returns the boolean bookLoaned of the matching book.
 	 * @param bId

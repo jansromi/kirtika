@@ -82,8 +82,9 @@ public class Book {
 	 * list[1] = writers
 	 * list[2] = bookLanguage
 	 * list[3] = bookPublisher
-	 * list[4] = isbn
-	 * list[5] = bookClassification
+	 * list[4] = bookReleaseYear
+	 * list[5] = isbn
+	 * list[6] = bookClassification
 	 */
 	public void setGuiValues(ArrayList<String> list) {
 		bookName = list.get(0);

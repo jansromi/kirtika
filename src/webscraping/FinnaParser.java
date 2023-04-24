@@ -88,19 +88,34 @@ public final class FinnaParser {
 	}
 	
 	/**
+	 * Returns te publishers as a list.
+	 * @param obj JSON search data from Finna API
+	 * @return List of publishers
+	 */
+	public static List<String> parsePublishers(JSONObject obj){
+		JSONArray s = obj.getJSONArray("publishers");
+		return getArrKeys(s);
+	}
+	
+	/**
+	 * Returns the publication dates as a list
+	 * @param obj JSON search data from Finna API
+	 * @return List of publication dates
+	 */
+	public static List<String> parsePublicationDates(JSONObject obj){
+		JSONArray s = obj.getJSONArray("publicationDates");
+		return getArrKeys(s);
+	}
+	
+	/**
 	 * TODO: org.json.JSONException: if ykl class is not found
 	 * @param content JSON search data from Finna API
 	 * @return
 	 */
 	public static List<String> parseYKL(JSONObject obj) {
-		JSONArray s;
-		try {
-			s = obj.getJSONObject("classifications").getJSONArray("ykl");
-			return getArrKeys(s);
-		} catch (JSONException e) {
-			
-		}
-		return null;
+		JSONObject classifications = obj.getJSONObject("classifications");
+		JSONArray yklArray = classifications.getJSONArray("ykl");
+		return getArrKeys(yklArray);
 	}
 	
 	/**
@@ -143,5 +158,15 @@ public final class FinnaParser {
 			result = result + string + "|";
 		}
 		return result;
+	}
+	
+	public static void main(String[] args) {
+		String s = "{\"resultCount\":1,\"records\":[{\"authors\":{\"primary\":{\"Jantunen, Saara, 1980- kirjoittaja\":{\"role\":[\"kirjoittaja\"]}},\"secondary\":[],\"corporate\":[]},\"title\":\"Infosota : \\\"iskut kohdistuvat kansalaisten tajuntaan\\\"\",\"publishers\":[\"Kustannusosakeyhti\\u00f6 Otava\"],\"publicationDates\":[\"2016\"],\"classifications\":{\"udkx\":[\"355\\/359\",\"659\",\"004\"],\"ykl\":[\"35.7\",\"39\",\"61\",\"07\"]},\"subjects\":[[\"informaatiosodank\\u00e4ynti\"],[\"poliittiset kriisit\"],[\"konfliktit\"],[\"sodat\"],[\"propaganda\"],[\"sananvapaus\"],[\"ulkopolitiikka\"],[\"kansainv\\u00e4linen politiikka\"],[\"psykologinen sodank\\u00e4ynti\"]],\"year\":\"2016\",\"languages\":[\"fin\"],\"summary\":[]}],\"status\":\"OK\"}";
+		JSONObject obj = parseFirstRecord(s);
+		List<String> arr = parsePublishers(obj);
+		arr.addAll(parsePublicationDates(obj));
+		for (String string : arr) {
+			System.out.println(string);
+		}
 	}
 }
