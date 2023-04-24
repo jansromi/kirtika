@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.jsoup.nodes.Document;
 
@@ -15,7 +16,7 @@ import webscraping.YKLQuery;
  * Main class Kirtika consists mostly of mediator methods.
  * 
  * TODO: Search
- * TODO: If custom genre and "real" genre is set, override custom genre
+ * TODO: Notification if saving was succesful
  * @author Jansromi
  * @version 1, 10.4.2023
  * 
@@ -262,6 +263,10 @@ public class Kirtika {
 	        
 	        loans.setLoanedBookName(loanedBookId, bookName);
 	    }
+	}
+	
+	public List<Book> bookMatches(String keyword) {
+		return books.bookMatches(keyword);
 	}
 
 	/**

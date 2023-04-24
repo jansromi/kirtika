@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -66,10 +67,24 @@ public class Books {
 		scan.close();
 	}
 	
-	public List<Book> bookMatches(String searchString){
-		////if (book.)
-		//}
-		return null;
+	public List<Book> bookMatches(String keyword){
+		List<Book> returnableBooks = new ArrayList<Book>();
+
+	    for (Book book : items) {
+	    	if (book == null) continue;
+	    	
+	        if ((book.getBookName().toLowerCase().contains(keyword.toLowerCase()) || 
+	                book.getWriters().toLowerCase().contains(keyword.toLowerCase()) ||
+	                book.getBookLanguage().toLowerCase().contains(keyword.toLowerCase()) ||
+	                book.getBookPublisher().toLowerCase().contains(keyword.toLowerCase()) ||
+	                String.valueOf(book.getBookRelaseYear()).contains(keyword)) ||
+	                book.getBookClassification().toLowerCase().contains(keyword.toLowerCase()) && 
+	                !returnableBooks.contains(book)) {
+	            returnableBooks.add(book);
+	        }
+	    }
+
+	    return returnableBooks;
 	}
 	
 	/**
@@ -342,5 +357,14 @@ public class Books {
 	 */
 	public int getAmt() {
 		return this.amt;
+	}
+	
+	public static void main(String[] args) {
+		Books books = new Books();
+		List<Book> kirjat = books.bookMatches("inf");
+		for (Book book : kirjat) {
+			if (book == null) continue;
+			System.out.println(book.toString());
+		}
 	}
 }

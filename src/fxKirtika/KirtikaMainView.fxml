@@ -67,7 +67,7 @@
             <Label prefHeight="1.0" prefWidth="40.0" text="Kirjasto" BorderPane.alignment="CENTER" />
          </top>
          <bottom>
-            <TextField fx:id="searchBar" onAction="#searchBooks" promptText="Haku..." BorderPane.alignment="CENTER" />
+            <TextField fx:id="searchBar" onKeyReleased="#searchBooks" promptText="Haku..." BorderPane.alignment="CENTER" />
          </bottom>
       </BorderPane>
    </left>

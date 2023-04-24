@@ -292,27 +292,24 @@ public class Book {
         }
 
 	}
-	
-	public static void main(String[] args) {
-		/*
-		try {
-		    String filePath = "src/data/book/1odysseia.txt"; // replace with your relative file path
-		    File file = new File(filePath);
-		    Scanner scanner = new Scanner(file);
-		    
-		    while (scanner.hasNextLine()) {
-		        String line = scanner.nextLine();
-		        System.out.println(line);
-		    }
-		    
-		    scanner.close();
-		} catch (FileNotFoundException e) {
-		    e.printStackTrace();
-		}
-		*/
-		Book b = new Book();
-		b.setOdysseia();
-		b.setFilePath();
-		System.out.println();
+
+	public String getWriters() {
+		return writers;
+	}
+
+	public String getBookClassification() {
+		return bookClassification;
+	}
+
+	public String getBookLanguage() {
+		return bookLanguage;
+	}
+
+	public String getBookPublisher() {
+		return bookPublisher;
+	}
+
+	public int getBookRelaseYear() {
+		return bookRelaseYear;
 	}
 }

@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ListChooser;
@@ -271,8 +272,19 @@ public class KirtikaGUIController implements Initializable {
      * @param event
      */
     @FXML
-    void searchBooks(ActionEvent event) {
-    	Dialogs.showMessageDialog("Ei osata vielä hakea");
+    void searchBooks() {
+    	String keyword = searchBar.getText();
+    	if (keyword.isBlank()) {
+    		updateChooserBooks();
+    		return;
+    	}
+    	
+    	chooserBooks.clear();
+    	List<Book> matchedBooks = kirtika.bookMatches(keyword);
+    	for (Book book : matchedBooks) {
+			chooserBooks.add(book.getBookName(), book);
+		}
+    	
     }
 	
 	/**
