@@ -181,12 +181,21 @@ public class KirtikaGUIController implements Initializable {
     }
     
 	/**
-     * Sets the date, when loan was given
+     * Sets the date when loan was given
      */
     @FXML
     void handleSetLoanDate() {
     	Book book = chooserBooks.getSelectedObject();
     	if (kirtika.getActiveLoan(book.getBookId()) != null) {
+    		
+    		// Date check
+    		if (fieldLoanReturnDate != null)
+    			if (fieldLoanStartDate.getValue().compareTo(fieldLoanReturnDate.getValue()) > 0) {
+    				showWarningDialog("Virhe", "Virheellinen lainauspäivämäärä", "Lainauspäivä ei voi olla ennen palautuspäivää!");
+    				fieldLoanStartDate.cancelEdit();
+    				displayBookInfo(book);
+    				return;
+    			}
     		kirtika.setLoanDate(book.getBookId(), fieldLoanStartDate.getValue());
         	Dialogs.showMessageDialog("Lainauspäiväksi asetettu " + fieldLoanStartDate.getValue().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
     	}
@@ -194,15 +203,14 @@ public class KirtikaGUIController implements Initializable {
 
 	/**
      * Sets the date of (desired) return
-     * 
-     * TODO: If return date is set to be earlier than loan date.
      */
     @FXML
     void handleSetReturnDate() {
     	if (fieldLoanStartDate == null || fieldLoanReturnDate == null) return;
     	Book book = chooserBooks.getSelectedObject();
     	if (kirtika.getActiveLoan(book.getBookId()) != null) {
-    		if (fieldLoanReturnDate.getValue().compareTo(fieldLoanStartDate.getValue()) < 0) {
+    		// Date check
+    		if (fieldLoanStartDate.getValue() != null && fieldLoanReturnDate.getValue().compareTo(fieldLoanStartDate.getValue()) < 0) {
     			showWarningDialog("Virhe", "Virheellinen palautuspäivämäärä", "Palautuspäivä ei voi olla ennen lainauspäivää!");
     			fieldLoanReturnDate.cancelEdit();
     			displayBookInfo(book);
@@ -457,11 +465,8 @@ public class KirtikaGUIController implements Initializable {
 	}
 
 	/**
-	 * Displays the books informations on main view
+	 * Mediator for displaying all information on a book.
 	 * @param book The displayed book
-	 * 
-	 * loan[0] = boolean if book is loaned or not
-	 * loan[1] = name of loaner
 	 */
 	private void displayBookInfo(Book book) {
 	    displayMainBookInfo(book);
@@ -536,9 +541,13 @@ public class KirtikaGUIController implements Initializable {
 		// Checkbox is selected, and field for Loaner has text.
 		if (b && fieldLoaner.getText() != null && !fieldLoaner.getText().isEmpty()) {
 			addNewLoan(book);
+			displayBookInfo(book);
 		}
 		// Unchecking closes the loan
-		if (!b) closeLoan(book);
+		if (!b) {
+			closeLoan(book);
+			displayBookInfo(book);
+		}
 		
 	}
 

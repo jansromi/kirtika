@@ -2,6 +2,6 @@
 2|9789524831420|Thompson, Hunter S.|Pelon valtakunta|suomi|Sammakko|2010|86.53|true|false|src/data/book/2pelonvaltakunta.txt
 3|9789510340158|Waltari, Mika|Surun ja ilon kaupunki|suomi|WSOY|2008|84.2|false|false|src/data/book/3surunjailonkaupunki.txt
 4|9516432050|Paasilinna, Arto|Hirtettyjen kettujen metsä|suomi|Suuri suomalainen kirjakerho|1984|84.2|false|false|src/data/book/4hirtettyjenkettujenmetsa.txt
-5|9789511304500|Jantunen, Saara|Infosota|fin|Kustannusosakeyhtiö Otava|2016|35.7|false|false|src/data/book/5infosota.txt
+5|9789511304500|Jantunen, Saara|Infosota|fin|Kustannusosakeyhtiö Otava|2016|35.7|true|false|src/data/book/5infosota.txt
 6|9789524713320|Chomsky, Noam|Uusi sotilaallinen humanismi|fin|Like|2000|32.5|false|false|src/data/book/6uusisotilaallinenhumanismi.txt
 7|9780415904827|Žižek, Slavoj|Enjoy your symptom! : Jacques Lacan in Hollywood and out|englanti|Routledge|1992|11.5|false|false|src/data/book/7enjoyyoursymptomjacqueslacaninhollywoodandout.txt
