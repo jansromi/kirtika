@@ -27,7 +27,7 @@ import org.jsoup.select.Elements;
  * #import org.jsoup.nodes.Document;
  * #import org.junit.*;
  * #import webscraping.*;
- * Document doc = YKLQuery.yklQuery("02");
+ * 
  * </pre>
  */
 public final class YKLQuery {
