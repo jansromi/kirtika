@@ -47,7 +47,6 @@ public class Kirtika {
 	
 	/**
 	 * Adds a new loan.
-	 *
 	 * @param book the loaned book
 	 * @param loaner the name of the person who borrowed the book
 	 */
@@ -303,23 +302,37 @@ public class Kirtika {
 	    loans.saveBookLoans();
 	}
 	
+	/**
+	 * Saves book notes
+	 * @param book Book which notes to save
+	 * @param notes Notes to save
+	 * @throws IOException if writing fails
+	 */
 	public void saveBookNotes(Book book, String notes) throws IOException {
 		books.saveBookNotes(book, notes);
 	}
 	
+	/**
+	 * Saves genres
+	 * @throws FileNotFoundException if genre-file was not found
+	 */
 	public void saveGenres() throws FileNotFoundException {
 		genres.saveGenres();
 	}
 	
 	/**
-	 * 
+	 * Checks whether a genre exists in genres.
 	 * @param yklId
-	 * @return
+	 * @return true if genres contain this id
 	 */
 	public boolean genresContain(String yklId) {
 		return genres.genresContain(yklId);
 	}
 	
+	/**
+	 * Deletes a genre
+	 * @param genre To be deleted
+	 */
 	public void deleteGenre(Genre genre) {
 		genres.deleteGenre(genre);
 	}
@@ -383,7 +396,7 @@ public class Kirtika {
 	}
 
 	/**
-	 * 
+	 * Checks if a book has an assigned loan
 	 * @param bId
 	 * @return The associated loan with given book ID.
 	 * 		   Null if there was no loan with given ID.
