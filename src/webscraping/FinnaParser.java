@@ -79,8 +79,17 @@ public final class FinnaParser {
 	 * @return List of writers
 	 */
 	public static List<String> parseWriter(JSONObject obj) {
-	    JSONObject primaryWriters = obj.getJSONObject("authors").getJSONObject("primary");
-	    return getObjKeys(primaryWriters);
+		JSONObject writers;
+		try {
+			writers = obj.getJSONObject("authors").getJSONObject("primary");
+		} catch (JSONException e) {
+			try {
+				writers = obj.getJSONObject("authors").getJSONObject("secondary");
+			} catch (JSONException e1) {
+				return new ArrayList<String>();
+			}
+		}
+	    return getObjKeys(writers);
 	    
 	}
 	

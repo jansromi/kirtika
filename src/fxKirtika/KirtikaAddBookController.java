@@ -40,8 +40,9 @@ public class KirtikaAddBookController implements Initializable{
      */
     @FXML
     void addBook(ActionEvent event) {
-    	addBook();
-    	((Node)(event.getSource())).getScene().getWindow().hide();
+    	boolean b = addBook();
+    	if (b) ((Node)(event.getSource())).getScene().getWindow().hide();
+    	else addBook();
     }
     
     
@@ -93,17 +94,16 @@ public class KirtikaAddBookController implements Initializable{
     /**
      * Adds a new book to the registry
      */
-    private void addBook() {
+    private boolean addBook() {
         Book book = new Book();
-
         if (fieldBookName.getText().isEmpty()) {
             Dialogs.showMessageDialog("Sinun on asetettava kirjalle nimi");
-            return;
+            return false;
         }
 
         if (fieldWriters.getText().isEmpty()) {
             Dialogs.showMessageDialog("Sinun on asetettava kirjalle kirjoittaja");
-            return;
+            return false;
         }
 
         ArrayList<String> fields = getGuiFieldValues();
@@ -122,7 +122,9 @@ public class KirtikaAddBookController implements Initializable{
             kirtika.addBook(book);
         } catch (SailoException e) {
             Dialogs.showMessageDialog("Ongelmia kirjan lisäämisessä " + e.getMessage());
+            return false;
         }
+        return true;
     }
 
     /**
