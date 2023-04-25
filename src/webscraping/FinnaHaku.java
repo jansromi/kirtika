@@ -18,10 +18,8 @@ import org.json.JSONObject;
  * Class for Finna-library queries with an ISBN-code. FinnaHaku-object contains relevant information
  * about the book after the second query. 
  * 
- * Uses the FinnaParser-class for parsing JSON-objects for clarity, but this could be done with the JSON-parser
- * 
  * @author Jansromi
- * @version 10.4.2023
+ * @version 25.4.2023
  *
  */
 public class FinnaHaku {

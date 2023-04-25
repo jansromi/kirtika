@@ -8,10 +8,11 @@ import javafx.beans.property.SimpleStringProperty;
 
 
 /**
- * TODO: Loan-id:t järkeväksi ratkaisuksi.
- * Nyt lukee ne tiedostosta.
- * Refaktorointi Loan-luokaksi, koska taulukko ei niinkään keskity kirjoihin?
- * @author Roba
+ * The Loan class represents a single book loan,
+ * with properties for the unique loan ID, the ID of the loaned book,
+ * the name of the loaner, the name of the loaned book, 
+ * the start and end dates of the loan, and the loan status.
+ * @author Jansromi
  *
  */
 public class Loan {
@@ -51,6 +52,9 @@ public class Loan {
 		this.loanActive = Boolean.parseBoolean(sb.toString());
 	}
 	
+	/**
+	 * Default constructor
+	 */
 	public Loan() {
 		
 	}
@@ -81,6 +85,11 @@ public class Loan {
 		return this.loanedBookId == lbId;
 	}
 	
+	/**
+	 * Contains a static method for setting dates with string parameter.
+	 * @author Jansromi
+	 *
+	 */
 	public static class SetDate {
 		
 		/**
@@ -111,16 +120,10 @@ public class Loan {
 	
 	/**
 	 * Returns the LainattuKirja-object as bar-format
-	 * 
-	 * TODO: tests
 	 */
 	public String toString() {
 		return loanId + "|" + loanedBookId + "|" + loanerName.get() + "|" + loanStartDate + "|" + loanEndDate + "|" + loanActive;
 	}
-	
-	// ****************
-	// GETTERS / SETTERS
-	// *****************
 	
 	/**
 	 * Sets unique loan id

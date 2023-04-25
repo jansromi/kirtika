@@ -165,15 +165,15 @@ public class Kirtika {
 	 * @throws InterruptedException 
 	 */
 	public void fetchFintoGenres() throws IOException, InterruptedException {
-		Document doc;
-			// hardcoded 100, because ykl-genres end in 99
-			for (int i = 0; i < 100; i++) {
-				doc = YKLQuery.yklQuery(String.valueOf(i));
-				ArrayList<String> subGenres = YKLQuery.parseSubGenres(doc);
-				for (String subgenre : subGenres) {
-					genres.addGenre(subgenre);
-				}
-			}
+		ArrayList<String> fetchedGenres = new ArrayList<String>();
+		
+		for (int i = 0; i < 100; i++) {
+			YKLQuery.recursiveFintoQuery(String.valueOf(i), fetchedGenres);
+		}
+		
+		for (String genrestr : fetchedGenres) {
+			genres.addGenre(genrestr);
+		}
 	}
 	
 	/**

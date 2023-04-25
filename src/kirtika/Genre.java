@@ -2,6 +2,16 @@ package kirtika;
 
 import fi.jyu.mit.ohj2.Mjonot;
 
+/**
+ * The Genre class represents a genre of literature.
+ * Although custom classes are possible, it is strongly recommended to use
+ * fetched YKL-classes.
+ * 
+ * Class also contains methods for parsing and converting a genre to string representation. 
+ * 
+ * @author Jansromi
+ *
+ */
 public class Genre {
     // Description of the YKL classification system
     private String genreDesc;
@@ -31,7 +41,7 @@ public class Genre {
      * 
      * @example
      * <pre name="test">
-     * 
+     * formatGenre("84.2 Suomalainen kertomakirjallisuus") === "84.2|Suomalainen kertomakirjallisuus";
      * </pre>
      */
     public static String formatGenre(String line) {
@@ -70,7 +80,7 @@ public class Genre {
      * @return True if it matches, false otherwise
      */
     public boolean matchesId(String gid) {
-        return this.genreId.equals(gid);
+        return genreId.equals(gid);
     }
     
     /**

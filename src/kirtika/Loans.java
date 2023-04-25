@@ -10,6 +10,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
+/**
+ * This class represents a collection of loans.
+ * 
+ * Each loan is associated with a unique book and loan id.
+ * 
+ * The class is responsible for handling loan objects and 
+ * reading and writing the loan data from/to a file.
+ * The class provides methods for adding, deleting, and modifying loans in the loan collection.
+ * @author Jansromi
+ *
+ */
 public class Loans {
 	
 	private String loansFilePath = "src/data/lainat.dat";

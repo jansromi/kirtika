@@ -8,9 +8,12 @@ import fi.jyu.mit.ohj2.Mjonot;
 import utils.StringUtils;
 
 /**
+ * A class representing a Book with various properties.
  * 
+ * It provides various methods to set and get values for these properties,
+ * and to convert a Book object to a string representation.
  * @author Jansromi
- * @version 20.2.2023
+ * @version 25.4.2023
  *
  */
 public class Book {

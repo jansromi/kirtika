@@ -7,7 +7,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * This class provides several methods for parsing JSON data returned by the Finna API.
+ * The class has no instance variables, and all methods are static, so they can be called without instantiating the class.
+ * 
+ * 
+ * @author Jansromi
+ * @version 25.4.2023
+ */
 public final class FinnaParser {
+	
 	/**
 	 * Search result parser.
 	 * @param content JSON search data from Finna API
@@ -34,7 +43,6 @@ public final class FinnaParser {
 		if (obj == null) return null;
 		return obj.getString("id");
 	}
-	
 	
 	/**
 	 * Parses the book title.
@@ -64,7 +72,6 @@ public final class FinnaParser {
 		}
 		return null;
 	}
-	
 	
 	/**
 	 * Parses the main writers into a list.
@@ -148,8 +155,8 @@ public final class FinnaParser {
 	}
 	
 	/**
-	 * Palauttaa listan alkiot
-	 * @param list 
+	 * Returns the list as a bar-delimited string
+	 * @param list Containing string values
 	 * @return
 	 */
 	public static String listToBarString(List<String> list) {

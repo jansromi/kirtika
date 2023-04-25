@@ -36,23 +36,13 @@ public class Genres {
 	        }
 	    }
 	}
-
-	/**
-	 * Test constructor that takes a string as input.
-	 * @param s
-	 */
-	public Genres(String s) {
-	    items.add(new Genre(s));
-	}
 	
 	/**
-	 * Test constructor
-	 * @param b
+	 * Sorts the genres file in ascending order based on the numerical value in each line.
+	 * Reads the genres file line by line into an ArrayList, then sorts the ArrayList.
+	 * Sorted lines are then overwritten back to the genres file
+	 * @throws IOException if there is an error reading or writing the genres file.
 	 */
-	public Genres(boolean b) {
-		
-	}
-	
 	public void sortGenres() throws IOException {
 		ArrayList<String> lines = new ArrayList<>();
 		BufferedReader reader = new BufferedReader(new FileReader(genresFilePath));
@@ -180,21 +170,28 @@ public class Genres {
 	}
 	
 	/**
-	 * Scrapes the genre description from internet
-	 * @param Genres YKL id
-	 * @throws IOException
-	 * @throws InterruptedException
-	 */
-	public void setUnknownClassDesc(String genreId) throws IOException, InterruptedException {
-		//this.genreDesc = webscraping.Queries.yklQuery(s);
-		// TODO: Tallenna genrekuvaus tiedostoon
-	}
-	
-	/**
 	 * @return All Genres in items.
 	 */
 	public ArrayList<Genre> getGenres(){
 		return items;
+	}
+	
+	// === TEST METHODS
+	
+	/**
+	 * Test constructor that takes a string as input.
+	 * @param s
+	 */
+	public Genres(String s) {
+	    items.add(new Genre(s));
+	}
+	
+	/**
+	 * Test constructor
+	 * @param b
+	 */
+	public Genres(boolean b) {
+		
 	}
 	
 	public static void main(String[] args) {

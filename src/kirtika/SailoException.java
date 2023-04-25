@@ -3,7 +3,6 @@ package kirtika;
 public class SailoException extends Exception {
     private static final long serialVersionUID = 1L;
 
-
     /**
      * Poikkeuksen muodostaja jolle tuodaan poikkeuksessa
      * käytettävä viesti
@@ -12,7 +11,6 @@ public class SailoException extends Exception {
     public SailoException(String viesti) {
         super(viesti);
     }
-    
     
     public static class TaulukkoTaysiException extends Exception {
         private static final long serialVersionUID = 1L;

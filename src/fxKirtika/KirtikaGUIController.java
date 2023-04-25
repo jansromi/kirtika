@@ -91,7 +91,13 @@ public class KirtikaGUIController implements Initializable {
     @FXML
     void handleFetchYklGenres() {
     	try {
-			kirtika.fetchFintoGenres();
+    		if (Dialogs.showQuestionDialog("Genrehaku", "Genrejen haku voi viedä useita minuutteja." + System.lineSeparator() + System.lineSeparator() +
+    				"Haluatko jatkaa?", "Kyllä", "Ei")) {
+    			kirtika.fetchFintoGenres();
+    		} else {
+    			return;
+    		}
+			
 		} catch (IOException ioe) {
 			showDialog(AlertType.WARNING,"Varoitus", "IO-toiminnan häiriö", ioe.getMessage());
 			ioe.printStackTrace();
