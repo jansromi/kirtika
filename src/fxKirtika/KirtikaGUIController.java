@@ -180,46 +180,7 @@ public class KirtikaGUIController implements Initializable {
         displayBookInfo(book);
     }
     
-	/**
-     * Sets the date when loan was given
-     */
-    @FXML
-    void handleSetLoanDate() {
-    	Book book = chooserBooks.getSelectedObject();
-    	if (kirtika.getActiveLoan(book.getBookId()) != null) {
-    		
-    		// Date check
-    		if (fieldLoanReturnDate != null)
-    			if (fieldLoanStartDate.getValue().compareTo(fieldLoanReturnDate.getValue()) > 0) {
-    				showWarningDialog("Virhe", "Virheellinen lainauspäivämäärä", "Lainauspäivä ei voi olla ennen palautuspäivää!");
-    				fieldLoanStartDate.cancelEdit();
-    				displayBookInfo(book);
-    				return;
-    			}
-    		kirtika.setLoanDate(book.getBookId(), fieldLoanStartDate.getValue());
-        	Dialogs.showMessageDialog("Lainauspäiväksi asetettu " + fieldLoanStartDate.getValue().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
-    	}
-    }
 
-	/**
-     * Sets the date of (desired) return
-     */
-    @FXML
-    void handleSetReturnDate() {
-    	if (fieldLoanStartDate == null || fieldLoanReturnDate == null) return;
-    	Book book = chooserBooks.getSelectedObject();
-    	if (kirtika.getActiveLoan(book.getBookId()) != null) {
-    		// Date check
-    		if (fieldLoanStartDate.getValue() != null && fieldLoanReturnDate.getValue().compareTo(fieldLoanStartDate.getValue()) < 0) {
-    			showWarningDialog("Virhe", "Virheellinen palautuspäivämäärä", "Palautuspäivä ei voi olla ennen lainauspäivää!");
-    			fieldLoanReturnDate.cancelEdit();
-    			displayBookInfo(book);
-    			return;
-    		}
-    		kirtika.setReturnDate(book.getBookId(), fieldLoanReturnDate.getValue());
-    		Dialogs.showMessageDialog("Palautuspäiväksi asetettu " + fieldLoanReturnDate.getValue().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
-    	}
-    }
 
 	/**
 	 * Refreshes the book listing. 
@@ -236,11 +197,26 @@ public class KirtikaGUIController implements Initializable {
 	
 	/**
 	 * Sets the loan status value for the book selected.
-	 * @param event
 	 */
     @FXML
-    void handleSetLoan(ActionEvent event) {
+    void handleSetLoan() {
     	setLoan();
+    }
+    
+	/**
+     * Sets the date when loan was given
+     */
+    @FXML
+    void handleSetLoanDate() {
+    	setLoanDate();
+    }
+
+	/**
+     * Sets the date of (desired) return
+     */
+    @FXML
+    void handleSetReturnDate() {
+    	setReturnDate();
     }
 
 	/**
@@ -541,6 +517,27 @@ public class KirtikaGUIController implements Initializable {
 		// Checkbox is selected, and field for Loaner has text.
 		if (b && fieldLoaner.getText() != null && !fieldLoaner.getText().isEmpty()) {
 			addNewLoan(book);
+			// If start date has been given
+			if (fieldLoanStartDate.getValue() != null) {
+				kirtika.setLoanDate(book.getBookId(), fieldLoanStartDate.getValue());
+				LocalDate ldRet = fieldLoanReturnDate.getValue();
+				// If return date has been stated and its later than loan start date, set it
+				if ( ldRet != null && ldRet.compareTo(fieldLoanStartDate.getValue()) > 0 ) {
+					kirtika.setReturnDate(book.getBookId(), ldRet);
+				}
+				// if return date is given, we assume the loan was given today
+			} else if (fieldLoanReturnDate.getValue() != null) {
+				kirtika.setLoanDate(book.getBookId(), LocalDate.now());
+				LocalDate ldRet = fieldLoanReturnDate.getValue();
+				// If return date has been stated and its later than loan start date, set it
+				if ( ldRet.compareTo(LocalDate.now()) > 0 ) {
+					kirtika.setReturnDate(book.getBookId(), ldRet);
+				}
+				else {
+					showWarningDialog("Virhe", "Virheellinen palautuspäivämäärä", "Palautuspäivämäärää ei voitu asettaa");
+				}
+			}
+			
 			displayBookInfo(book);
 		}
 		// Unchecking closes the loan
@@ -549,6 +546,60 @@ public class KirtikaGUIController implements Initializable {
 			displayBookInfo(book);
 		}
 		
+	}
+	
+	/**
+	 * Sets the loan date
+	 */
+	private void setLoanDate() {
+    	Book book = chooserBooks.getSelectedObject();
+    	
+    	// If user has forgotten to press enter when setting the loaner
+    	if (kirtika.getActiveLoan(book.getBookId()) == null && !fieldLoaner.getText().isBlank()) {
+    		setLoan();
+    	}
+    	
+    	if (kirtika.getActiveLoan(book.getBookId()) != null) {
+    		
+    		// Date check
+    		if (fieldLoanReturnDate != null)
+    			if (fieldLoanStartDate.getValue().compareTo(fieldLoanReturnDate.getValue()) > 0) {
+    				showWarningDialog("Virhe", "Virheellinen lainauspäivämäärä", "Lainauspäivä ei voi olla ennen palautuspäivää!");
+    				fieldLoanStartDate.cancelEdit();
+    				displayBookInfo(book);
+    				return;
+    			}
+    		kirtika.setLoanDate(book.getBookId(), fieldLoanStartDate.getValue());
+        	Dialogs.showMessageDialog("Lainauspäiväksi asetettu " + fieldLoanStartDate.getValue().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
+    	}
+	}
+	
+	/**
+	 * Sets the return date.
+	 */
+	private void setReturnDate() {
+    	Book book = chooserBooks.getSelectedObject();
+    	
+    	// If user has forgotten to press enter when setting the loaner
+    	if (kirtika.getActiveLoan(book.getBookId()) == null && !fieldLoaner.getText().isBlank()) {
+    		setLoan();
+    	}
+    	
+    	if (kirtika.getActiveLoan(book.getBookId()) != null) {
+    		
+    		// When incorrect/null date was given (pro
+    		if (fieldLoanReturnDate.getValue() == null) return;
+    		
+    		// Date check
+    		if (fieldLoanStartDate.getValue() != null && fieldLoanReturnDate.getValue().compareTo(fieldLoanStartDate.getValue()) < 0) {
+    			showWarningDialog("Virhe", "Virheellinen palautuspäivämäärä", "Palautuspäivä ei voi olla ennen lainauspäivää!");
+    			fieldLoanReturnDate.cancelEdit();
+    			displayBookInfo(book);
+    			return;
+    		}
+    		kirtika.setReturnDate(book.getBookId(), fieldLoanReturnDate.getValue());
+    		Dialogs.showMessageDialog("Palautuspäiväksi asetettu " + fieldLoanReturnDate.getValue().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
+    	}
 	}
 
 	/**
