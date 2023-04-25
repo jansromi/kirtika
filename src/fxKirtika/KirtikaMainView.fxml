@@ -100,7 +100,7 @@
                   <TextField fx:id="fieldWriters" editable="false" onAction="#handleSetBookWriter" text="" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="fieldLanguage" editable="false" onAction="#handleSetBookLanguage" text="" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <TextField fx:id="fieldPublisher" editable="false" onAction="#handleSetBookPublisher" text="" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField fx:id="fieldClassificationDesc" editable="false" onAction="#handleSetBookYklDesc" text="" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField fx:id="fieldClassificationDesc" editable="false"  text="" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <TextField fx:id="fieldClassificationId" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <TextField fx:id="fieldIsbn" editable="false" onAction="#handleSetBookIsbn" text="" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <CheckBox fx:id="checkLoaned" mnemonicParsing="false" onAction="#handleSetLoan" text="Lainassa?" GridPane.rowIndex="8" />

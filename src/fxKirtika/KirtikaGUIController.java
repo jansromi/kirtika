@@ -179,13 +179,6 @@ public class KirtikaGUIController implements Initializable {
         }
         displayBookInfo(book);
     }
-
-
-
-    @FXML
-    void handleSetBookYklDesc() {
-
-    }
     
 	/**
      * Sets the date, when loan was given
@@ -206,8 +199,15 @@ public class KirtikaGUIController implements Initializable {
      */
     @FXML
     void handleSetReturnDate() {
+    	if (fieldLoanStartDate == null || fieldLoanReturnDate == null) return;
     	Book book = chooserBooks.getSelectedObject();
     	if (kirtika.getActiveLoan(book.getBookId()) != null) {
+    		if (fieldLoanReturnDate.getValue().compareTo(fieldLoanStartDate.getValue()) < 0) {
+    			showWarningDialog("Virhe", "Virheellinen palautuspäivämäärä", "Palautuspäivä ei voi olla ennen lainauspäivää!");
+    			fieldLoanReturnDate.cancelEdit();
+    			displayBookInfo(book);
+    			return;
+    		}
     		kirtika.setReturnDate(book.getBookId(), fieldLoanReturnDate.getValue());
     		Dialogs.showMessageDialog("Palautuspäiväksi asetettu " + fieldLoanReturnDate.getValue().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
     	}
