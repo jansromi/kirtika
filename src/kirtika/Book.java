@@ -283,6 +283,7 @@ public class Book {
 				return false;
 			}
         case 4:
+        	bookClassification = s;
         	return true;
         case 5:
         	isbn = s;

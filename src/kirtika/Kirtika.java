@@ -15,7 +15,6 @@ import webscraping.YKLQuery;
 /**
  * Main class Kirtika consists mostly of mediator methods.
  * 
- * TODO: Create folders if they dont exist
  * @author Jansromi
  * @version 1, 10.4.2023
  * 

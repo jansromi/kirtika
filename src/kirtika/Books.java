@@ -12,7 +12,9 @@ import java.util.Scanner;
 
 
 /**
- * 
+ * Class represents a collection of books with various methods to add, 
+ * remove and search for books. Also handling of adding and retrieving notes related to a
+ * particular book.
  * @author Jansromi
  *
  */
@@ -23,6 +25,12 @@ public class Books {
 	private Book               items[]      = new Book[maxItems];
 	
 	public Books() {
+	    File dataFolder = new File("src/data");
+	    if (!dataFolder.exists()) {
+	        dataFolder.mkdir();
+	        dataFolder = new File("src/data/book");
+	        dataFolder.mkdir();
+	    }
 		try {
 			initBooks();
 		} catch (FileNotFoundException e) {

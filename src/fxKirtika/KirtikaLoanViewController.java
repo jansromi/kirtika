@@ -142,7 +142,7 @@ public class KirtikaLoanViewController {
 	}
 	
 	/**
-	 * @return Found loans from kirtika.
+	 * @return ObservableList<Loan> all found loans from kirtika.
 	 */
 	public ObservableList<Loan> getLainat(){
 		ObservableList<Loan> lainat = FXCollections.observableArrayList();

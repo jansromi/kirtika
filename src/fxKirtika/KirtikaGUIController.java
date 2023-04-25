@@ -36,7 +36,7 @@ import webscraping.FinnaHaku.BookNotFoundException;
 
 /**
  * 
- * @author Robert Mikael Jansson
+ * @author Jansromi
  * @version 20.1.2023
  * Kirtika-kirjatietokannan käyttöliittymän kontrolleri
  *
@@ -77,7 +77,7 @@ public class KirtikaGUIController implements Initializable {
     	try {
 			kirtika.save();
 		} catch (FileNotFoundException e) {
-			showWarningDialog("Varoitus", "Tallennus epäonnistui", e.getMessage());
+			showDialog(AlertType.WARNING, "Varoitus", "Tallennus epäonnistui", e.getMessage());
 			return;
 		}
     	Dialogs.showMessageDialog("Tallennus onnistui!");
@@ -93,21 +93,21 @@ public class KirtikaGUIController implements Initializable {
     	try {
 			kirtika.fetchFintoGenres();
 		} catch (IOException ioe) {
-			showWarningDialog("Varoitus", "IO-toiminnan häiriö", ioe.getMessage());
+			showDialog(AlertType.WARNING,"Varoitus", "IO-toiminnan häiriö", ioe.getMessage());
 			ioe.printStackTrace();
 		} catch (InterruptedException ie) {
-			showWarningDialog("Varoitus", "Pyyntö keskeytyi", ie.getMessage());
+			showDialog(AlertType.WARNING,"Varoitus", "Pyyntö keskeytyi", ie.getMessage());
 		}
     	Dialogs.showMessageDialog("Genret haettu onnistuneesti!");
     	try {
 			kirtika.saveGenres();
 		} catch (FileNotFoundException e1) {
-			showWarningDialog("Varoitus", "Genretiedostoa ei löytynyt", e1.getMessage());
+			showDialog(AlertType.WARNING,"Varoitus", "Genretiedostoa ei löytynyt", e1.getMessage());
 		}
     	try {
 			kirtika.sortGenres();
 		} catch (IOException e) {
-			showWarningDialog("Varoitus", "Tiedoston käsittely epäonnistui genrejä lajitellessa", e.getMessage());
+			showDialog(AlertType.WARNING,"Varoitus", "Tiedoston käsittely epäonnistui genrejä lajitellessa", e.getMessage());
 		}
     }
     
@@ -180,20 +180,22 @@ public class KirtikaGUIController implements Initializable {
         displayBookInfo(book);
     }
     
-
-
 	/**
-	 * Refreshes the book listing. 
-	 * Public so that it can be called from other controllers.
-	 */
-	@FXML
-	public void updateChooserBooks() {
-		chooserBooks.clear();
-		for (int i = 0; i < kirtika.getBooks(); i++) {
-			Book book = kirtika.getBook(i);
-			chooserBooks.add(book.getBookName(), book);
-		}
-	}
+     * Sets the classification id
+     */
+    @FXML
+    void handleSetBookClassificationId() {
+    	Book book = chooserBooks.getSelectedObject();
+        if (book.set(4, fieldClassificationId.getText())) {
+            Dialogs.showMessageDialog("Muokkaus onnistui!");
+        }
+        displayBookInfo(book);
+    }
+    
+    @FXML
+    void handleClickBookClassificationDesc() {
+    	showDialog(AlertType.INFORMATION, "Ei muokattavissa", "Kirjan luokituskuvaus ei ole muokattavissa", "Jos haluat oman luokituskuvauksen, luo mukautettu luokitus genrenäkymästä");
+    }
 	
 	/**
 	 * Sets the loan status value for the book selected.
@@ -218,7 +220,7 @@ public class KirtikaGUIController implements Initializable {
     void handleSetReturnDate() {
     	setReturnDate();
     }
-
+    
 	/**
      * When a book is clicked from the book listing.
      */
@@ -240,14 +242,14 @@ public class KirtikaGUIController implements Initializable {
             fieldLanguage.setEditable(true);
             fieldPublisher.setEditable(true);
             fieldReleaseYear.setEditable(true);
-            fieldClassificationDesc.setEditable(true);
+            fieldClassificationId.setEditable(true);
             fieldIsbn.setEditable(true);
         } else {
             fieldWriters.setEditable(false);
             fieldLanguage.setEditable(false);
             fieldPublisher.setEditable(false);
             fieldReleaseYear.setEditable(false);
-            fieldClassificationDesc.setEditable(false);
+            fieldClassificationId.setEditable(false);
             fieldIsbn.setEditable(false);
         }
     }
@@ -291,7 +293,7 @@ public class KirtikaGUIController implements Initializable {
      * When this method is called, the scene is changed to the loan view.
      * @throws IOException if there is an error with the file.
      */
-    @FXML public void handleShowLoanHistory(ActionEvent event) throws IOException {
+    @FXML private void handleShowLoanHistory(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("KirtikaLoanView.fxml"));
         Parent root = loader.load();
@@ -308,7 +310,7 @@ public class KirtikaGUIController implements Initializable {
      * When this method is called, the scene is changed to the loan view.
      * @throws IOException if there is an error with the file.
      */
-    @FXML public void handleShowGenres(ActionEvent event) throws IOException {
+    @FXML private void handleShowGenres(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("KirtikaGenreView.fxml"));
         Parent root = loader.load();
@@ -325,7 +327,7 @@ public class KirtikaGUIController implements Initializable {
      * @throws IOException
      */
     @FXML
-    public void handleShowAddBookForm() throws IOException {
+    private void handleShowAddBookForm() throws IOException {
     	showAddBookForm(false);
     }
     
@@ -350,7 +352,7 @@ public class KirtikaGUIController implements Initializable {
 				finnaData = kirtika.fetchFinnaData(s);
 				ctrl.initFinnaData(finnaData);
 			} catch (BookNotFoundException e) {
-				showWarningDialog("Virhe", "ISBN-haku epäonnistui", "Annetulla ISBN-koodilla ei löytynyt kirjoja Finnan rajapinnasta");
+				showDialog(AlertType.WARNING,"Virhe", "ISBN-haku epäonnistui", "Annetulla ISBN-koodilla ei löytynyt kirjoja Finnan rajapinnasta");
 				return;
 			}
         	
@@ -370,7 +372,7 @@ public class KirtikaGUIController implements Initializable {
 	 * Shows the About-view
 	 */
 	@FXML
-	public void handleShowAboutView() {
+	private void handleShowAboutView() {
 		Parent root;
         try {
         	root = FXMLLoader.load(getClass().getResource("KirtikaAboutView.fxml"));
@@ -390,8 +392,8 @@ public class KirtikaGUIController implements Initializable {
 	 * @param headerText The header text of the dialog
 	 * @param contentText The content text of the dialog
 	 */
-	public void showWarningDialog(String title, String headerText, String contentText) {
-		Alert alert = new Alert(AlertType.WARNING);
+	private void showDialog(AlertType type, String title, String headerText, String contentText) {
+		Alert alert = new Alert(type);
 		alert.setTitle(title);
 		alert.setHeaderText(headerText);
 		alert.setContentText(contentText);
@@ -416,7 +418,7 @@ public class KirtikaGUIController implements Initializable {
 			kirtika.saveBookNotes(chooserBooks.getSelectedObject(), areaBookNotes.getText());
 			Dialogs.showMessageDialog("Tallennus onnistui!");
 		} catch (IOException e) {
-			showWarningDialog("VAROITUS", "Kirjan lisätietojen tallentaminen ei onnistunut", e.getMessage());
+			showDialog(AlertType.WARNING,"VAROITUS", "Kirjan lisätietojen tallentaminen ei onnistunut", e.getMessage());
 		}
 	}
 	
@@ -438,6 +440,20 @@ public class KirtikaGUIController implements Initializable {
 		infoFields.add(fieldClassificationDesc);
 		infoFields.add(fieldClassificationId);
 		infoFields.add(fieldIsbn);
+	}
+	
+
+	/**
+	 * Refreshes the book listing. 
+	 * Public so that it can be called from other controllers.
+	 */
+	@FXML
+	public void updateChooserBooks() {
+		chooserBooks.clear();
+		for (int i = 0; i < kirtika.getBooks(); i++) {
+			Book book = kirtika.getBook(i);
+			chooserBooks.add(book.getBookName(), book);
+		}
 	}
 
 	/**
@@ -482,11 +498,15 @@ public class KirtikaGUIController implements Initializable {
 	    updateFieldWithoutActionEvent(fieldLoanReturnDate, (LocalDate) loan[3]);
 	}
 	
+	/**
+	 * Displays the associated text file on textarea
+	 * @param book Which text file is shown
+	 */
 	private void displayBookNotes(Book book) {
 		try {
 			areaBookNotes.setText(kirtika.getBookNotes(book));
 		} catch (IOException e) {
-			showWarningDialog("Huomio!", "Tekstitiedostoa ei löytynyt", e.getMessage());
+			showDialog(AlertType.WARNING,"Huomio!", "Tekstitiedostoa ei löytynyt", e.getMessage());
 		}
 	}
 	
@@ -534,7 +554,7 @@ public class KirtikaGUIController implements Initializable {
 					kirtika.setReturnDate(book.getBookId(), ldRet);
 				}
 				else {
-					showWarningDialog("Virhe", "Virheellinen palautuspäivämäärä", "Palautuspäivämäärää ei voitu asettaa");
+					showDialog(AlertType.WARNING,"Virhe", "Virheellinen palautuspäivämäärä", "Palautuspäivämäärää ei voitu asettaa");
 				}
 			}
 			
@@ -564,7 +584,7 @@ public class KirtikaGUIController implements Initializable {
     		// Date check
     		if (fieldLoanReturnDate != null)
     			if (fieldLoanStartDate.getValue().compareTo(fieldLoanReturnDate.getValue()) > 0) {
-    				showWarningDialog("Virhe", "Virheellinen lainauspäivämäärä", "Lainauspäivä ei voi olla ennen palautuspäivää!");
+    				showDialog(AlertType.WARNING,"Virhe", "Virheellinen lainauspäivämäärä", "Lainauspäivä ei voi olla ennen palautuspäivää!");
     				fieldLoanStartDate.cancelEdit();
     				displayBookInfo(book);
     				return;
@@ -592,7 +612,7 @@ public class KirtikaGUIController implements Initializable {
     		
     		// Date check
     		if (fieldLoanStartDate.getValue() != null && fieldLoanReturnDate.getValue().compareTo(fieldLoanStartDate.getValue()) < 0) {
-    			showWarningDialog("Virhe", "Virheellinen palautuspäivämäärä", "Palautuspäivä ei voi olla ennen lainauspäivää!");
+    			showDialog(AlertType.WARNING,"Virhe", "Virheellinen palautuspäivämäärä", "Palautuspäivä ei voi olla ennen lainauspäivää!");
     			fieldLoanReturnDate.cancelEdit();
     			displayBookInfo(book);
     			return;
@@ -616,7 +636,7 @@ public class KirtikaGUIController implements Initializable {
 			kirtika.saveAll();
 			Dialogs.showMessageDialog("Lainan lisääminen onnistui!");
 		} catch (FileNotFoundException e) {
-			showWarningDialog("Huomio!", "Tiedostojen tallentaminen ei onnistunut", e.getMessage());
+			showDialog(AlertType.WARNING,"Huomio!", "Tiedostojen tallentaminen ei onnistunut", e.getMessage());
 		}
 	}
 
@@ -636,7 +656,7 @@ public class KirtikaGUIController implements Initializable {
 			Dialogs.showMessageDialog(book.getBookName() + " palautettiin onnistuneesti" + System.lineSeparator() + "päivämäärällä " + returnDate.toString());
 			kirtika.saveAll();
 		} catch (FileNotFoundException e) {
-			showWarningDialog("Huomio!", "Kirjan palauttaminen ei onnistunut", e.getMessage());
+			showDialog(AlertType.WARNING,"Huomio!", "Kirjan palauttaminen ei onnistunut", e.getMessage());
 		} catch (SailoException e) {
 			Dialogs.showMessageDialog("Kirjalla ei ollut aktiivista lainaa!");
 		}
