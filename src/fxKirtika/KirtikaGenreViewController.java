@@ -26,6 +26,11 @@ import kirtika.Genre;
 import kirtika.Kirtika;
 import utils.StringUtils;
 
+/**
+ * Controller for genre view
+ * @author Jansromi
+ *
+ */
 public class KirtikaGenreViewController {
 
     @FXML
@@ -34,28 +39,36 @@ public class KirtikaGenreViewController {
     @FXML
     private TableColumn<Genre, String> genreDescColumn;
 
-
     @FXML
     private TableView<Genre> tableView;
     
     @FXML
     private MenuBar myMenuBar;
 
-    
-
+    /**
+     * Adding a genre from a menu-item
+     */
     @FXML
     void handleAddGenre() {
     	addGenre();
 		tableView.setItems(getGenres());
     }
 
+    /**
+     * Deleting a genre from a menu-item
+     * @param event
+     */
     @FXML
     void handleDeleteGenre(ActionEvent event) {
     	deleteGenre();
     	tableView.setItems(getGenres());
     }
-
-
+    
+    /**
+     * Return to main view
+     * @param event ActionEvent
+     * @throws IOException if loading fxml fails
+     */
 	@FXML
     void handleShowMainView(ActionEvent event) throws IOException {
 		FXMLLoader ldr = new FXMLLoader();
@@ -72,7 +85,7 @@ public class KirtikaGenreViewController {
     }
     
 	//
-	//===========================================================================================================
+	//==========================================
 	//
 	
 	private Kirtika kirtika;
@@ -136,14 +149,11 @@ public class KirtikaGenreViewController {
 				Dialogs.showMessageDialog("Genreä ei voitu lisätä");
 			}
 		}
-		
-
 	}
 	
 	/**
 	 * Deletes a genre from kirtika.
 	 * Saves the state afterwards
-	 * 
 	 */
     private void deleteGenre() {
     	Genre genre = tableView.getSelectionModel().getSelectedItem();
@@ -161,11 +171,11 @@ public class KirtikaGenreViewController {
 	}
 	
 	/**
-	 * 
-	 * @param title
-	 * @param headerText
-	 * @param contentText
-	 * @return
+	 * Shows an input dialog
+	 * @param title Dialogs title string
+	 * @param headerText Dialogs header string
+	 * @param contentText Dialogs content string
+	 * @return InputDialog
 	 */
 	private String showInputDialog(String title, String headerText, String contentText) {
 		TextInputDialog dialog = new TextInputDialog();
@@ -177,13 +187,17 @@ public class KirtikaGenreViewController {
 		else return null;
 	}
 	
-	
-	
+	/**
+	 * Initializes the table to use Genre-objects
+	 */
 	public void initTable() {
 		genreIdColumn.setCellValueFactory(new PropertyValueFactory<Genre, String>("genreId"));
 		genreDescColumn.setCellValueFactory(new PropertyValueFactory<Genre, String>("genreDesc"));
 	}
     
+	/**
+	 * @return ObservableList<Genre> of all genres
+	 */
     public ObservableList<Genre> getGenres() {
     	ObservableList<Genre> genres = FXCollections.observableArrayList();
     	ArrayList<Genre> genresList = kirtika.getGenres();

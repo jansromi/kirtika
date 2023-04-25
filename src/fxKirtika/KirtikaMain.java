@@ -8,7 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.fxml.FXMLLoader;
 
 /**
- * 
+ * Main class for kirtika
  * @author Jansromi
  *
  */

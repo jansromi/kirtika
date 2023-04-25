@@ -23,8 +23,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import kirtika.Kirtika;
 import kirtika.Loan;
-import kirtika.SailoException;
 
+/**
+ * Controller for the loan view
+ * @author Jansromi
+ */
 public class KirtikaLoanViewController {
 	
 	@FXML
@@ -37,6 +40,11 @@ public class KirtikaLoanViewController {
 	@FXML private TableColumn<Loan, LocalDate> loanStartDateColumn;
 	@FXML private TableColumn<Loan, LocalDate> loanEndDateColumn;
 
+	/**
+	 * Return to main view
+	 * @param event ActionEvent
+	 * @throws IOException if loading fxml fails
+	 */
 	@FXML public void handleShowMainView(ActionEvent event) throws IOException {
 		FXMLLoader ldr = new FXMLLoader();
 		ldr.setLocation(getClass().getResource("KirtikaMainView.fxml"));
@@ -51,8 +59,11 @@ public class KirtikaLoanViewController {
 		window.show();
 	}
 	
+	/**
+	 * Delete loan-menuitem
+	 */
     @FXML
-    void handleDeleteLoan(ActionEvent event) {
+    void handleDeleteLoan() {
     	deleteLoan();
     	tableView.setItems(getLainat());
     }

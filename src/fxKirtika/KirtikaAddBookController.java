@@ -17,7 +17,7 @@ import kirtika.Kirtika;
 import kirtika.SailoException;
 
 /**
- * 
+ * Controller for book adding dialog
  * @author Jansromi
  * @version 9.4.2023
  *
@@ -36,7 +36,6 @@ public class KirtikaAddBookController implements Initializable{
     
     /**
      * Handle for adding a new book to Kirtika
-     * TODO: Errorhandlers
      * @param event
      */
     @FXML
@@ -44,6 +43,7 @@ public class KirtikaAddBookController implements Initializable{
     	addBook();
     	((Node)(event.getSource())).getScene().getWindow().hide();
     }
+    
     
     @FXML
     void handleCancel(ActionEvent event) {
@@ -56,6 +56,16 @@ public class KirtikaAddBookController implements Initializable{
     //
     
     private Kirtika kirtika;
+    
+    /*
+     * [0] == books title
+	 * [1] == books main writer
+	 * [2] == books language
+	 * [3] == books publisher
+	 * [4] == books release year
+	 * [5] == books isbn
+	 * [6] == YKL classification id
+     */
     private ArrayList<String> finnaData = new ArrayList<String>();
     
     /**
@@ -78,14 +88,10 @@ public class KirtikaAddBookController implements Initializable{
     	setFinnaFields();
     }
     
-    private void setFinnaFields() {
-    	for (int i = 0; i < infoFields.size(); i++) {
-			infoFields.get(i).setText(finnaData.get(i));
-		}
-    }
+
 
     /**
-     * Adding a new book to the registry
+     * Adds a new book to the registry
      */
     private void addBook() {
         Book book = new Book();
@@ -110,7 +116,6 @@ public class KirtikaAddBookController implements Initializable{
         	fields.add(genre.getGenreId());
         }
 
-        
         book.setGuiValues(fields);
 
         try {
@@ -131,6 +136,15 @@ public class KirtikaAddBookController implements Initializable{
         }
         return fields;
     }
+    
+    /**
+     * Sets the text for dialog text fields. 
+     */
+    private void setFinnaFields() {
+    	for (int i = 0; i < infoFields.size(); i++) {
+			infoFields.get(i).setText(finnaData.get(i));
+		}
+    }
 
     /**
      * @return The selected genre from the choice box, or null if none is selected.
@@ -139,6 +153,9 @@ public class KirtikaAddBookController implements Initializable{
         return choiceYklClassification.getSelectionModel().getSelectedItem();
     }
     
+    /**
+     * Initializes the text fields in the dialog.
+     */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		infoFields.add(fieldBookName);

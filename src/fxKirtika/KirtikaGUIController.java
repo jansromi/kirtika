@@ -49,32 +49,16 @@ public class KirtikaGUIController implements Initializable {
 	private TextArea areaBookNotes;
     @FXML
     private TextField fieldIsbn, fieldPublisher, fieldReleaseYear, 
-    fieldLoaner, fieldLanguage, fieldWriters, fieldClassificationDesc, fieldClassificationId;
+    fieldLoaner, fieldLanguage, fieldWriters, fieldClassificationDesc, fieldClassificationId, searchBar;
     private ArrayList<TextField> infoFields = new ArrayList<>();
-    
     @FXML
-    private CheckBox checkEditMode;
-    @FXML
-    private CheckBox checkLoaned;
-    
+    private CheckBox checkEditMode, checkLoaned;
     @FXML
     private DatePicker fieldLoanStartDate, fieldLoanReturnDate;
-	
     @FXML
     private MenuBar myMenuBar;
-
     @FXML
-    private TextField searchBar;
-
-    @FXML
-    private MenuItem showLoanHistory;
-    
-    @FXML
-    private MenuItem handleSave;
-    
-    @FXML
-    private MenuItem handleDeleteBook;
-    
+    private MenuItem showLoanHistory, handleSave, handleDeleteBook;
     @FXML
     private ListChooser<Book> chooserBooks;
     
@@ -136,6 +120,9 @@ public class KirtikaGUIController implements Initializable {
     	saveBookNotes();
     }
 
+    /**
+     * Editing the isbn from gui
+     */
     @FXML
     void handleSetBookIsbn() {
     	Book book = chooserBooks.getSelectedObject();
@@ -145,6 +132,9 @@ public class KirtikaGUIController implements Initializable {
     	displayBookInfo(book);
     }
     
+    /**
+     * Editing the language from gui
+     */
     @FXML
     void handleSetBookLanguage() {
         Book book = chooserBooks.getSelectedObject();
@@ -154,6 +144,9 @@ public class KirtikaGUIController implements Initializable {
         displayBookInfo(book);
     }
 
+    /**
+     * Editing the publisher from gui
+     */
     @FXML
     void handleSetBookPublisher() {
         Book book = chooserBooks.getSelectedObject();
@@ -163,6 +156,9 @@ public class KirtikaGUIController implements Initializable {
         displayBookInfo(book);
     }
 
+    /**
+     * Editing the books release year from gui
+     */
     @FXML
     void handleSetBookReleaseYear() {
         Book book = chooserBooks.getSelectedObject();
@@ -172,6 +168,9 @@ public class KirtikaGUIController implements Initializable {
         displayBookInfo(book);
     }
 
+    /**
+     * Editing the books writer from gui
+     */
     @FXML
     void handleSetBookWriter() {
         Book book = chooserBooks.getSelectedObject();
