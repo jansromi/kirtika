@@ -38,7 +38,7 @@ import webscraping.FinnaHaku.BookNotFoundException;
  * 
  * @author Jansromi
  * @version 20.1.2023
- * Kirtika-kirjatietokannan käyttöliittymän kontrolleri
+ * Controller for the main view
  *
  */
 public class KirtikaGUIController implements Initializable {
@@ -329,19 +329,28 @@ public class KirtikaGUIController implements Initializable {
     }
 	
     /**
-     * Shows the form for adding books
-     * @throws IOException
+     * Handle for showing the form for adding books
+     * @throws IOException if saving failed
      */
     @FXML
     private void handleShowAddBookForm() throws IOException {
     	showAddBookForm(false);
     }
     
+    /**
+     * Handle for showing the form for adding books
+     * @throws IOException if saving failed
+     */
     @FXML
-    void handleShowAddBookFormISBN(ActionEvent event) throws IOException {
+    void handleShowAddBookFormISBN() throws IOException {
     	showAddBookForm(true);
     }
     
+    /**
+     * Show the add book-dialog.
+     * @param isISBNSelected true if dialog is shown by calling finna-api. Set the data to dialog from api.
+     * @throws IOException if saving failed
+     */
     private void showAddBookForm(boolean isISBNSelected) throws IOException {
         FXMLLoader ldr = new FXMLLoader();
         ldr.setLocation(getClass().getResource("KirtikaAddBook.fxml"));
@@ -419,6 +428,9 @@ public class KirtikaGUIController implements Initializable {
 		this.kirtika = kirtika;
 	}
 	
+	/**
+	 * Saves the notes accociated to a book
+	 */
     private void saveBookNotes() {
 		try {
 			kirtika.saveBookNotes(chooserBooks.getSelectedObject(), areaBookNotes.getText());
@@ -438,6 +450,9 @@ public class KirtikaGUIController implements Initializable {
 		displayBookInfo(book);
 	}
 	
+	/**
+	 * Initializes info-fields shown in the main gui.
+	 */
 	private void init() {
 		infoFields.add(fieldWriters);
 		infoFields.add(fieldLanguage);
@@ -566,6 +581,7 @@ public class KirtikaGUIController implements Initializable {
 			
 			displayBookInfo(book);
 		}
+		
 		// Unchecking closes the loan
 		if (!b) {
 			closeLoan(book);

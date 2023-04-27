@@ -46,6 +46,10 @@ public class KirtikaAddBookController implements Initializable{
     }
     
     
+    /**
+     * Handle for cancelling the dialog
+     * @param event
+     */
     @FXML
     void handleCancel(ActionEvent event) {
     	((Node)(event.getSource())).getScene().getWindow().hide();

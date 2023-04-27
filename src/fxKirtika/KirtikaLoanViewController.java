@@ -117,6 +117,7 @@ public class KirtikaLoanViewController {
 		loanEndDateColumn.setCellValueFactory(new PropertyValueFactory<Loan, LocalDate>("loanEndDate"));
 		
 	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+	    // custom date format
 	    loanStartDateColumn.setCellFactory(column -> new TableCell<Loan, LocalDate>() {
 	        @Override
 	        protected void updateItem(LocalDate item, boolean empty) {
@@ -128,6 +129,7 @@ public class KirtikaLoanViewController {
 	            }
 	        }
 	    });
+	    // custom date format
 	    loanEndDateColumn.setCellFactory(column -> new TableCell<Loan, LocalDate>() {
 	        @Override
 	        protected void updateItem(LocalDate item, boolean empty) {

@@ -7,4 +7,5 @@
 7|9512028530|Nabokov, Vladimir|Lolita|fin|Gummerus|1986|84.2|false|false|src/data/book/7lolita.txt
 8|9789510185377|Biedermann, Hans|Suuri symbolikirja|fin|WSOY|1993|00.2|false|false|src/data/book/8suurisymbolikirja.txt
 9|9518871310|Appignanesi, Richard|Postmodernismi vasta-alkaville ja edistyville|fin|Jalava|1998|11.5|false|false|src/data/book/9postmodernismivastaalkavillejaedistyville.txt
-11|9789524953856|Korkman, Sixten|Talous ja moraali|fin|Gaudeamus|2016|36|false|false|src/data/book/11talousjamoraali.txt
+11|9789524953856|Korkman, Sixten|Talous ja moraali|fin|Gaudeamus|2016|36|true|false|src/data/book/11talousjamoraali.txt
+12|9789524831444|Bukowski, Charles|Pulp|fin|Sammakko|2010|84.2|false|false|src/data/book/12pulp.txt
