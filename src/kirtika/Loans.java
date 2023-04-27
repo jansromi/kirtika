@@ -35,14 +35,12 @@ public class Loans {
 		try {
 			initLoans();
 		} catch (FileNotFoundException e) {
-			System.err.println("File was not found:" + loansFilePath);
+			System.err.println("Tiedostoa ei löytynyt: " + loansFilePath);
 			try {
-	            File newFile = new File(loansFilePath);
-	            newFile.createNewFile();
-	            System.out.println("Created new file: " + loansFilePath);
-	        } catch (IOException ex) {
-	            ex.printStackTrace();
-	        }
+				createNewFile();
+			} catch (IOException e1) {
+				System.err.println("Tiedoston luonti epäonnistui " + e1.getMessage());
+			}
 		}
 	}
 	
@@ -59,7 +57,38 @@ public class Loans {
 	 * @param test
 	 */
 	public Loans(boolean test, String filepath) {
+		loansFilePath = filepath;
+	}
+	
+	/**
+	 * Test method.
+	 * Creates a new lainat.dat-file to loansFilePath
+	 * @throws IOException 
+	 */
+	public boolean createNewFile() throws IOException {
+        File newFile = new File(loansFilePath);
+        if (newFile.createNewFile()) {
+        	System.out.println("Luotiin uusi tiedosto: " + loansFilePath);
+        	return true;
+        } else {
+        	return false;
+        }
+	}
+	
+	/**
+	 * Test method.
+	 * Deletes the loans-file
+	 * @return boolean whether deletion was successful
+	 */
+	public boolean deleteLoansFile() {
+		File file = new File(loansFilePath);
+		if (file.delete()) {
+			System.out.println(file.getName() + " poistettiin");
+			return true;
+		}
 		
+		System.out.println("Tiedostoa " + file.getName() + " ei voitu poistaa.");
+		return false;
 	}
 	
 	/**
@@ -76,26 +105,7 @@ public class Loans {
 			}
 		scan.close();
 	}
-	
-	/**
-	 * Saves the contents of ArrayList items to a file.
-	 * 
-	 * @throws SailoException if file is not found
-	 * @throws FileNotFoundException 
-	 */
-	public void saveBookLoans() throws FileNotFoundException {
-		File file = new File(loansFilePath);
-		try (PrintStream fo = new PrintStream(new FileOutputStream(file, false))) {
-			for (Loan loan : items) {
-				fo.println(loan.toString());
-			}
-		} catch (FileNotFoundException e) {
-			throw new FileNotFoundException("Tiedosto: " + file.getAbsolutePath() + " ei aukea");
-		}
-	}
-	
 
-	
 	/**
 	 * Sets the name of the borrowed book
 	 * @param lbId the id of the borrowed book. NOTE: Same as book-id
@@ -145,19 +155,22 @@ public class Loans {
 	 * 
 	 * @example
 	 * <pre name="test">
-	 * Loans loans = new Loans(true);
+	 * Loans lo = new Loans(true);
 	 * Book book1 = new Book();
 	 * book1.setOdysseia();
 	 * Book book2 = new Book();
 	 * book2.setOdysseia();
+	 * Book book3 = new Book();
+	 * book3.setOdysseia();
 	 * 
-	 * loans.addBookLoan(book1, "Matti");
-	 * loans.addBookLoan(book2, "Maija");
-	 * loans.getLoansAmt() === 2;
-	 * loans.deleteLoan(2);
-	 * loans.getLoansAmt() === 1;
-	 * loans.deleteLoan(1);
-	 * loans.getLoansAmt() === 0;
+	 * lo.addBookLoan(book1, "Matti");
+	 * lo.addBookLoan(book2, "Maija");
+	 * lo.addBookLoan(book3, "Mikko");
+	 * int size = lo.getLoansAmt();
+	 * Loan l = lo.getLoan(size-1);
+	 * int id = l.getLoanId();
+	 * lo.deleteLoan(id);
+	 * lo.getLoansAmt() === size-1;
 	 * </pre>
 	 */
 	public void deleteLoan(int lId) {
@@ -171,6 +184,41 @@ public class Loans {
 	    }
 	}
 	
+	
+	/**
+	 * Saves the contents of ArrayList items to a file.
+	 * 
+	 * @throws FileNotFoundException if file is not found
+	 * 
+	 * @example
+	 * <pre name="test">
+	 * #THROWS FileNotFoundException, IOException
+	 * #import java.io.IOException;
+	 * #import java.io.FileNotFoundException;
+	 * #import java.io.File;
+	 * 
+	 * Loans loans = new Loans(true, "src/data/testlainat.dat");
+	 * loans.createNewFile();
+	 * Book book1 = new Book();
+	 * Book book2 = new Book();
+	 * book1.setOdysseia();
+	 * book2.setOdysseia();
+	 * loans.addBookLoan(book1, "Matti");
+	 * loans.addBookLoan(book2, "Maija");
+	 * loans.saveBookLoans();
+	 * loans.deleteLoansFile();
+	 * </pre>
+	 */
+	public void saveBookLoans() throws FileNotFoundException {
+		File file = new File(loansFilePath);
+		try (PrintStream fo = new PrintStream(new FileOutputStream(file, false))) {
+			for (Loan loan : items) {
+				fo.println(loan.toString());
+			}
+		} catch (FileNotFoundException e) {
+			throw new FileNotFoundException("Tiedosto: " + file.getAbsolutePath() + " ei aukea");
+		}
+	}
 	
 	/**
 	 * Returns a reference to the Loan object

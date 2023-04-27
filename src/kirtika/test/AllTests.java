@@ -5,7 +5,7 @@ import org.junit.platform.suite.api.Suite;
 
 @Suite
 @SelectClasses({ BooksTest.class, BookTest.class, GenresTest.class, GenreTest.class, KirtikaTest.class,
-		LoanTest.class })
+		LoansTest.class,LoanTest.class })
 public class AllTests {
 
 }

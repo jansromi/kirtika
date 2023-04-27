@@ -101,7 +101,7 @@ public class Kirtika {
 	 * <pre name="test">
 	 * Kirtika kirtika = new Kirtika();
 	 * String[] s = kirtika.getBookInfo(1);
-	 * s[1] === "suomi";
+	 * s[1] === "eng";
 	 * </pre>
 	 */
 	public String[] getBookInfo(int bId) {
