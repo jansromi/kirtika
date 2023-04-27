@@ -76,6 +76,15 @@ public class Books {
 		scan.close();
 	}
 	
+	/**
+	 * Search algorithm for books.
+	 * If keyword matches books or writers name, language,
+	 * publisher, release year or classification code, algorithm
+	 * adds that book to a list.
+	 * 
+	 * @param keyword Uses this string to match book objects
+	 * @return List<Book> of matched books
+	 */
 	public List<Book> bookMatches(String keyword){
 		List<Book> returnableBooks = new ArrayList<Book>();
 
