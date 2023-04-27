@@ -126,6 +126,22 @@ public class Book {
 	}
 	
 	/**
+	 * Test method
+	 */
+	public void setBukowski() {
+		setBookId();
+		isbn = "9789524831444";
+		writers = "Bukowski, Charles";
+		bookName = "Pulp";
+		bookLanguage = "Suomi";
+		bookPublisher = "Sammakko Kustannus";
+		bookRelaseYear = 1994;
+		bookClassification = "82.4";
+		bookRead = true;
+		setFilePath();
+	}
+	
+	/**
 	 * Sets a safe filepath for the book
 	 */
 	public void setFilePath() {

@@ -84,6 +84,25 @@ public class Books {
 	 * 
 	 * @param keyword Uses this string to match book objects
 	 * @return List<Book> of matched books
+	 * 
+	 * @example
+	 * <pre name="test">
+	 * #import java.util.List;
+	 * 
+	 * Books books = new Books(true);
+	 * Book ody = new Book();
+	 * ody.setOdysseia();
+	 * Book ody2 = new Book();
+	 * ody2.setOdysseia();
+	 * Book buko = new Book();
+	 * buko.setBukowski();
+	 * books.addBook(ody); books.addBook(ody2); books.addBook(buko);
+	 * List<Book> matches = books.bookMatches("ody");
+	 * matches.size() === 2;
+	 * matches.clear();
+	 * matches = books.bookMatches("pulp");
+	 * matches.size() === 1;
+	 * </pre>
 	 */
 	public List<Book> bookMatches(String keyword){
 		List<Book> returnableBooks = new ArrayList<Book>();
