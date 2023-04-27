@@ -11,7 +11,6 @@ import org.json.JSONObject;
  * This class provides several methods for parsing JSON data returned by the Finna API.
  * The class has no instance variables, and all methods are static, so they can be called without instantiating the class.
  * 
- * 
  * @author Jansromi
  * @version 25.4.2023
  */
@@ -175,14 +174,5 @@ public final class FinnaParser {
 		}
 		return result;
 	}
-	
-	public static void main(String[] args) {
-		String s = "{\"resultCount\":1,\"records\":[{\"authors\":{\"primary\":{\"Jantunen, Saara, 1980- kirjoittaja\":{\"role\":[\"kirjoittaja\"]}},\"secondary\":[],\"corporate\":[]},\"title\":\"Infosota : \\\"iskut kohdistuvat kansalaisten tajuntaan\\\"\",\"publishers\":[\"Kustannusosakeyhti\\u00f6 Otava\"],\"publicationDates\":[\"2016\"],\"classifications\":{\"udkx\":[\"355\\/359\",\"659\",\"004\"],\"ykl\":[\"35.7\",\"39\",\"61\",\"07\"]},\"subjects\":[[\"informaatiosodank\\u00e4ynti\"],[\"poliittiset kriisit\"],[\"konfliktit\"],[\"sodat\"],[\"propaganda\"],[\"sananvapaus\"],[\"ulkopolitiikka\"],[\"kansainv\\u00e4linen politiikka\"],[\"psykologinen sodank\\u00e4ynti\"]],\"year\":\"2016\",\"languages\":[\"fin\"],\"summary\":[]}],\"status\":\"OK\"}";
-		JSONObject obj = parseFirstRecord(s);
-		List<String> arr = parsePublishers(obj);
-		arr.addAll(parsePublicationDates(obj));
-		for (String string : arr) {
-			System.out.println(string);
-		}
-	}
+
 }

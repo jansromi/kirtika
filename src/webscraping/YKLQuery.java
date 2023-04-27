@@ -27,7 +27,17 @@ import org.jsoup.select.Elements;
  * #import org.jsoup.nodes.Document;
  * #import org.junit.*;
  * #import webscraping.*;
- * 
+ * #import java.util.ArrayList;
+ * ArrayList<String> arr = new ArrayList<String>();
+ * YKLQuery.recursiveFintoQuery("1", arr);
+ * int len = arr.size();
+ * arr.get(len - 1) === "1 FILOSOFIA. PSYKOLOGIA. RAJATIETO. TIEDEOPPI";
+ * len === 43;
+ * arr.clear(); len = 0;
+ * YKLQuery.recursiveFintoQuery("100", arr);
+ * arr.size() === 0;
+ * YKLQuery.recursiveFintoQuery("abxsd", arr);
+ * arr.size() === 0;
  * </pre>
  */
 public final class YKLQuery {
@@ -37,7 +47,7 @@ public final class YKLQuery {
 	public static final String YKL_DESCRIPTION_SELECTOR = "span.prefLabel.conceptlabel#pref-label";
 	
 	/**
-	 * Recursively queries finto 
+	 * Recursively queries finto. 
 	 * @param yklId
 	 * @param genres
 	 * @throws IOException
@@ -101,7 +111,7 @@ public final class YKLQuery {
 	 public static void main(String[] args) throws IOException, InterruptedException{
 		//Document doc = yklQuery("11");
 		ArrayList<String> g = new ArrayList<String>();
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 10; i++) {
 			recursiveFintoQuery(String.valueOf(i), g);
 			for (String string : g) {
 				System.out.println(string);

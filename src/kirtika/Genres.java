@@ -37,39 +37,7 @@ public class Genres {
 	    }
 	}
 	
-	/**
-	 * Sorts the genres file in ascending order based on the numerical value in each line.
-	 * Reads the genres file line by line into an ArrayList, then sorts the ArrayList.
-	 * Sorted lines are then overwritten back to the genres file
-	 * @throws IOException if there is an error reading or writing the genres file.
-	 */
-	public void sortGenres() throws IOException {
-		ArrayList<String> lines = new ArrayList<>();
-		BufferedReader reader = new BufferedReader(new FileReader(genresFilePath));
-	       String line;
-	       while ((line = reader.readLine()) != null) {
-	           lines.add(line);
-	       }
-	       reader.close();
-	       
-	    // Sort the List based on the numerical value
-	        Collections.sort(lines, new Comparator<String>() {
-	            @Override
-	            public int compare(String s1, String s2) {
-	                double num1 = Double.parseDouble(s1.split("\\|")[0]);
-	                double num2 = Double.parseDouble(s2.split("\\|")[0]);
-	                return Double.compare(num1, num2);
-	            }
-	        });
-	        
-	        // Write the sorted List to the output file
-	        BufferedWriter writer = new BufferedWriter(new FileWriter(genresFilePath));
-	        for (String sortedLine : lines) {
-	            writer.write(sortedLine);
-	            writer.newLine();
-	        }
-	        writer.close();
-	}
+
 	
 	/**
 	 * Saves genres
@@ -90,6 +58,15 @@ public class Genres {
 	/**
 	 * Adds a new genre to items.
 	 * @param line where genre formatted as "84.2 Suomenkielinen kaunokirjallisuus"
+	 * 
+	 * @example
+	 * <pre name="test">
+	 * Genres g = new Genres("84.2|Suomalainen kertomakirjallisuus");
+	 * g.addGenre("76.7 Paperitaide");
+	 * g.getGenreCount() === 2;
+	 * Genre genre = g.getGenre(1);
+	 * genre.getGenreDesc() === "Paperitaide";
+	 * </pre>
 	 */
 	public void addGenre(String line) {
 		items.add(new Genre(Genre.formatGenre(line)));
@@ -97,7 +74,23 @@ public class Genres {
 	
 	/**
 	 * Deletes a genre from items
-	 * @param genre
+	 * @param genre To be deleted
+	 * 
+	 * @example
+	 * <pre name="test">
+	 * Genres g = new Genres("84.2|Suomalainen kertomakirjallisuus");
+	 * g.addGenre("57.1 Putkilokasvit");
+	 * g.addGenre("61.3 Ohjelmointi. Ohjelmointikielet");
+	 * g.getGenreCount() === 3;
+	 * Genre a = g.getGenre(2);
+	 * g.deleteGenre(a);
+	 * a = g.getGenre(1);
+	 * g.deleteGenre(a);
+	 * a = g.getGenre(0);
+	 * g.deleteGenre(a);
+	 * g.getGenreCount() === 0;
+	 * g.deleteGenre(a); // nothing happens
+	 * </pre>
 	 */
 	public void deleteGenre(Genre genre) {
 		String genreId = genre.getGenreId();
@@ -125,6 +118,41 @@ public class Genres {
 			   items.add(new Genre(line));
 			}
 		scan.close();
+	}
+	
+	/**
+	 * Sorts the genres file in ascending order based on the numerical value in each line.
+	 * Reads the genres file line by line into an ArrayList, then sorts the ArrayList.
+	 * Sorted lines are then overwritten back to the genres file
+	 * @throws IOException if there is an error reading or writing the genres file.
+	 * 
+	 */
+	public void sortGenres() throws IOException {
+		ArrayList<String> lines = new ArrayList<>();
+		BufferedReader reader = new BufferedReader(new FileReader(genresFilePath));
+	       String line;
+	       while ((line = reader.readLine()) != null) {
+	           lines.add(line);
+	       }
+	       reader.close();
+	       
+	    // Sort the List based on the numerical value
+	        Collections.sort(lines, new Comparator<String>() {
+	            @Override
+	            public int compare(String s1, String s2) {
+	                double num1 = Double.parseDouble(s1.split("\\|")[0]);
+	                double num2 = Double.parseDouble(s2.split("\\|")[0]);
+	                return Double.compare(num1, num2);
+	            }
+	        });
+	        
+	        // Write the sorted List to the output file
+	        BufferedWriter writer = new BufferedWriter(new FileWriter(genresFilePath));
+	        for (String sortedLine : lines) {
+	            writer.write(sortedLine);
+	            writer.newLine();
+	        }
+	        writer.close();
 	}
 	
 	/**
@@ -159,14 +187,14 @@ public class Genres {
 	 * <pre name="test">
 	 * Genres genret = new Genres("84.2|Suomalainen kertomakirjallisuus");
 	 * genret.getYklDesc("84.2") === "Suomalainen kertomakirjallisuus";
-	 * genret.getYklDesc("67") === "Unknown";
+	 * genret.getYklDesc("67") === null;
 	 * </pre>
 	 */
 	public String getYklDesc(String s) {
 		for (Genre genre : items) {
 			if (genre.matchesId(s)) return genre.getGenreDesc();
 		}
-		return "Unknown";
+		return null;
 	}
 	
 	/**
@@ -179,11 +207,26 @@ public class Genres {
 	// === TEST METHODS
 	
 	/**
+	 * @return amount of genres in items-list
+	 */
+	public int getGenreCount() {
+		return items.size();
+	}
+	
+	/**
 	 * Test constructor that takes a string as input.
 	 * @param s
 	 */
 	public Genres(String s) {
 	    items.add(new Genre(s));
+	}
+	
+	/**
+	 * Returns a genre from the arraylist
+	 * @param i index
+	 */
+	public Genre getGenre(int i) {
+		return items.get(i);
 	}
 	
 	/**

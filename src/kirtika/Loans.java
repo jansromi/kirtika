@@ -55,6 +55,14 @@ public class Loans {
 	}
 	
 	/**
+	 * Test constructor with setting custom filepath.
+	 * @param test
+	 */
+	public Loans(boolean test, String filepath) {
+		
+	}
+	
+	/**
 	 * Initializes loans from file
 	 * @throws FileNotFoundException if file cannot be opened
 	 */

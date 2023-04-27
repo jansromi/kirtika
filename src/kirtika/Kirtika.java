@@ -110,9 +110,7 @@ public class Kirtika {
 	    // If genre description is found, 
 	    // replace it with ykl description. Otherwise
 	    // set as default.
-	    // TODO: if-clause seems shitty. Genres should manage this,
-	    // and set the desc
-	    if (!genres.getYklDesc(s[5]).equals("Unknown")) {
+	    if (genres.getYklDesc(s[5]) != null) {
 	    	s[4] = genres.getYklDesc(s[5]);
 	    }
 	    
@@ -159,15 +157,17 @@ public class Kirtika {
 	
 	/**
 	 * Fetches all availible YKL-genres using web scraping.
-	 * Iterates over YKL IDs from 0 to 99 and uses the yklQuery method to retrieve the HTML document for each main categories (0-99).
-	 * Then it derives all subclasses from that main category.
+	 * Iterates over YKL IDs from 0 to 99 and uses the yklQuery method to retrieve the HTML document for each main categories (0-9).
+	 * Then it derives all subclasses from that main category(0-99.)
+	 * 
+	 * Tests found in webscraping-package.
 	 * @throws IOException 
 	 * @throws InterruptedException 
 	 */
 	public void fetchFintoGenres() throws IOException, InterruptedException {
 		ArrayList<String> fetchedGenres = new ArrayList<String>();
 		
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 10; i++) {
 			YKLQuery.recursiveFintoQuery(String.valueOf(i), fetchedGenres);
 		}
 		
