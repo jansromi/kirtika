@@ -47,14 +47,6 @@ public class Books {
 	}
 	
 	/**
-	 * Test constructor
-	 * @param b
-	 */
-	public Books(boolean b){
-		
-	}
-	
-	/**
 	 * Initialize the collection from a file.
 	 * 
 	 * @throws FileNotFoundException if the file cannot be found.
@@ -396,12 +388,11 @@ public class Books {
 		return this.amt;
 	}
 	
-	public static void main(String[] args) {
-		Books books = new Books();
-		List<Book> kirjat = books.bookMatches("inf");
-		for (Book book : kirjat) {
-			if (book == null) continue;
-			System.out.println(book.toString());
-		}
+	/**
+	 * Test constructor
+	 * @param b
+	 */
+	public Books(boolean b){
+		
 	}
 }

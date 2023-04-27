@@ -282,6 +282,12 @@ public class Book {
 		return rnd.nextInt(99);
 	}
 	
+	/**
+	 * Sets values inserted from gui
+	 * @param k Field to edit
+	 * @param s String inserted in fiel
+	 * @return
+	 */
 	public boolean set(int k, String s) {
 		s = s.trim();
 		switch ( k ) {
@@ -313,22 +319,37 @@ public class Book {
 
 	}
 
+	/**
+	 * @return books writer(s) as string
+	 */
 	public String getWriters() {
 		return writers;
 	}
 
+	/**
+	 * @return books classification code as string
+	 */
 	public String getBookClassification() {
 		return bookClassification;
 	}
 
+	/**
+	 * @return books language as string
+	 */
 	public String getBookLanguage() {
 		return bookLanguage;
 	}
 
+	/**
+	 * @return books publisher as string
+	 */
 	public String getBookPublisher() {
 		return bookPublisher;
 	}
 
+	/**
+	 * @return books release year as a string
+	 */
 	public int getBookRelaseYear() {
 		return bookRelaseYear;
 	}

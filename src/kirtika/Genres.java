@@ -237,14 +237,4 @@ public class Genres {
 		
 	}
 	
-	public static void main(String[] args) {
-		Genres genre = new Genres();
-		try {
-			genre.sortGenres();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
 }
