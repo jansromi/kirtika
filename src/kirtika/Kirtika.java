@@ -6,8 +6,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jsoup.nodes.Document;
-
 import webscraping.FinnaHaku;
 import webscraping.FinnaHaku.BookNotFoundException;
 import webscraping.YKLQuery;
