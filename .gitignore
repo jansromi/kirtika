@@ -1,6 +1,5 @@
 /bin/
-data/*
-data/book/*
+src/data/
 /.settings/
 .project
 build.fxbuild
