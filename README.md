@@ -15,6 +15,6 @@ In addition to basic CRUD-functionalities, Kirtika has two main webscraping func
 ##### Easy way
 - Create a directory for kirtika, and clone this repository in it.
 - Open the diretory in a shell, and type
-'''
+```
 java -jar kirtika.jar
-'''
+```
