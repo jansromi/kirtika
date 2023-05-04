@@ -1,4 +1,8 @@
 /bin/
 data/*
 data/book/*
-data1/*
+/.settings/
+.project
+build.fxbuild
+build.xml
+
