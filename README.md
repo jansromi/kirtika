@@ -10,6 +10,7 @@ In addition to basic CRUD-functionalities, Kirtika has two main webscraping func
 - JSoup (for webscraping)
 - org.Json (for handling json-objects)
 - JYU's ali.jar (from http://users.jyu.fi/~vesal/kurssit/ohj2/ali/)
+- JYU's fxgui.jar
 
 #### Installation
 ##### Easy way
