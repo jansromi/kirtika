@@ -12,3 +12,9 @@ In addition to basic CRUD-functionalities, Kirtika has two main webscraping func
 - JYU's ali.jar (from http://users.jyu.fi/~vesal/kurssit/ohj2/ali/)
 
 #### Installation
+##### Easy way
+- Create a directory for kirtika, and clone this repository in it.
+- Open the diretory in a shell, and type
+'''
+java -jar kirtika.jar
+'''
