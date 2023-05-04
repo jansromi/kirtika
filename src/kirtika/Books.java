@@ -28,8 +28,10 @@ public class Books {
 	public Books() {
 	    File dataFolder = new File("src/data");
 	    if (!dataFolder.exists()) {
+	    	System.out.println("Luotiin kansio: src/data");
 	        dataFolder.mkdir();
 	        dataFolder = new File("src/data/book");
+	        System.out.println("Luotiin kansio: src/data/book");
 	        dataFolder.mkdir();
 	    }
 		try {
