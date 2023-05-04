@@ -18,3 +18,18 @@ In addition to basic CRUD-functionalities, Kirtika has two main webscraping func
 ```
 java -jar kirtika.jar
 ```
+##### Do-It-Yourself (Windows)
+- Clone this repository in an empty directory.
+- Compile project using the following command in shell:
+```
+javac -cp "libs/*;src" src/fxKirtika/*.java src/kirtika/*.java src/utils/*.java src/webscraping/*.java
+```
+- Create a JAR file with the custom manifest provided, run:
+```
+jar cvfm kirtika.jar libs/MANIFEST.MF -C src .
+```
+- Finally run
+```
+java -jar kirtika.jar
+```
+
