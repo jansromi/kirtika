@@ -5,3 +5,8 @@ Kirtika is a Java(FX)-based book library app that allows users to manage their b
 In addition to basic CRUD-functionalities, Kirtika has two main webscraping functionalities:
 - The app uses the Finna API to fetch book information using ISBN numbers.
 - Users can fetch all genres in the YKL-library classification system.
+
+#### Dependiencies
+- JSoup (for webscraping)
+- org.Json (for handling json-objects)
+
