@@ -39,11 +39,11 @@ import webscraping.FinnaHaku.BookNotFoundException;
  * @author Jansromi
  * @version 20.1.2023
  * Controller for the main view
+ * 
+ * TODO: if trying to save notes on a null book
  *
  */
 public class KirtikaGUIController implements Initializable {
-
-	
 	
 	@FXML
 	private TextArea areaBookNotes;
