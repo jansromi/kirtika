@@ -1,4 +1,4 @@
 # Kirtika
-### Sovellus omien kirjojen hallintaan ja annotointiin
-##### Tärkeimmät toiminnallisuudet:
+### Application for fetching and annotating books
+#### Overview
 
