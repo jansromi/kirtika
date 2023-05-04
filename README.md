@@ -12,7 +12,7 @@ In addition to basic CRUD-functionalities, Kirtika has two main webscraping func
 - JYU's ali.jar (from http://users.jyu.fi/~vesal/kurssit/ohj2/ali/)
 - JYU's fxgui.jar (https://kurssit.it.jyu.fi/TIEP111/ohj2/FXExamples/FXGui/doxygen/annotated.html)
 
-Needed libraries are included in libs-directory
+Needed libraries are included in the libs-directory.
 
 #### Installation
 ##### Easy way
